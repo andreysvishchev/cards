@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/cards/static/css/main.be9b75e7.css",
+    "main.js": "/cards/static/js/main.6e57cb18.js",
+    "static/media/SFUIText-Semibold.woff": "/cards/static/media/SFUIText-Semibold.df4855fdeebbfd730663.woff",
+    "static/media/SFUIText-Medium.woff": "/cards/static/media/SFUIText-Medium.7a83304e816b06d35492.woff",
+    "static/media/SFUIText-Bold.woff": "/cards/static/media/SFUIText-Bold.42a114dc81fbcbfb38c2.woff",
+    "static/media/SFUIText-Regular.woff": "/cards/static/media/SFUIText-Regular.a5782f9286a232d19504.woff",
+    "static/media/Poppins-SemiBold.woff": "/cards/static/media/Poppins-SemiBold.5159bcc22685da086734.woff",
+    "static/media/SFUIText-Semibold.woff2": "/cards/static/media/SFUIText-Semibold.098f067a88b91ceb52f2.woff2",
+    "static/media/SFUIText-Medium.woff2": "/cards/static/media/SFUIText-Medium.732b7ab945209131c912.woff2",
+    "static/media/SFUIText-Bold.woff2": "/cards/static/media/SFUIText-Bold.2c0c6a49d1d208d9885c.woff2",
+    "static/media/Poppins-SemiBold.woff2": "/cards/static/media/Poppins-SemiBold.810728e0001e1f7c0a71.woff2",
+    "static/media/SFUIText-Regular.woff2": "/cards/static/media/SFUIText-Regular.9403f100f8ecaac50c42.woff2",
+    "index.html": "/cards/index.html",
+    "main.be9b75e7.css.map": "/cards/static/css/main.be9b75e7.css.map",
+    "main.6e57cb18.js.map": "/cards/static/js/main.6e57cb18.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.be9b75e7.css",
+    "static/js/main.6e57cb18.js"
+  ]
+}
