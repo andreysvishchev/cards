@@ -1,5 +1,7 @@
-@import '../global-style/fonts';
-@import '../global-style/reset';
+@import '../style/fonts';
+@import '../style/reset';
+@import '../style/vars';
+@import '../style/main';
 
 body {
   font-family: 'SFUIText', sans-serif;

@@ -1,0 +1,87 @@
+@import "vars";
+
+.test {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.input {
+  display: inline-flex;
+  align-items: flex-end;
+  vertical-align: top;
+  position: relative;
+  height: 40px;
+  width: max-content;
+
+  &__field {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: $black;
+    outline: none;
+    letter-spacing: inherit;
+    padding: 2px 0 2px;
+    border: 0;
+    box-sizing: content-box;
+    background: none;
+    display: block;
+    min-width: 0;
+    width: 100%;
+    border-bottom: 1.6px solid rgba(36, 37, 74, .2);
+    transition: transform .2s ease-in-out;
+
+    &:focus {
+      border-color: $blue;
+    }
+
+    &:focus + .input__label {
+      color: $blue;
+      transform: translate(0px, 0px) scale(0.65);
+    }
+  }
+
+  &__label {
+    padding: 0;
+    color: rgba(36, 37, 74, .5);
+    font-weight: 500;
+    font-size: 16px;
+    display: block;
+    transform-origin: left top;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translate(0px, 17px) scale(1);
+    transition: all .2s ease-in-out;
+
+    &--filed {
+      transform: translate(0px, 0px) scale(0.65);
+    }
+  }
+}
+
+.button {
+  width: max-content;
+  display: inline-block;
+  background-color: $blue;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  color: $lavender;
+  letter-spacing: 0.01em;
+  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+  padding: 9px 50px;
+  box-shadow: 0px 4px 18px rgba(33, 38, 143, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+}
+
+.header {
+  padding: 100px 0;
+  display: flex;
+  gap: 20px;
+}
