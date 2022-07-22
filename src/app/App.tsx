@@ -9,6 +9,7 @@ import Profile from "../pages/profile/Profile";
 import NoteFound from "../pages/404/NotFound";
 import Button from '../components/button/Button';
 import { Header } from '../components/header/Header';
+import Cards from '../pages/cards/Cards';
 
 function App() {
   return (
@@ -16,11 +17,12 @@ function App() {
       <Header />
       {/* для тестого перехода по страницам */}
       <div className="test">
-        <NavLink className='navlink' to="/login">login</NavLink>
+        <NavLink className='navlink' to="/">login</NavLink>
         <NavLink className='navlink' to="/password-new">password-new</NavLink>
         <NavLink className='navlink' to="/password-recovery">password-recovery</NavLink>
         <NavLink className='navlink' to="/registration">registration</NavLink>
         <NavLink className='navlink' to="/profile">profile</NavLink>
+        <NavLink className='navlink' to="/cards">cards</NavLink>
         <NavLink className='navlink' to="/test">test</NavLink>
       </div>
       <div className="content">
@@ -29,6 +31,7 @@ function App() {
             <Route path='/' element={<Login />} />
             <Route path='/password-new' element={<PassportNew />} />
             <Route path='/password-recovery' element={<PasswordRecovery />} />
+            <Route path='/cards' element={<Cards />} />
             <Route path='/registration' element={<Registration />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/test' element={<Test />} />

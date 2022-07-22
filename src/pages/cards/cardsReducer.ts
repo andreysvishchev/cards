@@ -1,5 +1,5 @@
 const initState = {}
-export const authReducer = (state: InitStateType = initState, actions: ActionsType): InitStateType => {
+export const cardsReducer = (state: InitStateType = initState, actions: ActionsType): InitStateType => {
     switch (actions) {
         default:
             return state
