@@ -1,11 +1,12 @@
 import React from 'react';
 
 const PassportNew = () => {
-    return (
-        <div>
-            password-new
-        </div>
-    );
+  return (
+    <div className='frame'>
+      <div className='title'>password-new</div>
+
+    </div>
+  );
 };
 
 export default PassportNew;
