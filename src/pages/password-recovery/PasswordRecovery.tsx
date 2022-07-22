@@ -1,11 +1,11 @@
 import React from 'react';
 
 const PasswordRecovery = () => {
-    return (
-        <div>
-            password-recovery
-        </div>
-    );
+  return (
+    <div className='frame'>
+      <div className='title'>Forgot your password?</div>
+    </div>
+  );
 };
 
 export default PasswordRecovery;
