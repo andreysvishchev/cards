@@ -54,6 +54,11 @@
   width: 100%;
   margin-bottom: 25px;
 
+  &--error .input__label {
+    color: red !important;
+  }
+
+
   &__field {
     position: relative;
     z-index: 1;
