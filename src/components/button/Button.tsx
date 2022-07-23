@@ -1,6 +1,4 @@
 import React from 'react';
-import { RequestStatusType } from '../../app/appReducer';
-import { useAppSelector } from '../../app/store';
 
 type PropsType = {
   callBack?: () => void
