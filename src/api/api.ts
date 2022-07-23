@@ -12,10 +12,24 @@ export const registrationApi = {
         return instance.post(`auth/register`, data)
     }
 }
+
+export const profileAPI = {
+    updateData(data: UpdateDataType) {
+        return instance.put('auth/me', data)
+    },
+    logout() {
+        return instance.delete('auth/me', {})
+    },
+}
 export const cardsApi = {}
 
 
 export type RegistrationDataType = {
     email: string
     password: string
+}
+
+type UpdateDataType = {
+    name: string,
+    avatar?: string,
 }
