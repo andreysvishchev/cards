@@ -22,24 +22,22 @@ const Input: React.FC<PropsType> = ({ placeholder, type, password, error, errorT
   const changeType = () => {
     setHidden(!hidden)
   }
+
   return (
     <>
       {password
         ?
-        <div>
-          <div className={error ? 'input input--error' : 'input'}>
-            <input
-              value={value}
-              name={name}
-              onBlur={onBlur}
-              onChange={onChangeHandler}
-              autoComplete='on'
-              type={hidden ? 'password' : 'text'}
-              className='input__field' />
-            <label className={value !== '' ? 'input__label input__label--filed ' : 'input__label'}>{error ? errorText : placeholder}</label>
-            <span onClick={changeType} className={hidden ? 'input__icon' : 'input__icon input__icon--active'}></span>
-
-          </div>
+        <div className={error ? 'input input--error' : 'input'}>
+          <input
+            value={value}
+            name={name}
+            onBlur={onBlur}
+            onChange={onChangeHandler}
+            autoComplete='on'
+            type={hidden ? 'password' : 'text'}
+            className='input__field' />
+          <label className={value !== '' ? 'input__label input__label--filed ' : 'input__label'}>{error ? errorText : placeholder}</label>
+          <span onClick={changeType} className={hidden ? 'input__icon' : 'input__icon input__icon--active'}></span>
         </div>
         :
         <div className={error ? 'input input--error' : 'input'}>
