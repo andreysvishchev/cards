@@ -1,4 +1,5 @@
-// все типы action для всего app
 import {RegistrationActionsType} from "../pages/registration/registrationReducer";
+import {ProfileActionsType} from "../pages/profile/profileReducer";
 
-export type ActionTypeForApp = RegistrationActionsType;
+// все типы action для всего app
+export type ActionTypeForApp = RegistrationActionsType | ProfileActionsType;
