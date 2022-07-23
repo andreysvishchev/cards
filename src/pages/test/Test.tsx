@@ -6,7 +6,7 @@ const Test = () => {
   return (
     <div>
       <Button title={'Кнопка'} />
-      <Input placeholder={'Email'} />
+      {/* <Input placeholder={'Email'} /> */}
     </div>
   );
 };

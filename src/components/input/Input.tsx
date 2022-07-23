@@ -2,9 +2,10 @@ import React, { ChangeEvent, useState } from 'react';
 
 type PropsType = {
   placeholder: string
+  type?: string
   password?: boolean
 }
-const Input: React.FC<PropsType> = ({ placeholder, password }) => {
+const Input: React.FC<PropsType> = ({ placeholder, type, password }) => {
 
   const [value, setValue] = useState<string>('')
   const [hidden, setHidden] = useState<boolean>(true)
@@ -27,11 +28,12 @@ const Input: React.FC<PropsType> = ({ placeholder, password }) => {
         </div>
         :
         <div className='input'>
-          <input onChange={onChangeHandler} className='input__field' value={value} />
+          <input onChange={onChangeHandler} type={type} className='input__field' value={value} />
           <label className={value !== '' ? 'input__label input__label--filed ' : 'input__label'}>{placeholder}</label>
         </div>
       }
     </>
+
   );
 };
 
