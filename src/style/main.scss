@@ -82,7 +82,7 @@
       border-color: $blue;
     }
 
-    &:focus+.input__label {
+    &:focus + .input__label {
       color: $blue;
       transform: translate(0px, -5px) scale(0.75);
     }
@@ -92,7 +92,7 @@
       box-shadow: inset 0 0 0 50px white;
     }
 
-    &:-webkit-autofill+.input__label {
+    &:-webkit-autofill + .input__label {
       color: $blue;
       transform: translate(0px, -5px) scale(0.75);
     }
@@ -212,7 +212,8 @@
   margin-bottom: 40px;
 }
 
-.form {}
+.form {
+}
 
 .registration {
   &__text {
@@ -243,4 +244,25 @@
     margin: 0 auto 31px;
     background-image: url('../img/mail.svg');
   }
+}
+
+.profile {
+  text-align: center;
+  background: orange;
+  height: 100vh;
+}
+
+.profile__avatar img {
+  width: 200px;
+  height: 200px;
+  margin: 30px auto;
+  border-radius: 20px;
+}
+
+.profile__email {
+  margin-top: 30px;
+}
+
+.profile__button {
+  margin-top: 30px;
 }
