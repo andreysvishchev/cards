@@ -1,13 +1,14 @@
 import React from 'react';
 import {Profile} from "./Profile";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
+import {logoutTC} from "../login/loginReducer";
 
 const ProfileContainer = () => {
     const dispatch = useAppDispatch();
     const {avatar, name, email, publicCardPacksCount} = useAppSelector(state => state.profile);
 
     const logout = () => {
-        // dispatch(logoutTC());
+        dispatch(logoutTC());
     }
 
     return <Profile
