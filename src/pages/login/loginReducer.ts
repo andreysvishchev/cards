@@ -3,6 +3,7 @@ import {changeAppStatus} from "../../app/appReducer";
 import {authAPI, LoginDataType} from "../../api/api";
 import {AppThunkType} from "../../hooks/hooks";
 import {setUserInfo} from "../profile/profileReducer";
+
 const initState = {
     isLoggedIn: false
 }
