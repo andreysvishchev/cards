@@ -1,5 +1,5 @@
 # Стек
-В проект установленны redux-thunk, react-router-dom, react-redux, axios
+В проект установленны redux-thunk, react-router-dom, react-redux, axios, formik
 # Стили
 Можно использовать модульный подход (по желанию), на данный момент всё что связанно c CSS находиться в папке style. 
     Все стили пишуться в файле main.scss, 
