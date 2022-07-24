@@ -50,7 +50,6 @@
   vertical-align: top;
   position: relative;
   height: 40px;
-  width: max-content;
   width: 100%;
   margin-bottom: 25px;
 
@@ -139,6 +138,48 @@
 
     &--active {
       background-color: $blue;
+    }
+  }
+}
+
+.checkbox {
+  &__input {
+    position: absolute;
+    overflow: hidden;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    width: 1px;
+    height: 1px;
+    clip: rect(0 0 0 0);
+  }
+
+  &__icon {
+    display: block;
+    width: 18px;
+    height: 18px;
+    background-color: $blue;
+    border-radius: 3px;
+    position: relative;
+
+    &:before {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      top: 0;
+      left: 0;
+      background-image: url('../img/check.svg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      opacity: 0;
+    }
+
+    &--active {
+      background-color: transparent;
+      &:before {
+        opacity: 1;
+      }
     }
   }
 }
