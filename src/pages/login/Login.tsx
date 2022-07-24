@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {useFormik} from "formik";
-import {sendRegistrationData} from "../registration/registrationReducer";
 import Input from "../../components/input/Input";
 import Button from "../../components/button/Button";
-import {Navigate, NavLink, useNavigate} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {sendLoginData} from "./loginReducer";
 import Checkbox from "../../components/checkbox/Checkbox";
 
@@ -19,17 +18,14 @@ const Login = () => {
     const dispatch = useAppDispatch()
     const status = useAppSelector(state => state.app.status)
     const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
-	const navigate = useNavigate()
+    const navigate = useNavigate()
 
 
     useEffect(() => {
-
-    	if(isLoggedIn) {
-    		navigate('/profile')
-
-		}
-
-    }, [isLoggedIn])
+        if (isLoggedIn) {
+            navigate('/profile')
+        }
+    }, [isLoggedIn]);
 
     const formik = useFormik({
         initialValues: {
@@ -50,7 +46,6 @@ const Login = () => {
             return errors;
         },
         onSubmit: values => {
-            console.log(values)
             const data = {
                 email: values.email,
                 password: values.password,
@@ -60,11 +55,6 @@ const Login = () => {
             formik.resetForm()
         },
     })
-
-
-    /*	if (isLoggedIn) {
-            return <Navigate to="/profile"/>
-        }*/
 
     return (
         <div className='frame'>
@@ -79,7 +69,7 @@ const Login = () => {
                        errorText={formik.errors.password}/>
                 {/*Заглушка*/}
                 <label htmlFor="checkbox">Remember Me</label>
-         {/*       <input type='checkbox' placeholder='RememberMe' {...formik.getFieldProps('rememberMe')}/>*/}
+                {/*       <input type='checkbox' placeholder='RememberMe' {...formik.getFieldProps('rememberMe')}/>*/}
                 <Checkbox/>
                 {/*Заглушка*/}
                 <NavLink className={'login__forgotLink'}
