@@ -5,7 +5,12 @@ export const instance = axios.create({
     withCredentials: true,
 })
 
-export const authApi = {}
+export const authApi = {
+	login(data: LoginDataType) {
+		return instance.post(`auth/login`, data)
+	}
+
+}
 
 export const registrationApi = {
     registration(data: RegistrationDataType) {
@@ -22,6 +27,12 @@ export const profileAPI = {
     },
 }
 export const cardsApi = {}
+
+export type LoginDataType = {
+	email: string,
+	password: string,
+	rememberMe?: boolean,
+}
 
 
 export type RegistrationDataType = {
