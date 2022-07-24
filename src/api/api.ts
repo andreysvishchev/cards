@@ -25,7 +25,10 @@ export const registrationApi = {
 
 export const profileAPI = {
     updateData(data: UpdateDataType) {
-        return instance.put('auth/me', data);
+        return instance.put('auth/me', data)
+    },
+    logout() {
+        return instance.delete('auth/me', {})
     },
 }
 export const cardsApi = {}
@@ -34,29 +37,9 @@ export const cardsApi = {}
 export type RegistrationDataType = {
     email: string
     password: string
-    rememberMe?: boolean
 }
 
 type UpdateDataType = {
-    name: string
-    avatar?: string
-}
-
-type LogoutResponseType = {
-    info: string
-    error: string
-}
-
-type UserResponseType = {
-    _id: string
-    email: string
-    name: string
-    avatar?: string
-    publicCardPacksCount: number
-    created: string
-    updated: string
-    isAdmin: boolean
-    verified: boolean
-    rememberMe: boolean
-    error?: string
+    name: string,
+    avatar?: string,
 }

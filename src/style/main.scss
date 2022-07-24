@@ -185,6 +185,7 @@
     text-align: center;
     margin-top: 33px;
   }
+
 }
 
 .header {
@@ -243,6 +244,20 @@
     height: 108px;
     margin: 0 auto 31px;
     background-image: url('../img/mail.svg');
+  }
+}
+
+.login {
+  &__forgotLink {
+    width: max-content;
+    margin-top: 20px;
+    display: block;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 24px;
+    color: $blue;
+    text-decoration: none;
+    text-align: center;
   }
 }
 
