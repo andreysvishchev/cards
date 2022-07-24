@@ -9,15 +9,21 @@ import NoteFound from "../pages/404/NotFound";
 import Cards from '../pages/cards/Cards';
 import ProfileContainer from "../pages/profile/ProfileContainer";
 import HeaderContainer from "../components/header/HeaderContainer";
-import {useAppDispatch} from "../hooks/hooks";
+import {useAppDispatch, useAppSelector} from "../hooks/hooks";
 import {initializeApp} from "./appReducer";
 
 const App = () => {
     const dispatch = useAppDispatch();
-
+    const isInitialized = useAppSelector(state => state.app.isInitialized);
+    console.log(isInitialized)
     useEffect(() => {
         dispatch(initializeApp());
     }, []);
+
+    if (!isInitialized){
+        //заглушка
+        return <div>UUU</div>
+    }
 
     return (
         <div className='app'>
