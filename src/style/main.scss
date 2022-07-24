@@ -266,3 +266,21 @@
 .profile__button {
   margin-top: 30px;
 }
+
+.user-data {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  border: 1px red solid;
+
+  &__name {
+    background: #366EFF;
+  }
+
+  &__avatar {
+    width: 36px;
+    height: 36px;
+    border: 1px green solid;
+  }
+}
+
