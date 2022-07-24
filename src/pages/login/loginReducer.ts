@@ -1,12 +1,11 @@
-import {Dispatch} from "redux";
 import {changeAppStatus} from "../../app/appReducer";
 import {authAPI, LoginDataType} from "../../api/api";
 import {AppThunkType} from "../../hooks/hooks";
 
-
 const initState = {
     isLoggedIn: false
 }
+
 export const loginReducer = (state: InitStateType = initState, actions: LoginActionsType): InitStateType => {
     switch (actions.type) {
         case "LOGIN/SET-IS-LOGGED-IN": {
@@ -16,21 +15,27 @@ export const loginReducer = (state: InitStateType = initState, actions: LoginAct
             return state
     }
 }
+
 export const setIsLoggedIn = (value: boolean) => {
     return {
         type: "LOGIN/SET-IS-LOGGED-IN",
         payload: {value},
     } as const;
 }
-export const sendLoginData = (data: LoginDataType) => (dispatch: Dispatch) => {
+
+export const logout = () => {
+    return {
+        type: "LOGIN/LOGOUT"
+    } as const;
+}
+
+
+export const sendLoginData = (data: LoginDataType): AppThunkType => (dispatch) => {
     dispatch(changeAppStatus('loading'))
     authAPI.login(data)
         .then((res) => {
-            console.log(res);
             if (res.statusText === "OK") {
                 dispatch(setIsLoggedIn(true))
-                const {email, name} = res.data;
-           /*     dispatch(setUserInfo(email, name));*/
             }
         })
         .catch((res) => {
@@ -41,14 +46,16 @@ export const sendLoginData = (data: LoginDataType) => (dispatch: Dispatch) => {
             dispatch(changeAppStatus('idle'))
         })
 }
+
 export const logoutTC = (): AppThunkType => async (dispatch) => {
     try {
         await authAPI.logout();
+        dispatch(setIsLoggedIn(false));
     } catch (e: any) {
         console.log(e);
-    } finally {
     }
 }
 type InitStateType = typeof initState
 type SetAuthUserDataType = ReturnType<typeof setIsLoggedIn>
-export type LoginActionsType = SetAuthUserDataType
+type LogoutType = ReturnType<typeof logout>
+export type LoginActionsType = SetAuthUserDataType | LogoutType
