@@ -14,10 +14,20 @@ export const authAPI = {
     },
     login(data: RegistrationDataType) {
         return instance.post<UserResponseType>('auth/login', data)
-    }
+    },
+	requestRecoveryLink(email: string) {
+		return instance.post<SetNewPasswordType>('https://neko-back.herokuapp.com/2.0/auth/forgot',
+			{
+				email,
+				from: "Cards slip 🤹🏼 <admin@gmail.com>",
+				message: `<div style="background-color: lime; padding: 15px">
+                            password recovery link:<a href='${'http://localhost:3000/'}#/set-new-password/$token$'> link</a>
+                          </div>`
+			});
+	}
 }
 
-export const registrationApi = {
+export const registrationAPI = {
     registration(data: RegistrationDataType) {
         return instance.post(`auth/register`, data)
     }
@@ -31,7 +41,15 @@ export const profileAPI = {
         return instance.delete('auth/me', {})
     },
 }
-export const cardsApi = {}
+export const cardsAPI = {
+
+}
+
+export type SetNewPasswordType = {
+	info: string,
+	error: string
+
+}
 
 
 export type RegistrationDataType = {

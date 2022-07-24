@@ -16,7 +16,6 @@ const initialState: ProfileStateType = {
 
 export const ProfileReducer = (state = initialState, action: ProfileActionsType): ProfileStateType => {
     switch (action.type) {
-
         default:
             return state;
     }

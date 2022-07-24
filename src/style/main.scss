@@ -290,14 +290,29 @@
 
 .login {
   &__forgotLink {
-    width: max-content;
-    margin-top: 20px;
+    margin-left: 65%;
+    margin-top: 10px;
     display: block;
     font-weight: 600;
     font-size: 14px;
     line-height: 24px;
     color: $blue;
     text-decoration: none;
+    text-align: center;
+  }
+  &__checkbox  {
+    margin-left: 55%;
+  }
+}
+
+.passwordRecovery {
+  &__text {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 24px;
+    color: $text;
+    margin-top: 10px;
+    margin-bottom: 7px;
     text-align: center;
   }
 }

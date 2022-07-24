@@ -1,5 +1,5 @@
 import {Dispatch} from "redux"
-import {registrationApi, RegistrationDataType} from "../../api/api"
+import {registrationAPI, RegistrationDataType} from "../../api/api"
 import {changeAppStatus} from "../../app/appReducer"
 
 
@@ -21,7 +21,7 @@ export const changeStatusRegistration = (value: boolean) => {
 
 export const sendRegistrationData = (data: RegistrationDataType) => (dispatch: Dispatch) => {
     dispatch(changeAppStatus('loading'))
-    registrationApi.registration(data)
+	registrationAPI.registration(data)
         .then((res) => {
             console.log(res);
             if (res.statusText === "Created") {
