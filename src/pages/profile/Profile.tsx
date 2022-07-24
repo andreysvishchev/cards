@@ -5,9 +5,7 @@ export const Profile = React.memo((props: ProfilePropsType) => {
 
     const {name, avatar, cardsCount, email, logout} = props;
 
-    const logoutHandler = () => {
-
-    }
+    const logoutHandler = () => logout();
 
     return (
         <div className={"profile"}>
