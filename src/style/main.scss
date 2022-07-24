@@ -177,6 +177,7 @@
 
     &--active {
       background-color: transparent;
+
       &:before {
         opacity: 1;
       }
@@ -303,31 +304,25 @@
 }
 
 .profile {
-  text-align: center;
-  background: orange;
-  height: 100vh;
-}
+  &__avatar img {
+    text-align: center;
+    width: 200px;
+    height: 200px;
+    margin: 30px auto;
+    border-radius: 20px;
+  }
 
-.profile__avatar img {
-  width: 200px;
-  height: 200px;
-  margin: 30px auto;
-  border-radius: 20px;
-}
+  &__email, &__button, &__cards-count, &__name {
+    margin-top: 30px;
+    text-align: center;
+  }
 
-.profile__email {
-  margin-top: 30px;
-}
-
-.profile__button {
-  margin-top: 30px;
 }
 
 .user-data {
   display: flex;
   align-items: center;
   height: 50px;
-  border: 1px red solid;
 
   &__name {
     background: #366EFF;
