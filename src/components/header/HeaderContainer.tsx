@@ -4,7 +4,7 @@ import {useAppSelector} from "../../hooks/hooks";
 
 const HeaderContainer = () => {
 
-    const isAuth = useAppSelector(state => state.login.isAuth);
+    const isAuth = useAppSelector(state => state.login.isLoggedIn);
     const {name, avatar} = useAppSelector(state => state.profile);
 
     return <Header avatar={avatar} userName={name} isAuth={isAuth}/>

@@ -43,3 +43,28 @@ type UpdateDataType = {
     name: string,
     avatar?: string,
 }
+
+type UserResponseType = {
+    _id: string
+    email: string
+    name: string
+    avatar?: string
+    publicCardPacksCount: number
+    created: string
+    updated: string
+    isAdmin: boolean
+    verified: boolean
+    rememberMe: boolean
+    error?: string
+}
+
+type LogoutResponseType = {
+    info: string
+    error: string
+}
+
+export type LoginDataType = {
+    email: string,
+    password: string,
+    rememberMe?: boolean,
+}

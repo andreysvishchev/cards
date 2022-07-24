@@ -4,11 +4,11 @@ import {cardsReducer} from "../pages/cards/cardsReducer";
 import {registrationReducer} from "../pages/registration/registrationReducer";
 import {appReducer} from "./appReducer";
 import {ProfileReducer} from "../pages/profile/profileReducer";
-import {LoginReducer} from "../pages/login/loginReducer";
+import {loginReducer} from "../pages/login/loginReducer";
 
 const rootReducer = combineReducers({
     app: appReducer,
-    login: LoginReducer,
+    login: loginReducer,
     cards: cardsReducer,
     registration: registrationReducer,
     profile: ProfileReducer,

@@ -2,6 +2,9 @@ import {AppThunkType} from "../hooks/hooks";
 import {authAPI} from "../api/api";
 import {setIsLoggedIn} from "../pages/login/loginReducer";
 
+
+
+
 const initState = {
     status: 'idle' as RequestStatusType
 }
@@ -17,6 +20,9 @@ export const appReducer = (state: InitStateType = initState, actions: ActionsTyp
 export const changeAppStatus = (status: RequestStatusType) => {
     return {type: 'CHANGE-APP-STATUS', status} as const
 }
+
+
+
 
 export const initializeApp = (): AppThunkType => async (dispatch) => {
     try {
