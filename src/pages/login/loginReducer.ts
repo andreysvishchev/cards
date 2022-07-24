@@ -1,6 +1,7 @@
 import {changeAppStatus} from "../../app/appReducer";
 import {authAPI, LoginDataType} from "../../api/api";
 import {AppThunkType} from "../../hooks/hooks";
+import {setUserData} from "../profile/profileReducer";
 
 const initState = {
     isLoggedIn: false
@@ -36,6 +37,11 @@ export const sendLoginData = (data: LoginDataType): AppThunkType => (dispatch) =
         .then((res) => {
             if (res.statusText === "OK") {
                 dispatch(setIsLoggedIn(true))
+                const {email, name, publicCardPacksCount, avatar} = res.data;
+                // аватар может быть undefined поэтому проверка
+                if (avatar) {
+                    dispatch(setUserData(email, name, publicCardPacksCount, avatar));
+                }
             }
         })
         .catch((res) => {
