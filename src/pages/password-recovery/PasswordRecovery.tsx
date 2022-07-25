@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {useFormik} from "formik";
 import {sendPasswordRecoveryData} from "../login/loginReducer";
-import {NavLink} from "react-router-dom";
+import {Navigate, NavLink} from "react-router-dom";
 import Input from "../../components/input/Input";
 import Button from "../../components/button/Button";
 
@@ -16,7 +16,7 @@ const PasswordRecovery = () => {
 	const dispatch = useAppDispatch()
 	const [messageEmail, setMessageEmail] = useState<string>('example@mail.com')
 	const status = useAppSelector(state => state.app.status)
-	/*const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)*/
+	const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
 
 	const formik = useFormik({
 		initialValues: {
@@ -39,9 +39,9 @@ const PasswordRecovery = () => {
 		},
 	})
 
-	/*if (isLoggedIn) {
+	if (isLoggedIn) {
 		return <Navigate to="/profile"/>
-	}*/
+	}
 
   return (
     <div className='frame'>
