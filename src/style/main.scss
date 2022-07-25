@@ -335,18 +335,17 @@
 }
 
 .user-data {
-  display: flex;
+  padding: 5px 10px;
   align-items: center;
-  height: 50px;
+  display: inline-flex;
 
   &__name {
-    background: #366EFF;
+  font-weight: 600;
+    margin-right: 10px;
   }
 
   &__avatar {
     width: 36px;
     height: 36px;
-    border: 1px green solid;
   }
 }
-

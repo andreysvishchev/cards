@@ -6,22 +6,23 @@ import {setUserData} from "../pages/profile/profileReducer";
 
 const initState = {
     status: 'idle' as RequestStatusType,
-    isInitialized: false
+    isInitialized: false,
 }
 export const appReducer = (state: InitStateType = initState, actions: AppActionsType): InitStateType => {
     switch (actions.type) {
         case 'APP/CHANGE-APP-STATUS':
-            return {...state, status: actions.status}
+            return {...state, status: actions.status};
         case "APP/SET_IS_INITIALIZED": {
-            return {...state, isInitialized: actions.payload.value}
+            return {...state, isInitialized: actions.payload.value};
         }
         default:
-            return state
+            return state;
     }
 }
 
+
 export const changeAppStatus = (status: RequestStatusType) => {
-    return {type: 'APP/CHANGE-APP-STATUS', status} as const
+    return {type: 'APP/CHANGE-APP-STATUS', status} as const;
 }
 
 export const setIsInitialized = (value: boolean) => {
@@ -48,8 +49,8 @@ export const initializeApp = (): AppThunkType => async (dispatch) => {
     }
 }
 
-type InitStateType = typeof initState
-type ChangeAppStatusType = ReturnType<typeof changeAppStatus>
-type SetIsInitializedType = ReturnType<typeof setIsInitialized>
+type InitStateType = typeof initState;
+type ChangeAppStatusType = ReturnType<typeof changeAppStatus>;
+type SetIsInitializedType = ReturnType<typeof setIsInitialized>;
 export type AppActionsType = ChangeAppStatusType | SetIsInitializedType;
-export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
+export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed';

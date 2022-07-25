@@ -44,12 +44,12 @@ export const setEmailSent = (value: boolean) => {
 }
 
 
-export const sendLoginData = (data: LoginDataType) => (dispatch: Dispatch) => {
-    dispatch(changeAppStatus('loading'))
+export const sendLoginData = (data: LoginDataType): AppThunkType => (dispatch) => {
+    dispatch(changeAppStatus('loading'));
     authAPI.login(data)
         .then((res) => {
             if (res.statusText === "OK") {
-                dispatch(setIsLoggedIn(true))
+                dispatch(setIsLoggedIn(true));
                 const {email, name, publicCardPacksCount, avatar} = res.data;
                 // аватар может быть undefined поэтому проверка
                 if (avatar) {
@@ -59,10 +59,10 @@ export const sendLoginData = (data: LoginDataType) => (dispatch: Dispatch) => {
         })
         .catch((res) => {
             const error = res.response ? res.response.data.error : (res.message + ', more details in the console');
-            console.log('Error: ', {...error})
+            console.log('Error: ', {...error});
         })
         .finally(() => {
-            dispatch(changeAppStatus('idle'))
+            dispatch(changeAppStatus('idle'));
         })
 }
 
@@ -71,26 +71,25 @@ export const logoutTC = (): AppThunkType => async (dispatch) => {
         await authAPI.logout();
         dispatch(setIsLoggedIn(false));
     } catch (e: any) {
-        console.log(e);
+        throw new Error(e.response.data.error);
     }
 }
 
 export const sendPasswordRecoveryData = (email: string) => (dispatch: Dispatch) => {
-	dispatch(changeAppStatus('loading'))
-	authAPI.requestRecoveryLink(email)
-		.then((res) => {
-			console.log(res);
-			if (res.statusText === "OK") {
-				dispatch(setEmailSent(true))
-			}
-		})
-		.catch((res) => {
-			const error = res.response ? res.response.data.error : (res.message + ', more details in the console');
-			console.log('Error: ', {...error})
-		})
-		.finally(() => {
-			dispatch(changeAppStatus('idle'))
-		})
+    dispatch(changeAppStatus('loading'));
+    authAPI.requestRecoveryLink(email)
+        .then((res) => {
+            if (res.statusText === "OK") {
+                dispatch(setEmailSent(true));
+            }
+        })
+        .catch((res) => {
+            const error = res.response ? res.response.data.error : (res.message + ', more details in the console');
+            console.log('Error: ', {...error});
+        })
+        .finally(() => {
+            dispatch(changeAppStatus('idle'));
+        })
 }
 
 

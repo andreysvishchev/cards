@@ -1,3 +1,6 @@
+import {AppThunkType} from "../../hooks/hooks";
+import {profileAPI} from "../../api/api";
+
 const initialState: ProfileStateType = {
     _id: "",
     email: "test@gmail.com",
@@ -14,9 +17,10 @@ const initialState: ProfileStateType = {
     avatar: "",
 }
 
-export const ProfileReducer = (state = initialState, action: ProfileActionsType): ProfileStateType => {
+export const profileReducer = (state = initialState, action: ProfileActionsType): ProfileStateType => {
     switch (action.type) {
-        case "PROFILE/SET_USER_DATA":{
+        case "PROFILE/UPDATE_USER_DATA":
+        case "PROFILE/SET_USER_DATA": {
             return {...state, ...action.payload}
         }
         default:
@@ -32,6 +36,22 @@ export const setUserData = (email: string, name: string, cardsCount: number, ava
     } as const;
 }
 
+export const updateUserData = (name: string) => {
+    return {
+        type: "PROFILE/UPDATE_USER_DATA",
+        payload: {name},
+    } as const;
+}
+
+export const updateUserInfo = (name: string): AppThunkType => async (dispatch) => {
+    try {
+        const response = await profileAPI.updateData({name});
+        const updatedName = response.data.updatedUser.name;
+        dispatch(updateUserData(updatedName));
+    } catch (e: any) {
+        throw new Error(e.response.data.error);
+    }
+}
 
 type ProfileStateType = {
     _id: string
@@ -49,4 +69,5 @@ type ProfileStateType = {
     avatar: string
 };
 type SetUserDataType = ReturnType<typeof setUserData>
-export type ProfileActionsType = SetUserDataType;
+type UpdateUserDataType = ReturnType<typeof updateUserData>
+export type ProfileActionsType = SetUserDataType | UpdateUserDataType;
