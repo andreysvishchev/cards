@@ -16,7 +16,6 @@ const ProfileContainer = () => {
 
 
     useEffect(() => {
-        console.log('useEffect')
         if (!isLoggedIn) {
             navigate('/');
         }
