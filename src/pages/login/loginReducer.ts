@@ -2,23 +2,26 @@ import {Dispatch} from "redux";
 import {changeAppStatus} from "../../app/appReducer";
 import {authAPI, LoginDataType} from "../../api/api";
 import {AppThunkType} from "../../hooks/hooks";
+import {setUserData} from "../profile/profileReducer";
 
 const initState = {
     isLoggedIn: false,
-	sendEmailRecovery: false
+    sendEmailRecovery: false
 }
+
 export const loginReducer = (state: InitStateType = initState, actions: LoginActionsType): InitStateType => {
     switch (actions.type) {
         case "LOGIN/SET-IS-LOGGED-IN": {
             return {...state, isLoggedIn: actions.payload.value}
         }
-		case "LOGIN/SET-EMAIL-SENT": {
-			return {...state, sendEmailRecovery: actions.payload.value}
-		}
-		default:
+        case "LOGIN/SET-EMAIL-SENT": {
+            return {...state, sendEmailRecovery: actions.payload.value}
+        }
+        default:
             return state
     }
 }
+
 
 export const setIsLoggedIn = (value: boolean) => {
     return {
@@ -27,22 +30,31 @@ export const setIsLoggedIn = (value: boolean) => {
     } as const;
 }
 
-export const setEmailSent = (value: boolean) => {
-	return {
-		type: "LOGIN/SET-EMAIL-SENT",
-		payload: {value},
-	} as const;
+export const logout = () => {
+    return {
+        type: "LOGIN/LOGOUT"
+    } as const;
 }
+
+export const setEmailSent = (value: boolean) => {
+    return {
+        type: "LOGIN/SET-EMAIL-SENT",
+        payload: {value},
+    } as const;
+}
+
 
 export const sendLoginData = (data: LoginDataType) => (dispatch: Dispatch) => {
     dispatch(changeAppStatus('loading'))
     authAPI.login(data)
         .then((res) => {
-            console.log(res);
             if (res.statusText === "OK") {
                 dispatch(setIsLoggedIn(true))
-                const {email, name} = res.data;
-           /*     dispatch(setUserInfo(email, name));*/
+                const {email, name, publicCardPacksCount, avatar} = res.data;
+                // аватар может быть undefined поэтому проверка
+                if (avatar) {
+                    dispatch(setUserData(email, name, publicCardPacksCount, avatar));
+                }
             }
         })
         .catch((res) => {
@@ -57,10 +69,9 @@ export const sendLoginData = (data: LoginDataType) => (dispatch: Dispatch) => {
 export const logoutTC = (): AppThunkType => async (dispatch) => {
     try {
         await authAPI.logout();
+        dispatch(setIsLoggedIn(false));
     } catch (e: any) {
         console.log(e);
-    } finally {
-
     }
 }
 
@@ -85,5 +96,6 @@ export const sendPasswordRecoveryData = (email: string) => (dispatch: Dispatch) 
 
 type InitStateType = typeof initState
 type SetAuthUserDataType = ReturnType<typeof setIsLoggedIn>
+type LogoutType = ReturnType<typeof logout>
 type setEmailSentDataType = ReturnType<typeof setEmailSent>
-export type LoginActionsType = SetAuthUserDataType | setEmailSentDataType
+export type LoginActionsType = SetAuthUserDataType | setEmailSentDataType | LogoutType

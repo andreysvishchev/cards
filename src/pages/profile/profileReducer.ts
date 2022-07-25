@@ -11,19 +11,24 @@ const initialState: ProfileStateType = {
     __v: 0,
     token: "",
     tokenDeathTime: 0,
-    avatar: "https://media.istockphoto.com/vectors/anonymous-vector-icon-incognito-sign-privacy-concept-human-head-with-vector-id1284693553?k=20&m=1284693553&s=612x612&w=0&h=kduGGOGCXcl0PBkoyuxXrsHyFyd-Ct4LFQeXZtJug4Y="
+    avatar: "",
 }
 
 export const ProfileReducer = (state = initialState, action: ProfileActionsType): ProfileStateType => {
     switch (action.type) {
+        case "PROFILE/SET_USER_DATA":{
+            return {...state, ...action.payload}
+        }
         default:
             return state;
     }
 }
 
-export const logout = () => {
+
+export const setUserData = (email: string, name: string, cardsCount: number, avatar: string) => {
     return {
-        type: "PROFILE/LOGOUT",
+        type: "PROFILE/SET_USER_DATA",
+        payload: {email, name, cardsCount, avatar},
     } as const;
 }
 
@@ -43,7 +48,5 @@ type ProfileStateType = {
     tokenDeathTime: number
     avatar: string
 };
-
-
-type LogoutType = ReturnType<typeof logout>
-export type ProfileActionsType = LogoutType;
+type SetUserDataType = ReturnType<typeof setUserData>
+export type ProfileActionsType = SetUserDataType;
