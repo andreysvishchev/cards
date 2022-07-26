@@ -19,7 +19,7 @@ const App = () => {
         dispatch(initializeApp());
     }, []);
 
-    if (!isInitialized){
+    if (!isInitialized) {
         //заглушка
         return <div>UUU</div>
     }
