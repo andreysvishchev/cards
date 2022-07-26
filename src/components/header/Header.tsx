@@ -5,7 +5,7 @@ import React from "react";
 
 export const Header: React.FC<HeaderPropsType> = (props) => {
 
-    const {isAuth, userName, avatar} = props
+    const {isAuth, userName, avatar, navToSignIn} = props;
 
     return (
         <header className="header">
@@ -22,7 +22,7 @@ export const Header: React.FC<HeaderPropsType> = (props) => {
                             <img src={avatar} alt=""/>
                         </div>
                     </div>
-                    : <Button title='Sign in'/>
+                    : <Button callBack={navToSignIn} title='Sign in'/>
                 }
             </div>
         </header>
@@ -31,6 +31,7 @@ export const Header: React.FC<HeaderPropsType> = (props) => {
 
 
 type HeaderPropsType = {
+    navToSignIn: () => void
     isAuth: boolean
     userName: string
     avatar: string
