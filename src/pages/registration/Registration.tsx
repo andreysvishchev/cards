@@ -1,6 +1,6 @@
 import {useFormik} from 'formik';
-import {useState} from 'react';
-import {NavLink} from 'react-router-dom';
+import {useEffect, useState} from 'react';
+import {NavLink, useNavigate} from 'react-router-dom';
 import Button from '../../components/button/Button';
 import Input from '../../components/input/Input';
 import {sendRegistrationData} from './registrationReducer';
@@ -18,6 +18,14 @@ const Registration = () => {
     const dispatch = useAppDispatch()
     const [messageEmail, setMessageEmail] = useState<string>('example@mail.com')
     const status = useAppSelector(state => state.app.status)
+	const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
+	const navigate = useNavigate()
+
+	useEffect(() => {
+		if (isLoggedIn) {
+			navigate('/profile')
+		}
+	}, [isLoggedIn]);
 
     const formik = useFormik({
         initialValues: {

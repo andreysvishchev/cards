@@ -11,12 +11,13 @@ const initState = {
 
 export const loginReducer = (state: InitStateType = initState, actions: LoginActionsType): InitStateType => {
     switch (actions.type) {
-        case "LOGIN/SET-IS-LOGGED-IN": {
-            return {...state, isLoggedIn: actions.payload.value}
-        }
-        case "LOGIN/SET-EMAIL-SENT": {
+        case "LOGIN/SET-IS-LOGGED-IN":{
+			return {...state, isLoggedIn: actions.payload.value}
+		}
+		case "LOGIN/SET-EMAIL-SENT":{
             return {...state, sendEmailRecovery: actions.payload.value}
         }
+
         default:
             return state
     }
@@ -49,6 +50,7 @@ export const sendLoginData = (data: LoginDataType): AppThunkType => (dispatch) =
     authAPI.login(data)
         .then((res) => {
             if (res.statusText === "OK") {
+				console.log(res)
                 dispatch(setIsLoggedIn(true));
                 const {email, name, publicCardPacksCount, avatar} = res.data;
                 // аватар может быть undefined поэтому проверка
