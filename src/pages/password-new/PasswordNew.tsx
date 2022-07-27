@@ -44,7 +44,6 @@ const PasswordNew = () => {
 			return errors;
 		},
 		onSubmit: values => {
-			console.log(values)
 			dispatch(sendResetPassword(values.password, token));
 			formik.resetForm();
 		},

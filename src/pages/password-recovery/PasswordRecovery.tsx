@@ -39,7 +39,6 @@ const PasswordRecovery = () => {
             return errors;
         },
         onSubmit: values => {
-            console.log(values)
             setMessageEmail(values.email);
             dispatch(sendPasswordRecoveryData(values.email));
             formik.resetForm();

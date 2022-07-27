@@ -37,7 +37,6 @@ export const sendLoginData = (data: LoginDataType): AppThunkType => (dispatch) =
     authAPI.login(data)
         .then((res) => {
             if (res.statusText === "OK") {
-				console.log(res)
                 dispatch(setIsLoggedIn(true));
                 const {email, name, publicCardPacksCount, avatar = 'ava'} = res.data;
                 // аватар может быть undefined поэтому проверка

@@ -27,7 +27,6 @@ export const sendResetPassword = (password: string, token: string):AppThunkType 
 	dispatch(changeAppStatus('loading'));
 	authAPI.requestNewPassword(password, token)
 		.then((res) => {
-			console.log(res)
 			if (res.statusText === "OK") {
 				dispatch(setPasswordChanged(true));
 			}

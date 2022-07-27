@@ -23,7 +23,6 @@ export const sendRegistrationData = (data: RegistrationDataType) => (dispatch: D
     dispatch(changeAppStatus('loading'))
 	registrationAPI.registration(data)
         .then((res) => {
-            console.log(res);
             if (res.statusText === "Created") {
                 dispatch(changeStatusRegistration(true))
             }
