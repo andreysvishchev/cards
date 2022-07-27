@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {useFormik} from "formik";
-import {sendPasswordRecoveryData} from "../login/loginReducer";
-import {Navigate, NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import Input from "../../components/input/Input";
 import Button from "../../components/button/Button";
+import {sendPasswordRecoveryData} from "./passwordRecoveryReducer";
 
 type FormikErrorType = {
     email?: string
@@ -12,11 +12,18 @@ type FormikErrorType = {
 
 const PasswordRecovery = () => {
 
-    const emailSent = useAppSelector(state => state.login.sendEmailRecovery);
+    const emailSent = useAppSelector(state => state.passwordRecovery.sendEmailRecovery);
     const dispatch = useAppDispatch();
     const [messageEmail, setMessageEmail] = useState<string>('example@mail.com');
     const status = useAppSelector(state => state.app.status);
     const isLoggedIn = useAppSelector(state => state.login.isLoggedIn);
+	const navigate = useNavigate()
+
+	useEffect(() => {
+		if (isLoggedIn) {
+			navigate('/profile')
+		}
+	}, [isLoggedIn]);
 
     const formik = useFormik({
         initialValues: {
@@ -38,10 +45,6 @@ const PasswordRecovery = () => {
             formik.resetForm();
         },
     })
-
-    if (isLoggedIn) {
-        return <Navigate to="/profile"/>;
-    }
 
     return (
         <div className='frame'>

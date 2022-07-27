@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {Navigate, NavLink, Route, Routes} from 'react-router-dom';
 import Test from "../pages/test/Test";
 import Login from "../pages/login/Login";
-import PassportNew from "../pages/password-new/PassportNew";
+import PasswordNew from "../pages/password-new/PasswordNew";
 import PasswordRecovery from "../pages/password-recovery/PasswordRecovery";
 import Registration from "../pages/registration/Registration";
 import NoteFound from "../pages/404/NotFound";
@@ -30,7 +30,7 @@ const App = () => {
             {/* для тестого перехода по страницам */}
             <div className="test">
                 <NavLink className='navlink' to="/">login</NavLink>
-                <NavLink className='navlink' to="/password-new">password-new</NavLink>
+                <NavLink className='navlink' to="/set-new-password/*">password-new</NavLink>
                 <NavLink className='navlink' to="/password-recovery">password-recovery</NavLink>
                 <NavLink className='navlink' to="/registration">registration</NavLink>
                 <NavLink className='navlink' to="/profile">profile</NavLink>
@@ -41,7 +41,7 @@ const App = () => {
                 <div className="container">
                     <Routes>
                         <Route path='/' element={<Login/>}/>
-                        <Route path='/password-new' element={<PassportNew/>}/>
+                        <Route path='/set-new-password/*' element={<PasswordNew/>}/>
                         <Route path='/password-recovery' element={<PasswordRecovery/>}/>
                         <Route path='/cards' element={<Cards/>}/>
                         <Route path='/registration' element={<Registration/>}/>
