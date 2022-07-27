@@ -87,7 +87,7 @@ const Registration = () => {
                 </form>
             }
             <div className="registration__text">
-                {send ? `We’ve sent an Email with instructions to ${messageEmail}` : 'Don’t have an account?'}
+                {send ? `We’ve sent an Email with instructions to ${messageEmail}` : 'Already have an account?'}
             </div>
             <NavLink className={send ? 'button button--registration' : 'registration__link'}
                      to="/">{send ? 'Back to login' : 'Sign In'}</NavLink>

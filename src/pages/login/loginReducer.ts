@@ -52,7 +52,7 @@ export const sendLoginData = (data: LoginDataType): AppThunkType => (dispatch) =
             if (res.statusText === "OK") {
 				console.log(res)
                 dispatch(setIsLoggedIn(true));
-                const {email, name, publicCardPacksCount, avatar} = res.data;
+                const {email, name, publicCardPacksCount, avatar = 'ava'} = res.data;
                 // аватар может быть undefined поэтому проверка
                 if (avatar) {
                     dispatch(setUserData(email, name, publicCardPacksCount, avatar));

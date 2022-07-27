@@ -304,6 +304,26 @@
   &__checkbox  {
     margin-left: 55%;
   }
+  &__text {
+    margin-top: 30px;
+    margin-bottom: 7px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 24px;
+    color: $text;
+    text-align: center;
+  }
+  &__link {
+    width: max-content;
+    margin: 0 auto;
+    display: block;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: $blue;
+    text-decoration: underline;
+    text-align: center;
+  }
 }
 
 .passwordRecovery {

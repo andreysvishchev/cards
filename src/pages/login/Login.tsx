@@ -6,6 +6,7 @@ import Button from "../../components/button/Button";
 import {NavLink, useNavigate} from "react-router-dom";
 import {sendLoginData} from "./loginReducer";
 import Checkbox from '@mui/material/Checkbox';
+import {FormControlLabel} from "@mui/material";
 
 type FormikErrorType = {
     email?: string
@@ -67,21 +68,20 @@ const Login = () => {
                 <Input placeholder='Password' password={true} {...formik.getFieldProps('password')}
                        error={formik.errors.password && formik.touched.password}
                        errorText={formik.errors.password}/>
-                {/*Заглушка*/}
-                <label htmlFor="checkbox">Remember Me</label>
-                {/*       <input type='checkbox' placeholder='RememberMe' {...formik.getFieldProps('rememberMe')}/>*/}
-                <Checkbox/>
-                {/*Заглушка*/}
+				<FormControlLabel label='Remember me' labelPlacement="start"
+								  control={<Checkbox checked={formik.values.rememberMe}
+													 {...formik.getFieldProps('rememberMe')}/>}
+				/>
                 <NavLink className={'login__forgotLink'}
                          to="/password-recovery">Forgot Password</NavLink>
                 <div style={{marginTop: '36px', display: 'flex', justifyContent: 'center'}}>
                     <Button title='Sign in' disabled={status === 'loading'} type='submit'/>
                 </div>
             </form>
-            <div className="registration__text">
+            <div className="login__text">
                 'Don’t have an account?'
             </div>
-            <NavLink className={'registration__link'}
+            <NavLink className={'login__link'}
                      to="/registration">Sign Up</NavLink>
         </div>
     );
