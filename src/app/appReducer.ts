@@ -7,13 +7,19 @@ import {setUserData} from "../pages/profile/profileReducer";
 const initState = {
     status: 'idle' as RequestStatusType,
     isInitialized: false,
+    error: null as string | null,
 }
+
+
 export const appReducer = (state: InitStateType = initState, actions: AppActionsType): InitStateType => {
     switch (actions.type) {
         case 'APP/CHANGE-APP-STATUS':
             return {...state, status: actions.status};
-        case "APP/SET_IS_INITIALIZED": {
+        case 'APP/SET_IS_INITIALIZED': {
             return {...state, isInitialized: actions.payload.value};
+        }
+        case "APP/SET_ERROR": {
+            return {...state, ...actions.payload}
         }
         default:
             return state;
@@ -22,13 +28,21 @@ export const appReducer = (state: InitStateType = initState, actions: AppActions
 
 
 export const changeAppStatus = (status: RequestStatusType) => {
-    return {type: 'APP/CHANGE-APP-STATUS', status} as const;
+    return {
+        type: 'APP/CHANGE-APP-STATUS', status} as const;
 }
 
 export const setIsInitialized = (value: boolean) => {
     return {
         type: 'APP/SET_IS_INITIALIZED',
-        payload: {value}
+        payload: {value},
+    } as const;
+}
+
+export const setError = (error: string | null) => {
+    return {
+        type: 'APP/SET_ERROR',
+        payload: {error},
     } as const;
 }
 
@@ -43,7 +57,7 @@ export const initializeApp = (): AppThunkType => async (dispatch) => {
             dispatch(setUserData(email, name, publicCardPacksCount, avatar));
         }
     } catch (e: any) {
-        throw new Error(e.response.data.error);
+        dispatch(setError(e.response.data.error));
     } finally {
         dispatch(setIsInitialized(true));
     }
@@ -52,5 +66,6 @@ export const initializeApp = (): AppThunkType => async (dispatch) => {
 type InitStateType = typeof initState;
 type ChangeAppStatusType = ReturnType<typeof changeAppStatus>;
 type SetIsInitializedType = ReturnType<typeof setIsInitialized>;
-export type AppActionsType = ChangeAppStatusType | SetIsInitializedType;
+type SetErrorType = ReturnType<typeof setError>
+export type AppActionsType = ChangeAppStatusType | SetIsInitializedType | SetErrorType;
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed';

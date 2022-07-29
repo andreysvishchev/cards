@@ -1,5 +1,6 @@
 import {AppThunkType} from "../../hooks/hooks";
 import {profileAPI} from "../../api/api";
+import {setError} from "../../app/appReducer";
 
 const initialState: ProfileStateType = {
     _id: "",
@@ -48,8 +49,8 @@ export const updateUserInfo = (name: string): AppThunkType => async (dispatch) =
         const response = await profileAPI.updateData({name});
         const updatedName = response.data.updatedUser.name;
         dispatch(updateUserData(updatedName));
-    } catch (e: any) {
-        throw new Error(e.response.data.error);
+    } catch (err: any) {
+        dispatch(setError(err.response.data.error));
     }
 }
 

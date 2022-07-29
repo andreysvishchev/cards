@@ -1,19 +1,19 @@
-import {changeAppStatus} from "../../app/appReducer";
+import {changeAppStatus, setError} from "../../app/appReducer";
 import {authAPI, LoginDataType} from "../../api/api";
 import {AppThunkType} from "../../hooks/hooks";
 import {setUserData} from "../profile/profileReducer";
 
 const initState = {
-    isLoggedIn: false
+    isLoggedIn: false,
 }
 
 export const loginReducer = (state: InitStateType = initState, actions: LoginActionsType): InitStateType => {
     switch (actions.type) {
         case "LOGIN/SET-IS-LOGGED-IN":{
-			return {...state, isLoggedIn: actions.payload.value}
+			return {...state, isLoggedIn: actions.payload.value};
 		}
         default:
-            return state
+            return state;
     }
 }
 
@@ -45,9 +45,8 @@ export const sendLoginData = (data: LoginDataType): AppThunkType => (dispatch) =
                 }
             }
         })
-        .catch((res) => {
-            const error = res.response ? res.response.data.error : (res.message + ', more details in the console');
-            console.log('Error: ', {...error});
+        .catch((err) => {
+            dispatch(setError(err.response.data.error));
         })
         .finally(() => {
             dispatch(changeAppStatus('idle'));
@@ -59,7 +58,7 @@ export const logoutTC = (): AppThunkType => async (dispatch) => {
         await authAPI.logout();
         dispatch(setIsLoggedIn(false));
     } catch (e: any) {
-        throw new Error(e.response.data.error);
+        dispatch(setError(e.response.data.error));
     }
 }
 

@@ -11,6 +11,7 @@ import ProfileContainer from "../pages/profile/ProfileContainer";
 import HeaderContainer from "../components/header/HeaderContainer";
 import {useAppDispatch, useAppSelector} from "../hooks/hooks";
 import {initializeApp} from "./appReducer";
+import {ErrorSnackBar} from "../components/errorSnackbar/ErrorSnackbar";
 
 const App = () => {
     const dispatch = useAppDispatch();
@@ -50,6 +51,7 @@ const App = () => {
                         <Route path="/404" element={<NoteFound/>}/>
                         <Route path="*" element={<Navigate to='/404'/>}/>
                     </Routes>
+                    <ErrorSnackBar/>
                 </div>
             </div>
         </div>
