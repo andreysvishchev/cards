@@ -26,24 +26,15 @@ export const appReducer = (state: InitStateType = initState, actions: AppActions
     }
 }
 
-
 export const changeAppStatus = (status: RequestStatusType) => {
-    return {
-        type: 'APP/CHANGE-APP-STATUS', status} as const;
-}
+    return {type: 'APP/CHANGE-APP-STATUS', status} as const;}
 
 export const setIsInitialized = (value: boolean) => {
-    return {
-        type: 'APP/SET_IS_INITIALIZED',
-        payload: {value},
-    } as const;
+    return {type: 'APP/SET_IS_INITIALIZED', payload: {value},} as const;
 }
 
 export const setError = (error: string | null) => {
-    return {
-        type: 'APP/SET_ERROR',
-        payload: {error},
-    } as const;
+    return {type: 'APP/SET_ERROR', payload: {error},} as const;
 }
 
 

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {useFormik} from "formik";
-import {useLocation, useNavigate} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import Input from "../../components/input/Input";
 import Button from "../../components/button/Button";
 import {sendResetPassword} from "./passwordNewReducer";
@@ -13,17 +13,8 @@ type FormikErrorType = {
 const PasswordNew = () => {
 	const dispatch = useAppDispatch();
 	const status = useAppSelector(state => state.app.status);
-	const isLoggedIn = useAppSelector(state => state.login.isLoggedIn);
-	const isPasswordChanged = useAppSelector(state => state.passwordNew.passwordChanged);
 	const [token, setToken] = useState<string>('');
 	const location = useLocation();
-	const navigate = useNavigate()
-
-	useEffect(() => {
-		if (isLoggedIn) navigate('/profile')
-		if (isPasswordChanged) navigate('/')
-	}, [isLoggedIn, isPasswordChanged]);
-
 
 	useEffect(() => {
 		if(location.pathname) {

@@ -17,6 +17,7 @@ import {CircularProgress} from "@mui/material";
 const App = () => {
     const dispatch = useAppDispatch();
     const isInitialized = useAppSelector(state => state.app.isInitialized);
+
     useEffect(() => {
         dispatch(initializeApp());
     }, []);

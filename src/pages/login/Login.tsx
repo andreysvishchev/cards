@@ -15,12 +15,10 @@ type FormikErrorType = {
 }
 
 const Login = () => {
-
     const dispatch = useAppDispatch()
     const status = useAppSelector(state => state.app.status)
     const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
     const navigate = useNavigate()
-
 
     useEffect(() => {
         if (isLoggedIn) {

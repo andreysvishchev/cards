@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
 import {useFormik} from "formik";
-import {NavLink, useNavigate} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import Input from "../../components/input/Input";
 import Button from "../../components/button/Button";
 import {sendPasswordRecoveryData} from "./passwordRecoveryReducer";
@@ -11,19 +11,10 @@ type FormikErrorType = {
 }
 
 const PasswordRecovery = () => {
-
     const emailSent = useAppSelector(state => state.passwordRecovery.sendEmailRecovery);
     const dispatch = useAppDispatch();
     const [messageEmail, setMessageEmail] = useState<string>('example@mail.com');
     const status = useAppSelector(state => state.app.status);
-    const isLoggedIn = useAppSelector(state => state.login.isLoggedIn);
-	const navigate = useNavigate()
-
-	useEffect(() => {
-		if (isLoggedIn) {
-			navigate('/profile')
-		}
-	}, [isLoggedIn]);
 
     const formik = useFormik({
         initialValues: {
