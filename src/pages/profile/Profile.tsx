@@ -1,11 +1,13 @@
 import React from 'react';
 import Button from "../../components/button/Button";
 import {EditableSpan} from "../../components/editableSpan/EditableSpan";
+import {useAppSelector} from "../../hooks/hooks";
+import default_avatar from '../../img/avatar.png'
 
 export const Profile = React.memo((props: ProfilePropsType) => {
 
     const {name, avatar, cardsCount, email, logout, editField} = props;
-
+    const status = useAppSelector(state => state.app.status)
     const logoutHandler = () => logout();
     const editFieldHandler = (newTitle: string) => editField(newTitle);
 
@@ -16,7 +18,12 @@ export const Profile = React.memo((props: ProfilePropsType) => {
                     Personal Information
                 </div>
                 <div className={"profile__avatar"}>
-                    <img src={avatar} alt="avatar"/>
+                    {avatar ?
+                        <img src={avatar} alt="avatar"/>
+                        :
+                        <img src={default_avatar} alt="avatar"/>
+                    }
+
                 </div>
                 <div className={"profile__name"}>
                     <h4><EditableSpan name={name} callback={editFieldHandler}/></h4>
@@ -31,7 +38,7 @@ export const Profile = React.memo((props: ProfilePropsType) => {
                     <Button
                         title={"logout"}
                         type={"button"}
-                        disabled={false}
+                        disabled={status === 'loading'}
                         callBack={logoutHandler}
                     />
                 </div>

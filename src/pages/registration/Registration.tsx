@@ -67,7 +67,7 @@ const Registration = () => {
             <div className='title'>{send ? 'Check Email' : 'Sign Up'}</div>
             {send ?
                 <div className='registration'>
-                    <div className='registration__img'></div>
+                    <div className='registration__img'/>
                 </div>
                 :
                 <form className="form" onSubmit={formik.handleSubmit}>
