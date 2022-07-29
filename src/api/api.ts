@@ -1,7 +1,7 @@
 import axios from "axios"
 
 export const instance = axios.create({
-    baseURL: 'http://localhost:7542/2.0/',
+    baseURL: process.env.REACT_APP_BACK_URL || 'http://localhost:7542/2.0/',
     withCredentials: true,
 })
 
@@ -23,12 +23,12 @@ export const authAPI = {
                 message: `<div style="background-color: lime; padding: 15px">
                             password recovery link:<a href='http://localhost:3000/set-new-password/$token$'> link</a>
                           </div>`
-				// на gh-pages нужно будет обратно поставить /# и поменять localhost на адрес gh-pages (https://andreysvishchev.github.io/cards/#/set-new-password/$token$)
+                // на gh-pages нужно будет обратно поставить /# и поменять localhost на адрес gh-pages (https://andreysvishchev.github.io/cards/#/set-new-password/$token$)
             });
     },
-	requestNewPassword(password: string, resetPasswordToken: string) {
-		return instance.post<SetNewPasswordType>('/auth/set-new-password', {password,resetPasswordToken});
-	}
+    requestNewPassword(password: string, resetPasswordToken: string) {
+        return instance.post<SetNewPasswordType>('/auth/set-new-password', {password, resetPasswordToken});
+    }
 }
 
 export const registrationAPI = {
