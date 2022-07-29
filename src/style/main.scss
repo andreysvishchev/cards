@@ -345,17 +345,16 @@
 .profile {
   &__avatar img {
     text-align: center;
-    width: 200px;
-    height: 200px;
+    width: 100px;
+    height: 100px;
     margin: 30px auto;
-    border-radius: 20px;
+    border-radius: 50%;
   }
 
   &__email, &__button, &__cards-count, &__name {
     margin-top: 30px;
     text-align: center;
   }
-
 }
 
 .user-data {

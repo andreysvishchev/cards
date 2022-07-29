@@ -40,6 +40,7 @@ export const sendLoginData = (data: LoginDataType): AppThunkType => (dispatch) =
                 dispatch(setIsLoggedIn(true));
                 const {email, name, publicCardPacksCount, avatar = 'ava'} = res.data;
                 // аватар может быть undefined поэтому проверка
+                console.log(res)
                 if (avatar) {
                     dispatch(setUserData(email, name, publicCardPacksCount, avatar));
                 }
@@ -54,11 +55,14 @@ export const sendLoginData = (data: LoginDataType): AppThunkType => (dispatch) =
 }
 
 export const logoutTC = (): AppThunkType => async (dispatch) => {
+    dispatch(changeAppStatus('loading'));
     try {
         await authAPI.logout();
         dispatch(setIsLoggedIn(false));
     } catch (e: any) {
         dispatch(setError(e.response.data.error));
+    } finally {
+        dispatch(changeAppStatus('idle'));
     }
 }
 
