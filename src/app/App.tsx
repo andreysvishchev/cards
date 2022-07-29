@@ -12,6 +12,7 @@ import HeaderContainer from "../components/header/HeaderContainer";
 import {useAppDispatch, useAppSelector} from "../hooks/hooks";
 import {initializeApp} from "./appReducer";
 import {ErrorSnackBar} from "../components/errorSnackbar/ErrorSnackbar";
+import {CircularProgress} from "@mui/material";
 
 const App = () => {
     const dispatch = useAppDispatch();
@@ -20,9 +21,13 @@ const App = () => {
         dispatch(initializeApp());
     }, []);
 
+
     if (!isInitialized) {
-        //заглушка
-        return <div>UUU</div>
+        return (
+            <div style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
+                <CircularProgress/>
+            </div>
+        );
     }
 
     return (
