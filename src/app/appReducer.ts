@@ -57,7 +57,7 @@ export const initializeApp = (): AppThunkType => async (dispatch) => {
             dispatch(setUserData(email, name, publicCardPacksCount, avatar));
         }
     } catch (e: any) {
-        dispatch(setError(e.response.data.error));
+        // dispatch(setError(e.response.data.error));
     } finally {
         dispatch(setIsInitialized(true));
     }
