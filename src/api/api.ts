@@ -1,8 +1,8 @@
 import axios from "axios"
 
 export const instance = axios.create({
-    // baseURL: process.env.REACT_APP_BACK_URL || 'http://localhost:7542/2.0/',
-    baseURL: 'https://neko-back.herokuapp.com/2.0',
+    // 'https://neko-back.herokuapp.com/2.0'
+    baseURL: 'http://localhost:7542/2.0/',
     withCredentials: true,
 })
 
@@ -45,6 +45,15 @@ export const profileAPI = {
     logout() {
         return instance.delete('auth/me', {});
     },
+}
+
+export const cardsAPI = {
+    getPacks(page: number, pageCount: number) {
+        return instance.get<PacksDataType>(`cards/pack?&page=${page}&pageCount=${pageCount}`)
+    },
+    getCards(packId: string) {
+        return instance.get(`cards/card?cardsPack_id=${packId}`)
+    }
 }
 
 export type SetNewPasswordType = {
@@ -99,4 +108,29 @@ export type LoginDataType = {
     email: string,
     password: string,
     rememberMe?: boolean,
+}
+export type PacksDataType = {
+    cardPacks: PackType[]
+    cardPacksTotalCount: number
+    maxCardsCount: number
+    minCardsCount: number
+    page: number
+    pageCount: number
+}
+export type PackType = {
+    cardsCount: number
+    created: string
+    grade: number
+    more_id: string
+    name: string
+    path: string
+    private: boolean
+    rating:number
+    shots: number
+    type: string
+    updated: string
+    user_id: string
+    user_name: string
+    __v: number
+    _id: string
 }

@@ -3,10 +3,15 @@ import Button from "../../components/button/Button";
 import Search from "../../components/search/Search";
 import Filter from "../../components/filter/Filter";
 import RangeSlider from "../../components/rangeSlider/rangeSlider";
-import Pack from "./packs/pack/Pack";
 import Packs from "./packs/Packs";
+import Pagination from "../../components/pagination/Pagination";
+import {useAppSelector} from "../../hooks/hooks";
 
 const Cards = () => {
+    const pageSize = useAppSelector(state => state.cards.pageCount)
+    const currentPage = useAppSelector(state => state.cards.page)
+    const totalCount = useAppSelector(state => state.cards.cardPacksTotalCount)
+
     return (
         <div className='cards'>
             <div className="cards__top">
@@ -19,6 +24,7 @@ const Cards = () => {
                 <RangeSlider/>
             </div>
             <Packs/>
+            <Pagination pageSize={pageSize} currentPage={currentPage} totalCount={totalCount}/>
         </div>
     );
 };
