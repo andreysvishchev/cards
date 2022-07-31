@@ -24,7 +24,7 @@ const Cards = () => {
                 <RangeSlider/>
             </div>
             <Packs/>
-            <Pagination pageSize={pageSize} currentPage={currentPage} totalCount={totalCount}/>
+            <Pagination totalCount={totalCount}/>
         </div>
     );
 };

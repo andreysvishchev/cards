@@ -1,8 +1,5 @@
-import {AppThunkType} from "../../hooks/hooks";
-import {cardsAPI, PackType, PacksDataType} from "../../api/api";
-import {setPasswordChanged} from "../password-new/passwordNewReducer";
+import {cardsAPI, PacksDataType, PackType} from "../../api/api";
 import {Dispatch} from "redux";
-import exp from "constants";
 
 const initState = {
     cardPacks: [],
@@ -18,7 +15,7 @@ export const cardsReducer = (state: InitStateType = initState, actions: CardsAct
             return {...state, cardPacks: actions.data}
         case "SET-PACKS-COUNT":
             return {...state, cardPacksTotalCount: actions.value}
-        default:
+		default:
             return state
     }
 }

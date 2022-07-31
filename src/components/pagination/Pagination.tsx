@@ -1,38 +1,49 @@
-import React from 'react';
-import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
-import {PackType} from "../../api/api";
+import React, {useEffect, useState} from 'react';
+import {useAppDispatch} from "../../hooks/hooks";
 import {pageChanged} from "../../pages/cards/cardsReducer";
+import Stack from "@mui/material/Stack";
+import TablePagination from "@mui/material/TablePagination";
 
 type PropsType = {
-    pageSize: number
-    currentPage: number
     totalCount: number
 }
 
 const Pagination = (props: PropsType) => {
     const dispatch = useAppDispatch();
+	const [page, setPage] = useState(1)
+	const [rowsPerPage, setRowsPerPage] = useState(10)
 
-    const pagesCount = Math.ceil(props.totalCount / props.pageSize)
-    const pages = []
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i)
-    }
-   /* let curP = props.currentPage;
-    let curPF = ((curP - 5) < 0) ? 0 : curP - 5;
-    let curPL = curP + 5;
-    let slicedPages = pages.slice(curPF, curPL);*/
 
+	useEffect(()=> {
+		dispatch(pageChanged(page + 1, rowsPerPage))
+	}, [page, rowsPerPage])
+
+	const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number,) => {
+		setPage(newPage);
+	};
+
+	const handleChangeRowsPerPage = (
+		event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+	) => {
+		setRowsPerPage(parseInt(event.target.value, 10));
+		setPage(0);
+	};
 
     return (
         <div className="pagination">
             <div className="pagination__list">
-                {pages.map((el, i) => {
-                    return (
-                        <button key={i} onClick={() => {
-                            dispatch(pageChanged(el, props.pageSize))
-                        }}>{el}</button>
-                    )
-                })}
+				<Stack>
+					{!!props.totalCount &&
+						<TablePagination
+							count={props.totalCount}
+							showFirstButton
+							showLastButton
+							page={page}
+							onPageChange={handleChangePage}
+							rowsPerPage={rowsPerPage}
+							onRowsPerPageChange={handleChangeRowsPerPage}
+						/>}
+				</Stack>
             </div>
         </div>
     );
