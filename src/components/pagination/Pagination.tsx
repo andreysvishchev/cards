@@ -18,13 +18,11 @@ const Pagination = (props: PropsType) => {
 		dispatch(pageChanged(page + 1, rowsPerPage))
 	}, [page, rowsPerPage])
 
-	const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number,) => {
+	const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
 		setPage(newPage);
 	};
 
-	const handleChangeRowsPerPage = (
-		event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-	) => {
+	const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 		setRowsPerPage(parseInt(event.target.value, 10));
 		setPage(0);
 	};
