@@ -53,26 +53,47 @@ export const cardsAPI = {
     },
     getCards(packId: string) {
         return instance.get(`cards/card?cardsPack_id=${packId}`)
-    },
-	getPacksByTitle(title: string) {
-		return instance.get<PacksDataType>(`cards/pack?packName=${title}&pageCount=${10}`)
-	}
+    }
 }
 
-// export const cardsAPI = {
-// 	getPacks(page: number, pageCount: number) {
-// 		return instance.get<PacksDataType>(`cards/pack?&page=${page}&pageCount=${pageCount}`);
-// 	},
-// 	getCards(packId: string) {
-// 		return instance.get(`cards/card?cardsPack_id=${packId}`);
-// 	},
-// 	getPacksByTitle(title: string) {
-// 		return instance.get<PacksDataType>(`cards/pack?packName=${title}&pageCount=${10}`)
-// 	}
-// }
+export type PacksDataType = {
+	user_id: string | undefined,
+	cardPacks: PackType[],
+	cardPacksTotalCount: number
+	minCardsCount: number
+	maxCardsCount: number
+	page: number
+	pageCount: number
+	search?: string | null
+	packName?: string
+	sortPacks?: sortPacks
+	min?: number,
+	max?: number,
+	params: {
+		user_id: string | undefined,
+		page: number,
+		pageCount: number,
+		sortPacks: string,
+		min?: number
+		max?: number
+		cardPacksTotalCount: number
+		packName: string,
+	}
 
+}
 
-export type PacksOptionsStateType = {
+type CardsPackType = {
+	_id: string
+	user_name: string
+	rating: number
+	user_id: string
+	name: string
+	cardsCount: number
+	created: Date
+	updated: Date
+}
+
+/*export type PacksOptionsStateType = {
 	packName: string | null;
 	min: number | null;
 	max: number | null;
@@ -80,7 +101,7 @@ export type PacksOptionsStateType = {
 	page: number | null;
 	pageCount: number | null;
 	user_id: string | null;
-};
+};*/
 
 export type GetPackRequestType = {
 	packName?: string   // english - default value
@@ -158,14 +179,14 @@ export type LoginDataType = {
     password: string,
     rememberMe?: boolean,
 }
-export type PacksDataType = {
+/*export type PacksDataType = {
     cardPacks: PackType[]
     cardPacksTotalCount: number
     maxCardsCount: number
     minCardsCount: number
     page: number
     pageCount: number
-}
+}*/
 export type PackType = {
     cardsCount: number
     created: string

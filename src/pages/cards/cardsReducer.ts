@@ -1,5 +1,6 @@
-import {cardsAPI, PacksDataType, PackType} from "../../api/api";
 import {AppThunkType} from "../../hooks/hooks";
+import {Dispatch} from "redux";
+import {cardsAPI, PacksDataType, sortPacks} from "../../api/api";
 
 const initState = {
 	user_id: undefined, // pack id
@@ -11,7 +12,7 @@ const initState = {
 	pageCount: 10, // count element ui (number of  packs on page)
 	search: null,
 	packName: '',
-	sortPacks: '0updated',
+	sortPacks: sortPacks.DES_UPDATE,
 	params: {
 		user_id: undefined,
 		page: 1,
@@ -24,7 +25,7 @@ const initState = {
 	}
 
 }
-export const cardsReducer = (state: any = initState, actions: CardsActionsType): any => {
+export const cardsReducer = (state: InitStateType = initState, actions: CardsActionsType): InitStateType => {
     switch (actions.type) {
         case "SET-PACKS":
 			console.log({...actions.payload})
@@ -40,6 +41,9 @@ export const cardsReducer = (state: any = initState, actions: CardsActionsType):
 		}
 		case "RESET-PAGE": {
 			return {...state, params: {...state.params,page: actions.page}}
+		}
+		case "GET-PACKS-BY-TITLE": {
+			return {...state, params: {...state.params,packName: actions.title}}
 		}
 		default:
             return state
@@ -62,29 +66,20 @@ export const resetPage = (page: number) => {
 	return {type: 'RESET-PAGE', page} as const
 }
 
-export const fetchGetPacks = (params: GetPackRequestType) => (dispatch: Dispatch, getState: any) => {
+export const getPacksByTitle = (title: string) => {
+	return {type: 'GET-PACKS-BY-TITLE', title} as const
+}
+
+export const fetchGetPacks = (params: any) => (dispatch: Dispatch, getState: any) => {
 	let stateParams = getState().cards.params
 	let advancedOptions = {...stateParams,  ...params};
 	cardsAPI.getPacks(advancedOptions)
 		.then((res) => {
 			dispatch(setPacks({...res.data}));
 		})
-	/*let {user_id, page, pageCount, sortPacks, min, max, cardPacksTotalCount, packName} = getState().cards;
-	let advancedOptions = {user_id, page, pageCount, sortPacks, min , max, cardPacksTotalCount, packName,  ...params};
-	cardsAPI.getPacks(advancedOptions)
-		.then((res) => {
-			dispatch(setPacks({...res.data}));
-		})*/
-}
-export const pageChanged = (currentPage: number, pageSize: number): AppThunkType => (dispatch) => {
-	console.log(currentPage)
-	cardsAPI.getPacks(currentPage, pageSize)
-		.then(res => {
-			dispatch(setPacks(res.data.cardPacks));
-		})
 }
 
-export const getPacksByTitle = (title: string): AppThunkType => async (dispatch) => {
+/*export const SEARCH = (title: string): AppThunkType => async (dispatch) => {
 	try {
 		const response = await cardsAPI.getPacksByTitle(title);
 		dispatch(setPacks(response.data.cardPacks));
@@ -94,93 +89,19 @@ export const getPacksByTitle = (title: string): AppThunkType => async (dispatch)
 
 	}
 
-}
-
-/*export const getPacks = (page: number, pageCount: number): AppThunkType => (dispatch) => {
-	cardsAPI.getPacks(page, pageCount)
-		.then((res) => {
-			console.log(res.data)
-			dispatch(setPacks(res.data.cardPacks))
-			dispatch(setPacksTotalCount(res.data.cardPacksTotalCount))
-		})
 }*/
-/*//let {user_id, page, pageCount, sortPacks, min, max, cardPacksTotalCount, packName} = getState().cards;
-let stateParams = getState().cards.params
-let advancedOptions = {...stateParams,  ...params};
-cardsAPI.getPacks(advancedOptions)
-	.then((res) => {
-		dispatch(setPacks({...res.data}));
-	})
-}*/
-
-/*export const getPacks = (page: number, pageCount: number) => (dispatch: Dispatch) => {
-    cardsAPI.getPacks(page, pageCount)
-        .then((res) => {
-            console.log(res.data)
-            dispatch(setPacks(res.data.cardPacks))
-            dispatch(setPacksTotalCount(res.data.cardPacksTotalCount))
-        })
-}
-
-//test получить список карточек
 
 export const fetchCards = (packId: string) => (dispatch: Dispatch) => {
-    cardsAPI.getCards(packId)
-        .then((res) => {
-            console.log(res.data)
-        })
-}
-
-// /*export const pageChanged = (currentPage: number, pageSize: number)=> (dispatch: Dispatch)=> {
-//     console.log(currentPage)
-//     cardsAPI.getPacks(currentPage, pageSize)
-//         .then(res => {
-//
-//
-//  */
-//             dispatch(setPacks(res.data.cardPacks))
-//         })
-// }*/
-
-/*export const getMinMaxCards = (min: number, max: number)=> (dispatch: Dispatch)=> {
-	debugger;
-	cardsAPI.getMinMaxCards(min, max)
-		.then(res => {
-			debugger;
-			console.log(res)
-			getPacks(res.data.page, res.data.pageCount)
-			dispatch(setMinMaxCount(min, max))
+	cardsAPI.getCards(packId)
+		.then((res) => {
+			console.log(res.data)
 		})
-}*/
-
-
-type InitStateType = {
-	user_id: string | undefined,
-	cardPacks: PackType[],
-	cardPacksTotalCount: number
-	minCardsCount: number
-	maxCardsCount: number
-	page: number
-	pageCount: number
-	search?: string | null
-	packName?: string
-	sortPacks?: string
-	min?: number,
-	max?: number,
-
 }
 
-type CardsPackType = {
-	_id: string
-	user_name: string
-	rating: number
-	user_id: string
-	name: string
-	cardsCount: number
-	created: Date
-	updated: Date
-}
 
-/*type InitStateType = PacksDataType*/
-type setCardsChangedType = ReturnType<typeof setPacks> | ReturnType<typeof setPacksTotalCount> | ReturnType<typeof setMinMaxCount> | ReturnType<typeof setPagination> | ReturnType< typeof resetPage>
+
+
+
+type InitStateType = PacksDataType
+type setCardsChangedType = ReturnType<typeof setPacks> | ReturnType<typeof setPacksTotalCount> | ReturnType<typeof setMinMaxCount> | ReturnType<typeof setPagination> | ReturnType< typeof resetPage> | ReturnType< typeof getPacksByTitle>
 export type CardsActionsType = setCardsChangedType

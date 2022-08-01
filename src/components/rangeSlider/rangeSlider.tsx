@@ -7,7 +7,7 @@ import {resetPage, setMinMaxCount, setPacksTotalCount} from "../../pages/cards/c
 const RangeSlider = () => {
 
 	const dispatch = useAppDispatch();
-	const [values, setValues] = useState<number[]>([0, 80])
+	const [values, setValues] = useState<number[]>([0, 110])
 	const [timerId, setTimerId] = useState<number>(0)
 	const totalCount = useAppSelector(state => state.cards.cardPacksTotalCount)
 
