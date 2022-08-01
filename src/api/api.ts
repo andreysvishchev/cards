@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from "axios";
 
 export const instance = axios.create({
     // 'https://neko-back.herokuapp.com/2.0'
@@ -29,13 +29,13 @@ export const authAPI = {
     },
     requestNewPassword(password: string, resetPasswordToken: string) {
         return instance.post<SetNewPasswordType>('/auth/set-new-password', {password, resetPasswordToken});
-    }
+    },
 }
 
 export const registrationAPI = {
     registration(data: RegistrationDataType) {
         return instance.post(`auth/register`, data);
-    }
+    },
 }
 
 export const profileAPI = {
@@ -49,15 +49,19 @@ export const profileAPI = {
 
 export const cardsAPI = {
     getPacks(page: number, pageCount: number) {
-        return instance.get<PacksDataType>(`cards/pack?&page=${page}&pageCount=${pageCount}`)
+        return instance.get<PacksDataType>(`cards/pack?&page=${page}&pageCount=${pageCount}`);
     },
     getCards(packId: string) {
-        return instance.get(`cards/card?cardsPack_id=${packId}`)
+        return instance.get(`cards/card?cardsPack_id=${packId}`);
+    },
+    getPacksByTitle(title: string) {
+        return instance.get<PacksDataType>(`cards/pack?packName=${title}&pageCount=${10}`)
     }
 }
 
+
 export type SetNewPasswordType = {
-    info: string,
+    info: string
     error: string
 }
 export type RegistrationDataType = {
@@ -65,8 +69,8 @@ export type RegistrationDataType = {
     password: string
 }
 type UpdateDataType = {
-    name: string,
-    avatar?: string,
+    name: string
+    avatar?: string
 }
 type UserResponseType = {
     _id: string
@@ -83,21 +87,21 @@ type UserResponseType = {
 }
 type UpdateUserResponseType = {
     updatedUser: {
-        _id: string,
-        email: string,
-        rememberMe: boolean,
-        isAdmin: boolean,
-        name: string,
-        verified: boolean,
-        publicCardPacksCount: number,
-        created: string,
-        updated: string,
-        __v: number,
-        token: string,
-        tokenDeathTime: number,
+        _id: string
+        email: string
+        rememberMe: boolean
+        isAdmin: boolean
+        name: string
+        verified: boolean
+        publicCardPacksCount: number
+        created: string
+        updated: string
+        __v: number
+        token: string
+        tokenDeathTime: number
         avatar: string
     },
-    token: string,
+    token: string
     tokenDeathTime: number
 }
 type LogoutResponseType = {
@@ -105,9 +109,9 @@ type LogoutResponseType = {
     error: string
 }
 export type LoginDataType = {
-    email: string,
-    password: string,
-    rememberMe?: boolean,
+    email: string
+    password: string
+    rememberMe?: boolean
 }
 export type PacksDataType = {
     cardPacks: PackType[]
@@ -125,7 +129,7 @@ export type PackType = {
     name: string
     path: string
     private: boolean
-    rating:number
+    rating: number
     shots: number
     type: string
     updated: string

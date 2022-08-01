@@ -27,7 +27,8 @@ export const appReducer = (state: InitStateType = initState, actions: AppActions
 }
 
 export const changeAppStatus = (status: RequestStatusType) => {
-    return {type: 'APP/CHANGE-APP-STATUS', status} as const;}
+    return {type: 'APP/CHANGE-APP-STATUS', status} as const;
+}
 
 export const setIsInitialized = (value: boolean) => {
     return {type: 'APP/SET_IS_INITIALIZED', payload: {value},} as const;
@@ -47,8 +48,8 @@ export const initializeApp = (): AppThunkType => async (dispatch) => {
         if (avatar) {
             dispatch(setUserData(email, name, publicCardPacksCount, avatar));
         }
-    } catch (e: any) {
-        // dispatch(setError(e.response.data.error));
+    } catch (err: any) {
+        throw new Error(err.response.data.error);
     } finally {
         dispatch(setIsInitialized(true));
     }
@@ -57,6 +58,6 @@ export const initializeApp = (): AppThunkType => async (dispatch) => {
 type InitStateType = typeof initState;
 type ChangeAppStatusType = ReturnType<typeof changeAppStatus>;
 type SetIsInitializedType = ReturnType<typeof setIsInitialized>;
-type SetErrorType = ReturnType<typeof setError>
+type SetErrorType = ReturnType<typeof setError>;
 export type AppActionsType = ChangeAppStatusType | SetIsInitializedType | SetErrorType;
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed';

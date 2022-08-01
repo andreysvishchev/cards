@@ -1,5 +1,5 @@
 import {cardsAPI, PacksDataType, PackType} from "../../api/api";
-import {Dispatch} from "redux";
+import {AppThunkType} from "../../hooks/hooks";
 
 const initState = {
     cardPacks: [],
@@ -15,19 +15,19 @@ export const cardsReducer = (state: InitStateType = initState, actions: CardsAct
             return {...state, cardPacks: actions.data}
         case "SET-PACKS-COUNT":
             return {...state, cardPacksTotalCount: actions.value}
-		default:
+        default:
             return state
     }
 }
 
 export const setPacks = (data: PackType[]) => {
-    return {type: 'SET-PACKS', data} as const
+    return {type: 'SET-PACKS', data} as const;
 }
 export const setPacksTotalCount = (value: number) => {
-    return {type: 'SET-PACKS-COUNT', value} as const
+    return {type: 'SET-PACKS-COUNT', value} as const;
 }
 
-export const getPacks = (page: number, pageCount: number) => (dispatch: Dispatch) => {
+export const getPacks = (page: number, pageCount: number): AppThunkType => (dispatch) => {
     cardsAPI.getPacks(page, pageCount)
         .then((res) => {
             console.log(res.data)
@@ -38,23 +38,34 @@ export const getPacks = (page: number, pageCount: number) => (dispatch: Dispatch
 
 //test получить список карточек
 
-export const fetchCards = (packId: string) => (dispatch: Dispatch) => {
+export const fetchCards = (packId: string): AppThunkType => (dispatch) => {
     cardsAPI.getCards(packId)
         .then((res) => {
             console.log(res.data)
         })
 }
 
-export const pageChanged = (currentPage: number, pageSize: number)=> (dispatch: Dispatch)=> {
+export const pageChanged = (currentPage: number, pageSize: number): AppThunkType => (dispatch) => {
     console.log(currentPage)
     cardsAPI.getPacks(currentPage, pageSize)
         .then(res => {
-
-            dispatch(setPacks(res.data.cardPacks))
+            dispatch(setPacks(res.data.cardPacks));
         })
 }
 
+export const getPacksByTitle = (title: string): AppThunkType => async (dispatch) => {
+    try {
+        const response = await cardsAPI.getPacksByTitle(title);
+        dispatch(setPacks(response.data.cardPacks));
+    } catch (e) {
 
-type InitStateType = PacksDataType
-type setCardsChangedType = ReturnType<typeof setPacks> | ReturnType<typeof setPacksTotalCount>
-export type CardsActionsType = setCardsChangedType
+    } finally {
+
+    }
+
+}
+
+
+type InitStateType = PacksDataType;
+type SetCardsChangedType = ReturnType<typeof setPacks> | ReturnType<typeof setPacksTotalCount>;
+export type CardsActionsType = SetCardsChangedType;
