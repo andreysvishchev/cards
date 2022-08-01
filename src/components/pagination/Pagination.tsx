@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {useAppDispatch} from "../../hooks/hooks";
-import {pageChanged} from "../../pages/cards/cardsReducer";
+import {setPagination} from "../../pages/cards/cardsReducer";
 import Stack from "@mui/material/Stack";
 import TablePagination from "@mui/material/TablePagination";
 
@@ -14,17 +14,20 @@ const Pagination = (props: PropsType) => {
 	const [rowsPerPage, setRowsPerPage] = useState(10)
 
 
-	useEffect(()=> {
-		dispatch(pageChanged(page + 1, rowsPerPage))
-	}, [page, rowsPerPage])
 
-	const handleChangePage = (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
-		setPage(newPage);
-	};
+	const handleChangePage: (
+		event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
+		value: number
+	) => void = (event, value) => {
+		setPage(value +1)
+		dispatch(setPagination(value + 1, rowsPerPage))
+	}
 
 	const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-		setRowsPerPage(parseInt(event.target.value, 10));
-		setPage(0);
+		const newValue = parseInt(event.target.value, 10)
+		setRowsPerPage(newValue);
+		setPage(1);
+		dispatch(setPagination(page,  newValue))
 	};
 
     return (
@@ -33,10 +36,10 @@ const Pagination = (props: PropsType) => {
 				<Stack>
 					{!!props.totalCount &&
 						<TablePagination
-							count={props.totalCount}
+							count={Math.ceil(props.totalCount / rowsPerPage)}
 							showFirstButton
 							showLastButton
-							page={page}
+							page={page -1}
 							onPageChange={handleChangePage}
 							rowsPerPage={rowsPerPage}
 							onRowsPerPageChange={handleChangeRowsPerPage}

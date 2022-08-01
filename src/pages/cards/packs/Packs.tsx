@@ -2,17 +2,20 @@ import React, {useEffect} from 'react';
 import Pack from "./pack/Pack";
 import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
 import {PackType} from "../../../api/api";
-import {getPacks} from "../cardsReducer";
+import {fetchGetPacks} from "../cardsReducer";
 
 const Packs = () => {
     const dispatch = useAppDispatch();
     const packs = useAppSelector<PackType[]>(state => state.cards.cardPacks)
     const page = useAppSelector<number>(state => state.cards.page)
     const pageCount = useAppSelector<number>(state => state.cards.pageCount)
+    const packsParams = useAppSelector<any>(state => state.cards.params)
 
+	console.log({page, pageCount})
     useEffect(()=> {
-        dispatch(getPacks(page, pageCount))
-    },[])
+        // dispatch(getPacks(page, pageCount))
+		dispatch(fetchGetPacks({}))
+    },[dispatch, packsParams])
 
 
     return (

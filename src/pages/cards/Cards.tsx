@@ -10,7 +10,7 @@ import {useAppSelector} from "../../hooks/hooks";
 const Cards = () => {
     const pageSize = useAppSelector(state => state.cards.pageCount)
     const currentPage = useAppSelector(state => state.cards.page)
-    const totalCount = useAppSelector(state => state.cards.cardPacksTotalCount)
+    const totalCount = useAppSelector(state => state.cards.params.cardPacksTotalCount)
 
     return (
         <div className='cards'>

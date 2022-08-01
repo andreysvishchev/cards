@@ -48,12 +48,48 @@ export const profileAPI = {
 }
 
 export const cardsAPI = {
-    getPacks(page: number, pageCount: number) {
-        return instance.get<PacksDataType>(`cards/pack?&page=${page}&pageCount=${pageCount}`)
+    getPacks(params:GetPackRequestType) {
+        return instance.get<PacksDataType>(`cards/pack`, {params: {...params}})
     },
     getCards(packId: string) {
         return instance.get(`cards/card?cardsPack_id=${packId}`)
-    }
+    },
+	getMinMaxCards(min: number, max: number) {
+		return instance.get<PacksDataType>(`cards/pack?&min=${5}&max=${7}`)
+	}
+}
+
+export type PacksOptionsStateType = {
+	packName: string | null;
+	min: number | null;
+	max: number | null;
+	sortPacks: sortPacks | null;
+	page: number | null;
+	pageCount: number | null;
+	user_id: string | null;
+};
+
+export type GetPackRequestType = {
+	packName?: string   // english - default value
+	min?: number
+	max?: number
+	sortPacks?: string  // 0updated - default value
+	page?: number
+	pageCount?: number
+	user_id?: string
+}
+
+export enum sortPacks {
+	ASC_USER_NAME = '1user_name',
+	DES_USER_NAME = '0user_name',
+	ASC_NAME = '1name',
+	DES_NAME = '0name',
+	ASC_CARDS_COUNT = '1cardsCount',
+	DES_CARDS_COUNT = '0cardsCount',
+	ASC_CREATED = '1created',
+	DES_CREATED = '0created',
+	ASC_UPDATE = '1updated',
+	DES_UPDATE = '0updated',
 }
 
 export type SetNewPasswordType = {
