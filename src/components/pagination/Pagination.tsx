@@ -10,8 +10,8 @@ type PropsType = {
 
 const Pagination = (props: PropsType) => {
     const dispatch = useAppDispatch();
-	const [page, setPage] = useState(1)
-	const [rowsPerPage, setRowsPerPage] = useState(10)
+	const [page, setPage] = useState(1);
+	const [rowsPerPage, setRowsPerPage] = useState(10);
 
 
 	useEffect(()=> {
