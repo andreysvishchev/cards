@@ -479,6 +479,27 @@
   }
 }
 
+.slider {
+  &__title {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    margin-bottom: 8px;
+  }
+  &__items {
+    display: flex;
+    align-items: center;
+  }
+  &__min{
+    margin-right: 20px;
+    margin-bottom: 5px;
+  }
+  &__max{
+    margin-left: 20px;
+    margin-bottom: 5px;
+  }
+}
+
 .search {
   max-width: 460px;
   width: 100%;
