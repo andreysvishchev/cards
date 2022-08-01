@@ -36,7 +36,7 @@ const Pagination = (props: PropsType) => {
 				<Stack>
 					{!!props.totalCount &&
 						<TablePagination
-							count={Math.ceil(props.totalCount / rowsPerPage)}
+							count={props.totalCount}
 							showFirstButton
 							showLastButton
 							page={page -1}

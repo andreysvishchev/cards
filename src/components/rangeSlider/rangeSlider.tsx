@@ -13,7 +13,7 @@ const RangeSlider = () => {
 
 	useEffect(() => {
 		dispatch(setPacksTotalCount(totalCount))
-		dispatch(resetPage(0))
+		dispatch(resetPage(1))
 	}, [totalCount])
 
 	const onChangeDoubleRange = (event: Event, newValue: number | number[]) => {

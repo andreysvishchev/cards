@@ -11,7 +11,6 @@ const Packs = () => {
     const pageCount = useAppSelector<number>(state => state.cards.pageCount)
     const packsParams = useAppSelector<any>(state => state.cards.params)
 
-	console.log({page, pageCount})
     useEffect(()=> {
         // dispatch(getPacks(page, pageCount))
 		dispatch(fetchGetPacks({}))

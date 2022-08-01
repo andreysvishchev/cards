@@ -1,4 +1,3 @@
-import {AppThunkType} from "../../hooks/hooks";
 import {Dispatch} from "redux";
 import {cardsAPI, PacksDataType, sortPacks} from "../../api/api";
 
@@ -11,7 +10,6 @@ const initState = {
 	page: 1, // for pagination
 	pageCount: 10, // count element ui (number of  packs on page)
 	search: null,
-	packName: '',
 	sortPacks: sortPacks.DES_UPDATE,
 	params: {
 		user_id: undefined,
@@ -28,7 +26,6 @@ const initState = {
 export const cardsReducer = (state: InitStateType = initState, actions: CardsActionsType): InitStateType => {
     switch (actions.type) {
         case "SET-PACKS":
-			console.log({...actions.payload})
             return {...state, ...actions.payload}
         case "SET-PACKS-COUNT":
             return {...state, params:{...state.params, cardPacksTotalCount: actions.value} }
@@ -36,7 +33,6 @@ export const cardsReducer = (state: InitStateType = initState, actions: CardsAct
 			return {...state, params: {...state.params, min: actions.min, max: actions.max}}
 		}
 		case "SET-PAGINATION": {
-			console.log(actions)
 			return {...state, params: {...state.params, page: actions.page, pageCount: actions.pageCount}}
 		}
 		case "RESET-PAGE": {
@@ -73,23 +69,12 @@ export const getPacksByTitle = (title: string) => {
 export const fetchGetPacks = (params: any) => (dispatch: Dispatch, getState: any) => {
 	let stateParams = getState().cards.params
 	let advancedOptions = {...stateParams,  ...params};
+
 	cardsAPI.getPacks(advancedOptions)
 		.then((res) => {
 			dispatch(setPacks({...res.data}));
 		})
 }
-
-/*export const SEARCH = (title: string): AppThunkType => async (dispatch) => {
-	try {
-		const response = await cardsAPI.getPacksByTitle(title);
-		dispatch(setPacks(response.data.cardPacks));
-	} catch (e) {
-
-	} finally {
-
-	}
-
-}*/
 
 export const fetchCards = (packId: string) => (dispatch: Dispatch) => {
 	cardsAPI.getCards(packId)
@@ -97,10 +82,6 @@ export const fetchCards = (packId: string) => (dispatch: Dispatch) => {
 			console.log(res.data)
 		})
 }
-
-
-
-
 
 type InitStateType = PacksDataType
 type setCardsChangedType = ReturnType<typeof setPacks> | ReturnType<typeof setPacksTotalCount> | ReturnType<typeof setMinMaxCount> | ReturnType<typeof setPagination> | ReturnType< typeof resetPage> | ReturnType< typeof getPacksByTitle>
