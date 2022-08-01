@@ -7,4 +7,11 @@ import {PasswordRecoveryActionsType} from "../pages/password-recovery/passwordRe
 import {CardsActionsType} from "../pages/cards/cardsReducer";
 
 // все типы action для всего app
-export type ActionTypeForApp = RegistrationActionsType | ProfileActionsType | LoginActionsType | AppActionsType | PasswordNewActionsType | PasswordRecoveryActionsType | CardsActionsType;
+export type ActionTypeForApp =
+    RegistrationActionsType
+    | ProfileActionsType
+    | LoginActionsType
+    | AppActionsType
+    | PasswordNewActionsType
+    | PasswordRecoveryActionsType
+    | CardsActionsType;

@@ -1,5 +1,5 @@
-import {cardsAPI, GetPackRequestType, PackType} from "../../api/api";
-import {Dispatch} from "redux";
+import {cardsAPI, PacksDataType, PackType} from "../../api/api";
+import {AppThunkType} from "../../hooks/hooks";
 
 const initState = {
 	user_id: undefined, // pack id
@@ -76,7 +76,34 @@ export const fetchGetPacks = (params: GetPackRequestType) => (dispatch: Dispatch
 			dispatch(setPacks({...res.data}));
 		})*/
 }
+export const pageChanged = (currentPage: number, pageSize: number): AppThunkType => (dispatch) => {
+	console.log(currentPage)
+	cardsAPI.getPacks(currentPage, pageSize)
+		.then(res => {
+			dispatch(setPacks(res.data.cardPacks));
+		})
+}
 
+export const getPacksByTitle = (title: string): AppThunkType => async (dispatch) => {
+	try {
+		const response = await cardsAPI.getPacksByTitle(title);
+		dispatch(setPacks(response.data.cardPacks));
+	} catch (e) {
+
+	} finally {
+
+	}
+
+}
+
+/*export const getPacks = (page: number, pageCount: number): AppThunkType => (dispatch) => {
+	cardsAPI.getPacks(page, pageCount)
+		.then((res) => {
+			console.log(res.data)
+			dispatch(setPacks(res.data.cardPacks))
+			dispatch(setPacksTotalCount(res.data.cardPacksTotalCount))
+		})
+}*/
 /*//let {user_id, page, pageCount, sortPacks, min, max, cardPacksTotalCount, packName} = getState().cards;
 let stateParams = getState().cards.params
 let advancedOptions = {...stateParams,  ...params};
@@ -93,7 +120,7 @@ cardsAPI.getPacks(advancedOptions)
             dispatch(setPacks(res.data.cardPacks))
             dispatch(setPacksTotalCount(res.data.cardPacksTotalCount))
         })
-}*/
+}
 
 //test получить список карточек
 
@@ -104,14 +131,16 @@ export const fetchCards = (packId: string) => (dispatch: Dispatch) => {
         })
 }
 
-/*export const pageChanged = (currentPage: number, pageSize: number)=> (dispatch: Dispatch)=> {
-    console.log(currentPage)
-    cardsAPI.getPacks(currentPage, pageSize)
-        .then(res => {
-
-            dispatch(setPacks(res.data.cardPacks))
-        })
-}*/
+// /*export const pageChanged = (currentPage: number, pageSize: number)=> (dispatch: Dispatch)=> {
+//     console.log(currentPage)
+//     cardsAPI.getPacks(currentPage, pageSize)
+//         .then(res => {
+//
+//
+//  */
+//             dispatch(setPacks(res.data.cardPacks))
+//         })
+// }*/
 
 /*export const getMinMaxCards = (min: number, max: number)=> (dispatch: Dispatch)=> {
 	debugger;

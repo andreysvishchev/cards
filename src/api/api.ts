@@ -54,10 +54,23 @@ export const cardsAPI = {
     getCards(packId: string) {
         return instance.get(`cards/card?cardsPack_id=${packId}`)
     },
-	getMinMaxCards(min: number, max: number) {
-		return instance.get<PacksDataType>(`cards/pack?&min=${5}&max=${7}`)
+	getPacksByTitle(title: string) {
+		return instance.get<PacksDataType>(`cards/pack?packName=${title}&pageCount=${10}`)
 	}
 }
+
+// export const cardsAPI = {
+// 	getPacks(page: number, pageCount: number) {
+// 		return instance.get<PacksDataType>(`cards/pack?&page=${page}&pageCount=${pageCount}`);
+// 	},
+// 	getCards(packId: string) {
+// 		return instance.get(`cards/card?cardsPack_id=${packId}`);
+// 	},
+// 	getPacksByTitle(title: string) {
+// 		return instance.get<PacksDataType>(`cards/pack?packName=${title}&pageCount=${10}`)
+// 	}
+// }
+
 
 export type PacksOptionsStateType = {
 	packName: string | null;

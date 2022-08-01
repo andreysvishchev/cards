@@ -30,10 +30,10 @@ export const profileReducer = (state = initialState, action: ProfileActionsType)
 }
 
 
-export const setUserData = (email: string, name: string, cardsCount: number, avatar: string) => {
+export const setUserData = (email: string, name: string, publicCardPacksCount: number, avatar: string) => {
     return {
         type: "PROFILE/SET_USER_DATA",
-        payload: {email, name, cardsCount, avatar},
+        payload: {email, name, publicCardPacksCount, avatar},
     } as const;
 }
 

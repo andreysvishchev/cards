@@ -3,7 +3,7 @@ import {authAPI} from "../../api/api";
 import {AppThunkType} from "../../hooks/hooks";
 
 const initState = {
-    passwordChanged: false
+    passwordChanged: false,
 }
 
 export const passwordNewReducer = (state: InitStateType = initState, actions: PasswordNewActionsType): InitStateType => {
@@ -36,10 +36,10 @@ export const sendResetPassword = (password: string, token: string): AppThunkType
         })
         .finally(() => {
             dispatch(changeAppStatus('idle'));
-        })
+        });
 }
 
 
-type InitStateType = typeof initState
-type setPasswordChangedType = ReturnType<typeof setPasswordChanged>
-export type PasswordNewActionsType = setPasswordChangedType
+type InitStateType = typeof initState;
+type setPasswordChangedType = ReturnType<typeof setPasswordChanged>;
+export type PasswordNewActionsType = setPasswordChangedType;

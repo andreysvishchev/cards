@@ -1,5 +1,5 @@
 import {applyMiddleware, combineReducers, legacy_createStore as createStore} from "redux";
-import thunk from 'redux-thunk'
+import thunk from 'redux-thunk';
 import {cardsReducer} from "../pages/cards/cardsReducer";
 import {registrationReducer} from "../pages/registration/registrationReducer";
 import {appReducer} from "./appReducer";
@@ -15,8 +15,8 @@ const rootReducer = combineReducers({
     registration: registrationReducer,
     profile: profileReducer,
 	passwordNew: passwordNewReducer,
-	passwordRecovery:passwordRecoveryReducer
+	passwordRecovery:passwordRecoveryReducer,
 })
 
-export const store = createStore(rootReducer, applyMiddleware(thunk))
-export type AppStateType = ReturnType<typeof rootReducer>
+export const store = createStore(rootReducer, applyMiddleware(thunk));
+export type AppStateType = ReturnType<typeof rootReducer>;
