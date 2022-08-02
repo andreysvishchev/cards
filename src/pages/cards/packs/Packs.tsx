@@ -10,7 +10,6 @@ const Packs = () => {
     const packsParams = useAppSelector<QueryParamsType>(state => state.cards.params)
 
     useEffect(()=> {
-        // dispatch(getPacks(page, pageCount))
 		dispatch(fetchGetPacks({}))
     },[dispatch, packsParams])
 
@@ -29,6 +28,7 @@ const Packs = () => {
                     return (
                         <Pack key={el._id}
                               id={el._id}
+							  authorId={el.user_id}
                               name={el.name}
                               author={el.user_name}
                               cards={el.cardsCount}

@@ -4,12 +4,21 @@ export const cardsAPI = {
 	getPacks(params: GetPackRequestType) {
 		return instance.get<PacksDataType>(`cards/pack`, {params: {...params}})
 	},
-	addPack(cardsPack: CardsPackType) {
+	addPack(cardsPack: { name: string, deckOver?: string, private?: boolean }) {
 		return instance.post<PackType>('cards/pack', {cardsPack});
 	},
+	deletePack(params: { id: string }) {
+		return instance.delete('cards/pack', {params});
+	},
+	updatePack(cardsPack: { _id: string, name: string }) {
+		return instance.put('cards/pack', {cardsPack});
+	},
+
+
 	getCards(packId: string) {
 		return instance.get<CardsResponseType>(`cards/card?cardsPack_id=${packId}`)
-	}
+	},
+
 }
 
 export type GetPackRequestType = {
@@ -33,12 +42,6 @@ export type PacksDataType = {
 	search?: string | null
 	sortPacks?: sortPacks
 	params: QueryParamsType
-}
-
-export type CardsPackType = {
-	name: string,
-	deckOver?: string,
-	private?: boolean
 }
 
 export type PackType = {

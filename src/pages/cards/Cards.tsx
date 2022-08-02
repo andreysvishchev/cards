@@ -6,7 +6,7 @@ import RangeSlider from "../../components/rangeSlider/rangeSlider";
 import Packs from "./packs/Packs";
 import Pagination from "../../components/pagination/Pagination";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
-import {addPack} from "./cardsReducer";
+import {addPack, fetchGetPacks} from "./cardsReducer";
 
 const Cards = () => {
 	const dispatch = useAppDispatch()
@@ -16,6 +16,7 @@ const Cards = () => {
 
 	const AddNewPackHandler = () => {
 		dispatch(addPack())
+
 	}
 
     return (

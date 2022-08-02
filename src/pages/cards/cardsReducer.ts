@@ -80,6 +80,24 @@ export const addPack = (): AppThunkType => (dispatch) => {
 	cardsAPI.addPack(cardsPack)
 		.then((res) => {
 			console.log(res)
+			dispatch(fetchGetPacks({}))
+		})
+}
+
+export const deletePack = (packId:string): AppThunkType => (dispatch) => {
+	cardsAPI.deletePack({id: packId})
+		.then((res) => {
+			console.log(res)
+			dispatch(fetchGetPacks({}))
+		})
+}
+
+export const changePackName = (packId:string, name: string): AppThunkType => (dispatch) => {
+	const cardsPack = {_id: packId, name}
+	cardsAPI.updatePack(cardsPack)
+		.then((res) => {
+			console.log(res)
+			dispatch(fetchGetPacks({}))
 		})
 }
 

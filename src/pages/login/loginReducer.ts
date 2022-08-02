@@ -6,12 +6,14 @@ import {authAPI} from "../../api/AuthApi";
 
 const initState = {
     isLoggedIn: false,
+	id: "",
 }
 
 export const loginReducer = (state: InitStateType = initState, actions: LoginActionsType): InitStateType => {
     switch (actions.type) {
         case "LOGIN/SET-IS-LOGGED-IN":{
-			return {...state, isLoggedIn: actions.payload.value};
+			console.log({...state, isLoggedIn: actions.payload.isLoggedIn, id: actions.payload.id})
+			return {...state, isLoggedIn: actions.payload.isLoggedIn, id: actions.payload.id};
 		}
         default:
             return state;
@@ -19,10 +21,10 @@ export const loginReducer = (state: InitStateType = initState, actions: LoginAct
 }
 
 
-export const setIsLoggedIn = (value: boolean) => {
+export const setIsLoggedIn = (isLoggedIn: boolean, id?: string ) => {
     return {
         type: "LOGIN/SET-IS-LOGGED-IN",
-        payload: {value},
+        payload: {isLoggedIn, id},
     } as const;
 }
 
@@ -38,7 +40,7 @@ export const sendLoginData = (data: LoginDataType): AppThunkType => (dispatch) =
     authAPI.login(data)
         .then((res) => {
             if (res.statusText === "OK") {
-                dispatch(setIsLoggedIn(true));
+                dispatch(setIsLoggedIn(true, res.data._id));
                 const {email, name, publicCardPacksCount, avatar = 'ava'} = res.data;
                 // аватар может быть undefined поэтому проверка
                 console.log(res)
@@ -68,7 +70,11 @@ export const logoutTC = (): AppThunkType => async (dispatch) => {
 }
 
 
-type InitStateType = typeof initState
+type InitStateType = {
+	isLoggedIn: boolean,
+	id: string | undefined,
+}
+
 type SetAuthUserDataType = ReturnType<typeof setIsLoggedIn>
 type LogoutType = ReturnType<typeof logout>
 export type LoginActionsType = SetAuthUserDataType | LogoutType
