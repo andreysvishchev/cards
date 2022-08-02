@@ -2,16 +2,25 @@ import React, {useEffect} from 'react';
 import Pack from "./pack/Pack";
 import {useAppDispatch, useAppSelector} from "../../../hooks/hooks";
 import {fetchGetPacks} from "../cardsReducer";
-import {PackType, QueryParamsType} from "../../../api/CardsApi";
+import {PackType} from "../../../api/CardsApi";
 
 const Packs = () => {
     const dispatch = useAppDispatch();
     const packs = useAppSelector<PackType[]>(state => state.cards.cardPacks)
-    const packsParams = useAppSelector<QueryParamsType>(state => state.cards.params)
+
+	//queryParams
+    // const cardPacksTotalCount = useAppSelector<number>(state => state.cards.params.cardPacksTotalCount)
+    // const user_id = useAppSelector<string | undefined>(state => state.cards.params.user_id)
+    const page = useAppSelector<number>(state => state.cards.params.page)
+    const pageCount = useAppSelector<number>(state => state.cards.params.pageCount)
+    const sortPacks = useAppSelector<string>(state => state.cards.params.sortPacks)
+    const min = useAppSelector<number | undefined>(state => state.cards.params.min)
+    const max = useAppSelector<number | undefined>(state => state.cards.params.max)
+    const packName = useAppSelector<string>(state => state.cards.params.packName)
 
     useEffect(()=> {
 		dispatch(fetchGetPacks({}))
-    },[dispatch, packsParams])
+    },[dispatch, page, pageCount, sortPacks, min, max, packName])
 
 
     return (

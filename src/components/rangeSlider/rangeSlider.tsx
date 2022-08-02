@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Slider from "@mui/material/Slider";
 import Box from "@mui/material/Box";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
-import {resetPage, setMinMaxCount, setPacksTotalCount} from "../../pages/cards/cardsReducer";
+import {setMinMaxCount, setPacksTotalCount} from "../../pages/cards/cardsReducer";
 
 const RangeSlider = () => {
 
@@ -16,15 +16,14 @@ const RangeSlider = () => {
 
 
 	useEffect(() => {
-		dispatch(setPacksTotalCount(totalCount))
-		dispatch(resetPage(1))
+		dispatch(setPacksTotalCount(1, totalCount))
 	}, [totalCount])
 
 	const onChangeDoubleRange = (event: Event, newValue: number | number[]) => {
 		const newVariableValue = newValue as number []
 		setValues(newVariableValue)
 		clearTimeout(timerId)
-		const id: number = +setTimeout(dispatch, 500, setMinMaxCount(newVariableValue[0], newVariableValue[1]),)
+		const id: number = +setTimeout(dispatch, 500, setMinMaxCount(newVariableValue[0], newVariableValue[1]))
 		setTimerId(id)
 	}
 

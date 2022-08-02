@@ -28,15 +28,12 @@ export const cardsReducer = (state: InitStateType = initState, actions: CardsAct
         case "SET-PACKS":
             return {...state, ...actions.payload}
         case "SET-PACKS-COUNT":
-            return {...state, params:{...state.params, cardPacksTotalCount: actions.value} }
+            return {...state, params:{...state.params, cardPacksTotalCount: actions.totalCount, page: actions.page}}
 		case "SET-MIN-MAX-COUNT": {
 			return {...state, params: {...state.params, min: actions.min, max: actions.max}}
 		}
 		case "SET-PAGINATION": {
 			return {...state, params: {...state.params, page: actions.page, pageCount: actions.pageCount}}
-		}
-		case "RESET-PAGE": {
-			return {...state, params: {...state.params,page: actions.page}}
 		}
 		case "GET-PACKS-BY-TITLE": {
 			return {...state, params: {...state.params,packName: actions.title}}
@@ -49,8 +46,8 @@ export const cardsReducer = (state: InitStateType = initState, actions: CardsAct
 export const setPacks = (payload: any) => {
     return {type: 'SET-PACKS', payload} as const
 }
-export const setPacksTotalCount = (value: number) => {
-    return {type: 'SET-PACKS-COUNT', value} as const
+export const setPacksTotalCount = (page: number, totalCount: number) => {
+    return {type: 'SET-PACKS-COUNT', page, totalCount} as const
 }
 export const setMinMaxCount = (min: number, max: number) => {
 	return {type: 'SET-MIN-MAX-COUNT', min, max} as const
@@ -58,9 +55,7 @@ export const setMinMaxCount = (min: number, max: number) => {
 export const setPagination = (page: number, pageCount: number) => {
 	return {type: 'SET-PAGINATION', page, pageCount} as const
 }
-export const resetPage = (page: number) => {
-	return {type: 'RESET-PAGE', page} as const
-}
+
 export const getPacksByTitle = (title: string) => {
 	return {type: 'GET-PACKS-BY-TITLE', title} as const
 }
@@ -71,6 +66,7 @@ export const fetchGetPacks = (params: any): AppThunkType => (dispatch, getState)
 
 	cardsAPI.getPacks(advancedOptions)
 		.then((res) => {
+			console.log(res)
 			dispatch(setPacks({...res.data}));
 		})
 }
@@ -109,5 +105,5 @@ export const fetchCards = (packId: string): AppThunkType => (dispatch) => {
 }
 
 type InitStateType = PacksDataType
-type setCardsChangedType = ReturnType<typeof setPacks> | ReturnType<typeof setPacksTotalCount> | ReturnType<typeof setMinMaxCount> | ReturnType<typeof setPagination> | ReturnType< typeof resetPage> | ReturnType< typeof getPacksByTitle>
+type setCardsChangedType = ReturnType<typeof setPacks> | ReturnType<typeof setPacksTotalCount> | ReturnType<typeof setMinMaxCount> | ReturnType<typeof setPagination>  | ReturnType< typeof getPacksByTitle>
 export type CardsActionsType = setCardsChangedType

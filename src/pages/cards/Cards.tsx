@@ -6,13 +6,10 @@ import RangeSlider from "../../components/rangeSlider/rangeSlider";
 import Packs from "./packs/Packs";
 import Pagination from "../../components/pagination/Pagination";
 import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
-import {addPack, fetchGetPacks} from "./cardsReducer";
+import {addPack} from "./cardsReducer";
 
 const Cards = () => {
 	const dispatch = useAppDispatch()
-    const pageSize = useAppSelector(state => state.cards.pageCount)
-    const currentPage = useAppSelector(state => state.cards.page)
-    const totalCount = useAppSelector(state => state.cards.params.cardPacksTotalCount)
 
 	const AddNewPackHandler = () => {
 		dispatch(addPack())
@@ -31,7 +28,7 @@ const Cards = () => {
                 <RangeSlider/>
             </div>
             <Packs/>
-            <Pagination totalCount={totalCount}/>
+            <Pagination/>
         </div>
     );
 };
