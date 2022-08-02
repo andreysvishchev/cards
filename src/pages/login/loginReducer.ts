@@ -1,7 +1,8 @@
 import {changeAppStatus, setError} from "../../app/appReducer";
-import {authAPI, LoginDataType} from "../../api/api";
 import {AppThunkType} from "../../hooks/hooks";
 import {setUserData} from "../profile/profileReducer";
+import {LoginDataType} from "../../api/ProfileApi";
+import {authAPI} from "../../api/AuthApi";
 
 const initState = {
     isLoggedIn: false,

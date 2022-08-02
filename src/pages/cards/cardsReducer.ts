@@ -1,5 +1,5 @@
-import {Dispatch} from "redux";
-import {cardsAPI, PacksDataType, sortPacks} from "../../api/api";
+import {AppThunkType} from "../../hooks/hooks";
+import {cardsAPI, PacksDataType, sortPacks} from "../../api/CardsApi";
 
 const initState = {
 	user_id: undefined, // pack id
@@ -61,12 +61,11 @@ export const setPagination = (page: number, pageCount: number) => {
 export const resetPage = (page: number) => {
 	return {type: 'RESET-PAGE', page} as const
 }
-
 export const getPacksByTitle = (title: string) => {
 	return {type: 'GET-PACKS-BY-TITLE', title} as const
 }
 
-export const fetchGetPacks = (params: any) => (dispatch: Dispatch, getState: any) => {
+export const fetchGetPacks = (params: any): AppThunkType => (dispatch, getState) => {
 	let stateParams = getState().cards.params
 	let advancedOptions = {...stateParams,  ...params};
 
@@ -76,7 +75,15 @@ export const fetchGetPacks = (params: any) => (dispatch: Dispatch, getState: any
 		})
 }
 
-export const fetchCards = (packId: string) => (dispatch: Dispatch) => {
+export const addPack = (): AppThunkType => (dispatch) => {
+	const cardsPack = {name: 'Test123', private: false}
+	cardsAPI.addPack(cardsPack)
+		.then((res) => {
+			console.log(res)
+		})
+}
+
+export const fetchCards = (packId: string): AppThunkType => (dispatch) => {
 	cardsAPI.getCards(packId)
 		.then((res) => {
 			console.log(res.data)

@@ -1,6 +1,6 @@
 import {Dispatch} from "redux"
-import {registrationAPI, RegistrationDataType} from "../../api/api"
 import {changeAppStatus, setError} from "../../app/appReducer"
+import {registrationAPI, RegistrationDataType} from "../../api/RegistrationApi";
 
 
 const initState = {

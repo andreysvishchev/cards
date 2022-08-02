@@ -1,7 +1,7 @@
 import {AppThunkType} from "../hooks/hooks";
-import {authAPI} from "../api/api";
 import {setIsLoggedIn} from "../pages/login/loginReducer";
 import {setUserData} from "../pages/profile/profileReducer";
+import {authAPI} from "../api/AuthApi";
 
 
 const initState = {

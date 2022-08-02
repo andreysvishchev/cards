@@ -1,6 +1,6 @@
 import {changeAppStatus, setError} from "../../app/appReducer";
-import {authAPI} from "../../api/api";
 import {AppThunkType} from "../../hooks/hooks";
+import {authAPI} from "../../api/AuthApi";
 
 const initState = {
     sendEmailRecovery: false
