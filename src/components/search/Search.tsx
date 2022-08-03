@@ -1,35 +1,39 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
-import {useAppDispatch} from "../../hooks/hooks";
-import {getPacksByTitle} from "../../pages/cards/cardsReducer";
-import {useDebounce} from "../../hooks/useDebounce";
+import React, { ChangeEvent, useEffect, useState } from 'react';
 
-const Search = () => {
-    const [value, setValue] = useState('')
-    const debouncedValue = useDebounce<string>(value, 500);
+import { useAppDispatch } from '../../common/hooks/hooks';
+import { useDebounce } from '../../common/hooks/useDebounce';
+import { ReturnComponentType } from '../../common/types/ReturnComponentsType';
+import { getPacksByTitle } from '../../pages/cards/cardsReducer';
 
-    useEffect(()=>{
-        dispatch(getPacksByTitle(value));
-    },[debouncedValue])
+const Search = (): ReturnComponentType => {
+  const delay = 500;
+  const [value, setValue] = useState('');
+  const debouncedValue = useDebounce<string>(value, delay);
 
-    const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getPacksByTitle(value));
+  }, [debouncedValue]);
 
-    const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        setValue(event.currentTarget.value);
-    }
+  const dispatch = useAppDispatch();
 
-    return (
-        <div className='search'>
-            <div className="search__title">Search</div>
-            <label className='search__label'>
-                <input
-                    value={value}
-                    onChange={onChangeHandler}
-                    placeholder={'Provide your text'}
-                    type="text"
-                    className="search__input"/>
-            </label>
-        </div>
-    );
+  const onChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
+    setValue(event.currentTarget.value);
+  };
+
+  return (
+    <div className="search">
+      <div className="search__title">Search</div>
+      <label htmlFor="input" className="search__label">
+        <input
+          value={value}
+          onChange={onChangeHandler}
+          placeholder="Provide your text"
+          type="text"
+          className="search__input"
+        />
+      </label>
+    </div>
+  );
 };
 
 export default Search;

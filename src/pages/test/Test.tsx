@@ -1,12 +1,12 @@
 import React from 'react';
-import Input from "../../components/input/Input";
-import Button from "../../components/button/Button";
 
-const Test = () => {
+import { ReturnComponentType } from '../../common/types/ReturnComponentsType';
+import Button from '../../components/button/Button';
+
+const Test = (): ReturnComponentType => {
   return (
     <div>
-      <Button title={'Кнопка'} />
-      {/* <Input placeholder={'Email'} /> */}
+      <Button title="Кнопка" submit={false} />
     </div>
   );
 };

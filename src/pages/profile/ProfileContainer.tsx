@@ -1,34 +1,41 @@
-import React, {useEffect} from 'react';
-import {Profile} from "./Profile";
-import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
-import {logoutTC} from "../login/loginReducer";
-import {useNavigate} from "react-router-dom";
-import {updateUserInfo} from "./profileReducer";
+import React, { useEffect } from 'react';
 
-const ProfileContainer = () => {
-    const dispatch = useAppDispatch();
-    const navigate = useNavigate();
-    const {avatar, name, email, publicCardPacksCount} = useAppSelector(state => state.profile);
-    const isLoggedIn = useAppSelector(state => state.login.isLoggedIn);
+import { useNavigate } from 'react-router-dom';
 
-    const logout = () => dispatch(logoutTC());
-    const editFieldHandler = (newTitle: string) => dispatch(updateUserInfo(newTitle));
+import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
+import { ReturnComponentType } from '../../common/types/ReturnComponentsType';
+import { logoutTC } from '../login/loginReducer';
 
+import { Profile } from './Profile';
+import { updateUserInfo } from './profileReducer';
 
-    useEffect(() => {
-        if (!isLoggedIn) {
-            navigate('/');
-        }
-    },[isLoggedIn]);
+const ProfileContainer = (): ReturnComponentType => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { avatar, name, email, publicCardPacksCount } = useAppSelector(
+    state => state.profile,
+  );
+  const isLoggedIn = useAppSelector(state => state.login.isLoggedIn);
 
-    return <Profile
-        editField={editFieldHandler}
-        avatar={avatar}
-        name={name}
-        email={email}
-        cardsCount={publicCardPacksCount}
-        logout={logout}
+  const logout = (): void => dispatch(logoutTC());
+  const editFieldHandler = (newTitle: string): void => dispatch(updateUserInfo(newTitle));
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate('/');
+    }
+  }, [isLoggedIn]);
+
+  return (
+    <Profile
+      editField={editFieldHandler}
+      avatar={avatar}
+      name={name}
+      email={email}
+      cardsCount={publicCardPacksCount}
+      logout={logout}
     />
+  );
 };
 
 export default ProfileContainer;

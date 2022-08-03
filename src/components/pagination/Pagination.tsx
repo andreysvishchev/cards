@@ -1,56 +1,61 @@
-import React, {useEffect, useState} from 'react';
-import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
-import { setPagination} from "../../pages/cards/cardsReducer";
-import Stack from "@mui/material/Stack";
-import TablePagination from "@mui/material/TablePagination";
+import React, { useEffect, useState } from 'react';
 
+import Stack from '@mui/material/Stack';
+import TablePagination from '@mui/material/TablePagination';
 
+import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
+import { setPagination } from '../../pages/cards/cardsReducer';
 
 const Pagination = () => {
-    const dispatch = useAppDispatch();
-	const [page, setPage] = useState(1);
-	const [rowsPerPage, setRowsPerPage] = useState(10);
-	const totalCount = useAppSelector(state => state.cards.params.cardPacksTotalCount)
-	const queryPage = useAppSelector(state => state.cards.params.page)
+  const dispatch = useAppDispatch();
+  const initRowsPerPage = 10;
+  const [rowsPerPage, setRowsPerPage] = useState(initRowsPerPage);
+  const [page, setPage] = useState(1);
+  const totalCount = useAppSelector(state => state.cards.params.cardPacksTotalCount);
+  const queryPage = useAppSelector(state => state.cards.params.page);
 
-	//for page reset
-	useEffect(() => {
-		setPage(queryPage)
-	}, [queryPage])
+  // for page reset
+  useEffect(() => {
+    setPage(queryPage);
+  }, [queryPage]);
 
-	const handleChangePage: (
-		event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
-		value: number
-	) => void = (event, value) => {
-		setPage(value +1)
-		dispatch(setPagination(value + 1, rowsPerPage))
-	}
+  const handleChangePage: (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
+    value: number,
+  ) => void = (event, value) => {
+    setPage(value + 1);
+    dispatch(setPagination(value + 1, rowsPerPage));
+  };
 
-	const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-		const newValue = parseInt(event.target.value, 10)
-		setRowsPerPage(newValue);
-		setPage(1);
-		dispatch(setPagination(page,  newValue))
-	};
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ): void => {
+    const newValue = parseInt(event.target.value, 10);
 
-    return (
-        <div className="pagination">
-            <div className="pagination__list">
-				<Stack>
-					{!!totalCount &&
-						<TablePagination
-							count={totalCount}
-							showFirstButton
-							showLastButton
-							page={page -1}
-							onPageChange={handleChangePage}
-							rowsPerPage={rowsPerPage}
-							onRowsPerPageChange={handleChangeRowsPerPage}
-						/>}
-				</Stack>
-            </div>
-        </div>
-    );
+    setRowsPerPage(newValue);
+    setPage(1);
+    dispatch(setPagination(page, newValue));
+  };
+
+  return (
+    <div className="pagination">
+      <div className="pagination__list">
+        <Stack>
+          {!!totalCount && (
+            <TablePagination
+              count={totalCount}
+              showFirstButton
+              showLastButton
+              page={page - 1}
+              onPageChange={handleChangePage}
+              rowsPerPage={rowsPerPage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          )}
+        </Stack>
+      </div>
+    </div>
+  );
 };
 
 export default Pagination;
