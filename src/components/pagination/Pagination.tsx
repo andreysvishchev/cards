@@ -4,15 +4,15 @@ import Stack from '@mui/material/Stack';
 import TablePagination from '@mui/material/TablePagination';
 
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
-import { setPagination } from '../../pages/cards/cardsReducer';
+import { setPagination } from '../../pages/cards/packsReducer';
 
 const Pagination = () => {
   const dispatch = useAppDispatch();
   const initRowsPerPage = 10;
   const [rowsPerPage, setRowsPerPage] = useState(initRowsPerPage);
   const [page, setPage] = useState(1);
-  const totalCount = useAppSelector(state => state.cards.params.cardPacksTotalCount);
-  const queryPage = useAppSelector(state => state.cards.params.page);
+  const totalCount = useAppSelector(state => state.packs.params.cardPacksTotalCount);
+  const queryPage = useAppSelector(state => state.packs.params.page);
 
   // for page reset
   useEffect(() => {

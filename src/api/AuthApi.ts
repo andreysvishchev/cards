@@ -15,7 +15,7 @@ export const authAPI = {
       'https://neko-back.herokuapp.com/2.0/auth/forgot',
       {
         email,
-        from: 'Cards slip 🤹🏼 <admin@gmail.com>',
+        from: 'PacksList slip 🤹🏼 <admin@gmail.com>',
         message: `<div style="background-color: lime; padding: 15px">
                             password recovery link:<a href='https://andreysvishchev.github.io/cards/#/set-new-password/$token$'> link</a>
                           </div>`,

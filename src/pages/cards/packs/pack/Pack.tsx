@@ -7,7 +7,7 @@ import { IconButton } from '@mui/material';
 import Stack from '@mui/material/Stack';
 
 import { useAppDispatch, useAppSelector } from '../../../../common/hooks/hooks';
-import { changePackName, deletePack, fetchCards } from '../../cardsReducer';
+import { changePackName, deletePack, fetchCards } from '../../packsReducer';
 
 type PropsType = {
   name: string;

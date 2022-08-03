@@ -1,18 +1,17 @@
 import React from 'react';
 
-import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
+import { useAppDispatch } from '../../common/hooks/hooks';
 import Button from '../../components/button/Button';
 import Filter from '../../components/filter/Filter';
 import Pagination from '../../components/pagination/Pagination';
 import RangeSlider from '../../components/rangeSlider/rangeSlider';
 import Search from '../../components/search/Search';
 
-import { addPack } from './cardsReducer';
 import Packs from './packs/Packs';
+import { addPack } from './packsReducer';
 
-const Cards = () => {
+const PacksList = () => {
   const dispatch = useAppDispatch();
-  const totalCount = useAppSelector(state => state.cards.params.cardPacksTotalCount);
 
   const AddNewPackHandler = (): void => {
     dispatch(addPack());
@@ -35,4 +34,4 @@ const Cards = () => {
   );
 };
 
-export default Cards;
+export default PacksList;

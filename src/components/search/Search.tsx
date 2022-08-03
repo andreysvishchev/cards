@@ -3,7 +3,7 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useAppDispatch } from '../../common/hooks/hooks';
 import { useDebounce } from '../../common/hooks/useDebounce';
 import { ReturnComponentType } from '../../common/types/ReturnComponentsType';
-import { getPacksByTitle } from '../../pages/cards/cardsReducer';
+import { getPacksByTitle } from '../../pages/cards/packsReducer';
 
 const Search = (): ReturnComponentType => {
   const delay = 500;

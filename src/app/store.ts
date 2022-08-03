@@ -6,6 +6,7 @@ import {
 import thunk from 'redux-thunk';
 
 import { cardsReducer } from '../pages/cards/cardsReducer';
+import { packsReducer } from '../pages/cards/packsReducer';
 import { loginReducer } from '../pages/login/loginReducer';
 import { passwordNewReducer } from '../pages/password-new/passwordNewReducer';
 import { passwordRecoveryReducer } from '../pages/password-recovery/passwordRecoveryReducer';
@@ -17,11 +18,12 @@ import { appReducer } from './appReducer';
 const rootReducer = combineReducers({
   app: appReducer,
   login: loginReducer,
-  cards: cardsReducer,
+  packs: packsReducer,
   registration: registrationReducer,
   profile: profileReducer,
   passwordNew: passwordNewReducer,
   passwordRecovery: passwordRecoveryReducer,
+  cards: cardsReducer,
 });
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));

@@ -1,25 +1,21 @@
 import React, { useEffect } from 'react';
 
-import { PackType, QueryParamsType } from '../../../api/CardsApi';
+import { PackType, QueryParamsType } from '../../../api/PackApi';
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks';
-import { fetchGetPacks } from '../cardsReducer';
+import { fetchGetPacks } from '../packsReducer';
 
 import Pack from './pack/Pack';
 
 const Packs = () => {
-  const packsParams = useAppSelector<QueryParamsType>(state => state.cards.params);
+  const packsParams = useAppSelector<QueryParamsType>(state => state.packs.params);
   const dispatch = useAppDispatch();
-  const packs = useAppSelector<PackType[]>(state => state.cards.cardPacks);
-
-  // queryParams
-  // const cardPacksTotalCount = useAppSelector<number>(state => state.cards.params.cardPacksTotalCount)
-  // const user_id = useAppSelector<string | undefined>(state => state.cards.params.user_id)
-  const page = useAppSelector<number>(state => state.cards.params.page);
-  const pageCount = useAppSelector<number>(state => state.cards.params.pageCount);
-  const sortPacks = useAppSelector<string>(state => state.cards.params.sortPacks);
-  const min = useAppSelector<number | undefined>(state => state.cards.params.min);
-  const max = useAppSelector<number | undefined>(state => state.cards.params.max);
-  const packName = useAppSelector<string>(state => state.cards.params.packName);
+  const packs = useAppSelector<PackType[]>(state => state.packs.cardPacks);
+  const page = useAppSelector<number>(state => state.packs.params.page);
+  const pageCount = useAppSelector<number>(state => state.packs.params.pageCount);
+  const sortPacks = useAppSelector<string>(state => state.packs.params.sortPacks);
+  const min = useAppSelector<number | undefined>(state => state.packs.params.min);
+  const max = useAppSelector<number | undefined>(state => state.packs.params.max);
+  const packName = useAppSelector<string>(state => state.packs.params.packName);
 
   useEffect(() => {
     dispatch(fetchGetPacks({}));

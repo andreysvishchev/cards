@@ -4,12 +4,12 @@ import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
-import { setMinMaxCount, setPacksTotalCount } from '../../pages/cards/cardsReducer';
+import { setMinMaxCount, setPacksTotalCount } from '../../pages/cards/packsReducer';
 
 const RangeSlider = () => {
-  const totalCount = useAppSelector(state => state.cards.cardPacksTotalCount);
-  const minCardsCount = useAppSelector(state => state.cards.minCardsCount);
-  const maxCardsCount = useAppSelector(state => state.cards.maxCardsCount);
+  const totalCount = useAppSelector(state => state.packs.cardPacksTotalCount);
+  const minCardsCount = useAppSelector(state => state.packs.minCardsCount);
+  const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount);
 
   const dispatch = useAppDispatch();
   const [values, setValues] = useState<number[]>([minCardsCount, maxCardsCount]);
