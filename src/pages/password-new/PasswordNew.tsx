@@ -1,61 +1,72 @@
-import React, {useEffect, useState} from 'react';
-import {useAppDispatch, useAppSelector} from "../../hooks/hooks";
-import {useFormik} from "formik";
-import {useLocation} from "react-router-dom";
-import Input from "../../components/input/Input";
-import Button from "../../components/button/Button";
-import {sendResetPassword} from "./passwordNewReducer";
+import React, { useEffect, useState } from 'react';
+
+import { useFormik } from 'formik';
+import { useLocation } from 'react-router-dom';
+
+import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
+import { ReturnComponentType } from '../../common/types/ReturnComponentsType';
+import Button from '../../components/button/Button';
+import Input from '../../components/input/Input';
+
+import { sendResetPassword } from './passwordNewReducer';
 
 type FormikErrorType = {
-	password?: string
-}
+  password?: string;
+};
 
-const PasswordNew = () => {
-	const dispatch = useAppDispatch();
-	const status = useAppSelector(state => state.app.status);
-	const [token, setToken] = useState<string>('');
-	const location = useLocation();
+const PasswordNew = (): ReturnComponentType => {
+  const dispatch = useAppDispatch();
+  const status = useAppSelector(state => state.app.status);
+  const [token, setToken] = useState<string>('');
+  const location = useLocation();
 
-	useEffect(() => {
-		if(location.pathname) {
-			const getToken = location.pathname.split('/').reverse()[0];
-			setToken(getToken);
-		}
-	}, [location.pathname])
+  useEffect(() => {
+    if (location.pathname) {
+      const getToken = location.pathname.split('/').reverse()[0];
 
-	const formik = useFormik({
-		initialValues: {
-			password: '',
-		},
-		validate: (values) => {
-			const errors: FormikErrorType = {};
-			if (!values.password) {
-				errors.password = 'Поле обязательно для заполнения';
-			}
-			return errors;
-		},
-		onSubmit: values => {
-			dispatch(sendResetPassword(values.password, token));
-			formik.resetForm();
-		},
-	})
+      setToken(getToken);
+    }
+  }, [location.pathname]);
 
-	return (
-		<div className='frame'>
-			<div className='title'>Create new password</div>
-				<form className="form" onSubmit={formik.handleSubmit}>
-					<Input placeholder='Password' password={true} {...formik.getFieldProps('password')}
-						   error={formik.errors.password && formik.touched.password}
-						   errorText={formik.errors.password}/>
-					<div className="passwordRecovery__text">
-						Create new password and we will send you further instructions to email
-					</div>
-					<div style={{marginTop: '36px', display: 'flex', justifyContent: 'center'}}>
-						<Button title='Create new password' disabled={status === 'loading'} type='submit'/>
-					</div>
-				</form>
-		</div>
-	);
+  const formik = useFormik({
+    initialValues: {
+      password: '',
+    },
+    validate: values => {
+      const errors: FormikErrorType = {};
+
+      if (!values.password) {
+        errors.password = 'Поле обязательно для заполнения';
+      }
+
+      return errors;
+    },
+    onSubmit: values => {
+      dispatch(sendResetPassword(values.password, token));
+      formik.resetForm();
+    },
+  });
+
+  return (
+    <div className="frame">
+      <div className="title">Create new password</div>
+      <form className="form" onSubmit={formik.handleSubmit}>
+        <Input
+          placeholder="Password"
+          password
+          {...formik.getFieldProps('password')}
+          error={formik.errors.password && formik.touched.password}
+          errorText={formik.errors.password}
+        />
+        <div className="passwordRecovery__text">
+          Create new password and we will send you further instructions to email
+        </div>
+        <div style={{ marginTop: '36px', display: 'flex', justifyContent: 'center' }}>
+          <Button title="Create new password" disabled={status === 'loading'} submit />
+        </div>
+      </form>
+    </div>
+  );
 };
 
 export default PasswordNew;
