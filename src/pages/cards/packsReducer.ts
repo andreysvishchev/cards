@@ -133,14 +133,6 @@ export const changePackName =
     });
   };
 
-export const fetchCards =
-  (packId: string): AppThunkType =>
-  () => {
-    packApi.getCards(packId).then(res => {
-      console.log(res.data);
-    });
-  };
-
 export const getMyPacks =
   (id: string): AppThunkType =>
   async dispatch => {

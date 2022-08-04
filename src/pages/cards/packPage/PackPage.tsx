@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { memo, useEffect } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks';
 import Pagination from '../../../components/pagination/Pagination';
@@ -7,13 +7,14 @@ import { getCards } from '../cardsReducer';
 
 import Card from './Card';
 
-const PackPage = () => {
+const PackPage = memo(() => {
   const dispatch = useAppDispatch();
   const cards = useAppSelector(state => state.cards.cards);
+  // const packId = useAppSelector(state => state.);
 
-  useEffect(() => {
-    dispatch(getCards());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getCards(packId));
+  // }, [dispatch]);
 
   return (
     <div className="cards">
@@ -46,6 +47,6 @@ const PackPage = () => {
       <Pagination />
     </div>
   );
-};
+});
 
 export default PackPage;

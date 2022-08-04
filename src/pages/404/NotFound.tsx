@@ -1,7 +1,7 @@
 import React from 'react';
 
-const NoteFound = () => {
+const NotFound = () => {
   return <div>404</div>;
 };
 
-export default NoteFound;
+export default NotFound;

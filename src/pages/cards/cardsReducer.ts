@@ -1,4 +1,5 @@
 import { cardsApi, CardsType, CardType } from '../../api/CardsApi';
+import { packApi } from '../../api/PackApi';
 import { AppThunkType } from '../../common/hooks/hooks';
 
 const initState: CardsType = {
@@ -51,11 +52,13 @@ const setCards = (card: CardType[]) => {
   } as const;
 };
 
-export const getCards = (): AppThunkType => async dispatch => {
-  const response = await cardsApi.getCards('62e7d5d7e6cac4192079781a');
+export const getCards =
+  (packId: string): AppThunkType =>
+  async dispatch => {
+    const response = await cardsApi.getCards(packId);
 
-  dispatch(setCards(response.data.cards));
-};
+    dispatch(setCards(response.data.cards));
+  };
 
 type SetCardsType = ReturnType<typeof setCards>;
 export type CardsActionsType = SetCardsType;

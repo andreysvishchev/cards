@@ -16,9 +16,6 @@ export const packApi = {
   getPacksOfCertainUser(userId: string) {
     return instance.get<PacksDataType>(`/cards/pack?user_id=${userId}`);
   },
-  getCards(packId: string) {
-    return instance.get<CardsResponseType>(`cards/card?cardsPack_id=${packId}`);
-  },
 };
 
 export type GetPackRequestType = {
