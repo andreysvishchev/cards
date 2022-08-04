@@ -41,17 +41,23 @@ const Pagination = () => {
     <div className="pagination">
       <div className="pagination__list">
         <Stack>
-          {!!totalCount && (
-            <TablePagination
-              count={totalCount}
-              showFirstButton
-              showLastButton
-              page={page - 1}
-              onPageChange={handleChangePage}
-              rowsPerPage={rowsPerPage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            />
-          )}
+          <table>
+            <tbody>
+              <tr>
+                {!!totalCount && (
+                  <TablePagination
+                    count={totalCount}
+                    showFirstButton
+                    showLastButton
+                    page={page - 1}
+                    onPageChange={handleChangePage}
+                    rowsPerPage={rowsPerPage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                  />
+                )}
+              </tr>
+            </tbody>
+          </table>
         </Stack>
       </div>
     </div>
