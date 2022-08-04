@@ -1,4 +1,5 @@
-import { packApi, PacksDataType, sortPacks } from '../../api/PackApi';
+import { packApi, PacksDataType, PackType, sortPacks } from '../../api/PackApi';
+import { setError } from '../../app/appReducer';
 import { AppStateType } from '../../app/store';
 import { AppThunkType } from '../../common/hooks/hooks';
 
@@ -29,9 +30,9 @@ export const packsReducer = (
   actions: PacksActionsType,
 ): InitStateType => {
   switch (actions.type) {
-    case 'SET-PACKS':
+    case 'PACKS/SET-PACKS':
       return { ...state, ...actions.payload };
-    case 'SET-PACKS-COUNT':
+    case 'PACKS/SET-PACKS-COUNT':
       return {
         ...state,
         params: {
@@ -40,23 +41,26 @@ export const packsReducer = (
           page: actions.page,
         },
       };
-    case 'SET-MIN-MAX-COUNT': {
+    case 'PACKS/SET-MIN-MAX-COUNT': {
       return {
         ...state,
         params: { ...state.params, min: actions.min, max: actions.max },
       };
     }
-    case 'SET-PAGINATION': {
+    case 'PACKS/SET-PAGINATION': {
       return {
         ...state,
         params: { ...state.params, page: actions.page, pageCount: actions.pageCount },
       };
     }
-    case 'RESET-PAGE': {
+    case 'PACKS/RESET-PAGE': {
       return { ...state, params: { ...state.params, page: actions.page } };
     }
-    case 'GET-PACKS-BY-TITLE': {
+    case 'PACKS/GET-PACKS-BY-TITLE': {
       return { ...state, params: { ...state.params, packName: actions.title } };
+    }
+    case 'PACKS/GET-PACKS-OF-CERTAIN-USER': {
+      return { ...state, cardPacks: [...actions.packs] };
     }
     default:
       return state;
@@ -64,33 +68,40 @@ export const packsReducer = (
 };
 
 export const setPacks = (payload: any) => {
-  return { type: 'SET-PACKS', payload } as const;
+  return { type: 'PACKS/SET-PACKS', payload } as const;
 };
 export const setPacksTotalCount = (page: number, totalCount: number) => {
-  return { type: 'SET-PACKS-COUNT', page, totalCount } as const;
+  return { type: 'PACKS/SET-PACKS-COUNT', page, totalCount } as const;
 };
 export const setMinMaxCount = (min: number, max: number) => {
-  return { type: 'SET-MIN-MAX-COUNT', min, max } as const;
+  return { type: 'PACKS/SET-MIN-MAX-COUNT', min, max } as const;
 };
 export const setPagination = (page: number, pageCount: number) => {
-  return { type: 'SET-PAGINATION', page, pageCount } as const;
+  return { type: 'PACKS/SET-PAGINATION', page, pageCount } as const;
 };
 export const resetPage = (page: number) => {
-  return { type: 'RESET-PAGE', page } as const;
+  return { type: 'PACKS/RESET-PAGE', page } as const;
 };
 export const getPacksByTitle = (title: string) => {
-  return { type: 'GET-PACKS-BY-TITLE', title } as const;
+  return { type: 'PACKS/GET-PACKS-BY-TITLE', title } as const;
+};
+export const setPacksOfCertainUser = (packs: PackType[]) => {
+  return { type: 'PACKS/GET-PACKS-OF-CERTAIN-USER', packs } as const;
 };
 
-export const fetchGetPacks =
+export const getPacks =
   (params: any): AppThunkType =>
-  (dispatch, getState: () => AppStateType) => {
-    const stateParams = getState().packs.params;
-    const advancedOptions = { ...stateParams, ...params };
+  async (dispatch, getState: () => AppStateType) => {
+    try {
+      const stateParams = getState().packs.params;
+      const advancedOptions = { ...stateParams, ...params };
 
-    packApi.getPacks(advancedOptions).then(res => {
-      dispatch(setPacks({ ...res.data }));
-    });
+      const response = await packApi.getPacks(advancedOptions);
+
+      dispatch(setPacks({ ...response.data }));
+    } catch (err: any) {
+      dispatch(setError(err.response.data.error));
+    }
   };
 
 export const addPack = (): AppThunkType => dispatch => {
@@ -98,7 +109,7 @@ export const addPack = (): AppThunkType => dispatch => {
 
   packApi.addPack(cardsPack).then(res => {
     console.log(res);
-    dispatch(fetchGetPacks({}));
+    dispatch(getPacks({}));
   });
 };
 
@@ -107,7 +118,7 @@ export const deletePack =
   dispatch => {
     packApi.deletePack({ id: packId }).then(res => {
       console.log(res);
-      dispatch(fetchGetPacks({}));
+      dispatch(getPacks({}));
     });
   };
 
@@ -118,7 +129,7 @@ export const changePackName =
 
     packApi.updatePack(cardsPack).then(res => {
       console.log(res);
-      dispatch(fetchGetPacks({}));
+      dispatch(getPacks({}));
     });
   };
 
@@ -130,6 +141,17 @@ export const fetchCards =
     });
   };
 
+export const getMyPacks =
+  (id: string): AppThunkType =>
+  async dispatch => {
+    try {
+      const myPacks = await packApi.getPacksOfCertainUser(id);
+
+      dispatch(setPacksOfCertainUser(myPacks.data.cardPacks));
+    } catch (e: any) {
+      console.log(e.message);
+    }
+  };
 type InitStateType = PacksDataType;
 export type PacksActionsType =
   | ReturnType<typeof setPacks>
@@ -137,4 +159,5 @@ export type PacksActionsType =
   | ReturnType<typeof setMinMaxCount>
   | ReturnType<typeof setPagination>
   | ReturnType<typeof resetPage>
-  | ReturnType<typeof getPacksByTitle>;
+  | ReturnType<typeof getPacksByTitle>
+  | ReturnType<typeof setPacksOfCertainUser>;

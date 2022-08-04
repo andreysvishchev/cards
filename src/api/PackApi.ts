@@ -13,7 +13,9 @@ export const packApi = {
   updatePack(cardsPack: { _id: string; name: string }) {
     return instance.put('cards/pack', { cardsPack });
   },
-
+  getPacksOfCertainUser(userId: string) {
+    return instance.get<PacksDataType>(`/cards/pack?user_id=${userId}`);
+  },
   getCards(packId: string) {
     return instance.get<CardsResponseType>(`cards/card?cardsPack_id=${packId}`);
   },
@@ -43,7 +45,9 @@ export type PacksDataType = {
 };
 
 export type PackType = {
+  __v: number;
   _id: string;
+  cardsCount: number;
   user_id: string;
   user_name: string;
   private: boolean;
@@ -51,13 +55,11 @@ export type PackType = {
   path: string;
   grade: number;
   shots: number;
-  cardsCount: number;
   created: string;
   more_id: string;
   rating: number;
   type: string;
   updated: string;
-  __v: number;
 };
 
 export type CardsResponseType = {
