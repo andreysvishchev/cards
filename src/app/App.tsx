@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../common/hooks/hooks';
 import { ErrorSnackBar } from '../components/errorSnackbar/ErrorSnackbar';
 import HeaderContainer from '../components/header/HeaderContainer';
 import NoteFound from '../pages/404/NotFound';
-import PackPage from '../pages/cards/PackPage/PackPage';
+import PackPage from '../pages/cards/packPage/PackPage';
 import PacksList from '../pages/cards/PacksList';
 import Login from '../pages/login/Login';
 import PasswordNew from '../pages/password-new/PasswordNew';

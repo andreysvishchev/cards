@@ -44,11 +44,11 @@ export const initializeApp = (): AppThunkType => async dispatch => {
     const auth = await authAPI.authMe();
 
     dispatch(setIsLoggedIn(true));
-    const { email, name, publicCardPacksCount, avatar = 'ava' } = auth.data;
+    const { email, _id, name, publicCardPacksCount, avatar = 'ava' } = auth.data;
 
     // аватар может быть undefined поэтому проверка
     if (avatar) {
-      dispatch(setUserData(email, name, publicCardPacksCount, avatar));
+      dispatch(setUserData(email, _id, name, publicCardPacksCount, avatar));
     }
   } catch (err: any) {
     throw new Error(err.response.data.error);

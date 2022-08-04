@@ -44,11 +44,11 @@ export const sendLoginData =
       .then(res => {
         if (res.statusText === 'OK') {
           dispatch(setIsLoggedIn(true, res.data._id));
-          const { email, name, publicCardPacksCount, avatar = 'ava' } = res.data;
+          const { email, _id, name, publicCardPacksCount, avatar = 'ava' } = res.data;
 
           // аватар может быть undefined поэтому проверка
           if (avatar) {
-            dispatch(setUserData(email, name, publicCardPacksCount, avatar));
+            dispatch(setUserData(email, _id, name, publicCardPacksCount, avatar));
           }
         }
       })

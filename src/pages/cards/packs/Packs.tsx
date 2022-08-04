@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import { PackType, QueryParamsType } from '../../../api/PackApi';
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks';
-import { fetchGetPacks } from '../packsReducer';
+import { getPacks } from '../packsReducer';
 
 import Pack from './pack/Pack';
 
@@ -18,7 +18,7 @@ const Packs = () => {
   const packName = useAppSelector<string>(state => state.packs.params.packName);
 
   useEffect(() => {
-    dispatch(fetchGetPacks({}));
+    dispatch(getPacks({}));
   }, [dispatch, page, pageCount, sortPacks, min, max, packName]);
 
   return (

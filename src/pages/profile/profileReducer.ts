@@ -34,13 +34,14 @@ export const profileReducer = (
 
 export const setUserData = (
   email: string,
+  _id: string,
   name: string,
   publicCardPacksCount: number,
   avatar: string,
-): any => {
+) => {
   return {
     type: 'PROFILE/SET_USER_DATA',
-    payload: { email, name, publicCardPacksCount, avatar },
+    payload: { email, name, publicCardPacksCount, avatar, _id },
   } as const;
 };
 
