@@ -6,7 +6,8 @@ import { Navigate, NavLink, Route, Routes } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../common/hooks/hooks';
 import { ErrorSnackBar } from '../components/errorSnackbar/ErrorSnackbar';
 import HeaderContainer from '../components/header/HeaderContainer';
-import NoteFound from '../pages/404/NotFound';
+import NotFound from '../pages/404/NotFound';
+import EmptyPackPage from '../pages/cards/packPage/EmptyPackPage';
 import PackPage from '../pages/cards/packPage/PackPage';
 import PacksList from '../pages/cards/PacksList';
 import Login from '../pages/login/Login';
@@ -62,13 +63,13 @@ const App = (): any => {
           profile
         </NavLink>
         <NavLink className="navlink" to="/cards">
-          cards
+          packs
         </NavLink>
         <NavLink className="navlink" to="/test">
           test
         </NavLink>
         <NavLink className="navlink" to="/packPage">
-          packPage
+          cards
         </NavLink>
       </div>
       <div className="content">
@@ -81,8 +82,9 @@ const App = (): any => {
             <Route path="/registration" element={<Registration />} />
             <Route path="/profile" element={<ProfileContainer />} />
             <Route path="/test" element={<Test />} />
-            <Route path="/404" element={<NoteFound />} />
+            <Route path="/404" element={<NotFound />} />
             <Route path="/packPage" element={<PackPage />} />
+            <Route path="/emptyPackPage" element={<EmptyPackPage />} />
             <Route path="*" element={<Navigate to="/404" />} />
           </Routes>
           <ErrorSnackBar />

@@ -424,6 +424,7 @@
   transition: background-color .2s ease-in-out;
   cursor: pointer;
   align-items: center;
+
   &:hover {
     background-color: #f8f7f7;
   }
@@ -488,15 +489,18 @@
     line-height: 17px;
     margin-bottom: 8px;
   }
+
   &__items {
     display: flex;
     align-items: center;
   }
-  &__min{
+
+  &__min {
     margin-right: 20px;
     margin-bottom: 5px;
   }
-  &__max{
+
+  &__max {
     margin-left: 20px;
     margin-bottom: 5px;
   }
@@ -557,5 +561,18 @@
   display: flex;
   justify-content: flex-end;
   margin-top: 25px;
+}
 
+.empty-pack {
+  &__flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+  }
+
+  &__text {
+    margin-bottom: 30px;
+  }
 }
