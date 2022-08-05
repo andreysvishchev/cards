@@ -1,14 +1,13 @@
 import React, { memo, useEffect } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks';
-import Pagination from '../../../components/pagination/Pagination';
-import Search from '../../../components/search/Search';
-import { getCards } from '../cardsReducer';
+import { Pagination } from '../../../components/pagination/Pagination';
+import { Search } from '../../../components/search/Search';
 import { getPacks } from '../packsReducer';
 
-import Card from './Card';
+import { Card } from './Card';
 
-const PackPage = memo(() => {
+export const PackPage = memo(() => {
   const dispatch = useAppDispatch();
   const cards = useAppSelector(state => state.cards.cards);
   const packName = useAppSelector(state => state.packs.params.packName);
@@ -49,5 +48,3 @@ const PackPage = memo(() => {
     </div>
   );
 });
-
-export default PackPage;

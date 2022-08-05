@@ -6,8 +6,8 @@ import { useFormik } from 'formik';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
-import Button from '../../components/button/Button';
-import Input from '../../components/input/Input';
+import { Button } from '../../components/button/Button';
+import { Input } from '../../components/input/Input';
 
 import { sendLoginData } from './loginReducer';
 
@@ -17,7 +17,7 @@ type FormikErrorType = {
   rememberMe?: boolean;
 };
 
-const Login = () => {
+export const Login = () => {
   const dispatch = useAppDispatch();
   const status = useAppSelector(state => state.app.status);
   const isLoggedIn = useAppSelector(state => state.login.isLoggedIn);
@@ -102,5 +102,3 @@ const Login = () => {
     </div>
   );
 };
-
-export default Login;

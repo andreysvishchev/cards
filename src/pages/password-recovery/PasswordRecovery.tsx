@@ -4,8 +4,8 @@ import { useFormik } from 'formik';
 import { NavLink } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
-import Button from '../../components/button/Button';
-import Input from '../../components/input/Input';
+import { Button } from '../../components/button/Button';
+import { Input } from '../../components/input/Input';
 
 import { sendPasswordRecoveryData } from './passwordRecoveryReducer';
 
@@ -13,7 +13,7 @@ type FormikErrorType = {
   email?: string;
 };
 
-const PasswordRecovery = () => {
+export const PasswordRecovery = () => {
   const emailSent = useAppSelector(state => state.passwordRecovery.sendEmailRecovery);
   const dispatch = useAppDispatch();
   const [messageEmail, setMessageEmail] = useState<string>('example@mail.com');
@@ -76,5 +76,3 @@ const PasswordRecovery = () => {
     </div>
   );
 };
-
-export default PasswordRecovery;

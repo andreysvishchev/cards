@@ -3,7 +3,7 @@ import React from 'react';
 import { Rating } from '@mui/material';
 import Stack from '@mui/material/Stack';
 
-const Card: React.FC<CardPropsType> = props => {
+export const Card: React.FC<CardPropsType> = props => {
   const { answer, grade, lastUpdated, question } = props;
 
   return (
@@ -19,8 +19,6 @@ const Card: React.FC<CardPropsType> = props => {
     </div>
   );
 };
-
-export default Card;
 
 type CardPropsType = {
   question: string;

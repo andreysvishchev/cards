@@ -6,7 +6,7 @@ import { useAppSelector } from '../../common/hooks/hooks';
 
 import { Header } from './Header';
 
-const HeaderContainer = () => {
+export const HeaderContainer = () => {
   const isAuth = useAppSelector(state => state.login.isLoggedIn);
   const { name, avatar } = useAppSelector(state => state.profile);
   const navigate = useNavigate();
@@ -16,5 +16,3 @@ const HeaderContainer = () => {
     <Header navToSignIn={navToSignIn} avatar={avatar} userName={name} isAuth={isAuth} />
   );
 };
-
-export default HeaderContainer;

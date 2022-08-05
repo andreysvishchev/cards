@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
 
-const Checkbox = () => {
+export const Checkbox = () => {
   const [value, setValue] = useState(false);
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
     setValue(e.currentTarget.checked);
@@ -20,5 +20,3 @@ const Checkbox = () => {
     </label>
   );
 };
-
-export default Checkbox;

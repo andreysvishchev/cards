@@ -20,7 +20,7 @@ type PropsType = {
   authorId: string;
 };
 
-const Pack = memo((props: PropsType) => {
+export const Pack = memo((props: PropsType) => {
   const { id, name, cards, authorId, author, lastUploaded } = props;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -81,5 +81,3 @@ const Pack = memo((props: PropsType) => {
     </div>
   );
 });
-
-export default Pack;

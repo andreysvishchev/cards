@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Button from '../../../components/button/Button';
+import { Button } from '../../../components/button/Button';
 
-const EmptyPackPage = () => {
+export const EmptyPackPage = () => {
   return (
     <div className="empty-pack">
       <div className="empty-pack__top">
@@ -19,5 +19,3 @@ const EmptyPackPage = () => {
     </div>
   );
 };
-
-export default EmptyPackPage;

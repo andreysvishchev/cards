@@ -4,7 +4,7 @@ import { useAppDispatch } from '../../common/hooks/hooks';
 import { useDebounce } from '../../common/hooks/useDebounce';
 import { getPacksByTitle } from '../../pages/cards/packsReducer';
 
-const Search = () => {
+export const Search = () => {
   const delay = 500;
   const [value, setValue] = useState('');
   const debouncedValue = useDebounce<string>(value, delay);
@@ -34,5 +34,3 @@ const Search = () => {
     </div>
   );
 };
-
-export default Search;

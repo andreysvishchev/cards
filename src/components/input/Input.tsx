@@ -11,7 +11,7 @@ type PropsType = {
   onChange?: (e: React.ChangeEvent<any>) => void;
   name?: string;
 };
-const Input: React.FC<PropsType> = ({
+export const Input: React.FC<PropsType> = ({
   placeholder,
   type,
   password,
@@ -81,5 +81,3 @@ const Input: React.FC<PropsType> = ({
     </div>
   );
 };
-
-export default Input;

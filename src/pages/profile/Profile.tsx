@@ -2,7 +2,7 @@ import React from 'react';
 
 import defaultAvatar from '../../assets/img/avatar.png';
 import { useAppSelector } from '../../common/hooks/hooks';
-import Button from '../../components/button/Button';
+import { Button } from '../../components/button/Button';
 import { EditableSpan } from '../../components/editableSpan/EditableSpan';
 
 export const Profile = React.memo((props: ProfilePropsType) => {
