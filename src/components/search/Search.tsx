@@ -2,10 +2,9 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 
 import { useAppDispatch } from '../../common/hooks/hooks';
 import { useDebounce } from '../../common/hooks/useDebounce';
-import { ReturnComponentType } from '../../common/types/ReturnComponentsType';
 import { getPacksByTitle } from '../../pages/cards/packsReducer';
 
-const Search = (): ReturnComponentType => {
+const Search = () => {
   const delay = 500;
   const [value, setValue] = useState('');
   const debouncedValue = useDebounce<string>(value, delay);

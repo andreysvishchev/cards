@@ -1,4 +1,7 @@
+import { ThunkAction, ThunkDispatch } from 'redux-thunk';
+
 import { AppActionsType } from '../../app/appReducer';
+import { AppStateType } from '../../app/store';
 import { CardsActionsType } from '../../pages/cards/cardsReducer';
 import { PacksActionsType } from '../../pages/cards/packsReducer';
 import { LoginActionsType } from '../../pages/login/loginReducer';
@@ -17,3 +20,6 @@ export type ActionTypeForApp =
   | PasswordRecoveryActionsType
   | PacksActionsType
   | CardsActionsType;
+// типизация для диспатча санок в санках
+export type AppThunkType = ThunkAction<void, AppStateType, unknown, ActionTypeForApp>;
+export type ThunkDispatchType = ThunkDispatch<AppStateType, unknown, ActionTypeForApp>;

@@ -24,7 +24,7 @@ const Pack = memo((props: PropsType) => {
   const { id, name, cards, authorId, author, lastUploaded } = props;
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const userId = useAppSelector(state => state.login.id);
+  const userId = useAppSelector(state => state.profile._id);
 
   const getCardsHandler = () => {
     dispatch(getCards(id));
@@ -41,8 +41,10 @@ const Pack = memo((props: PropsType) => {
   const learnAboutPackHandler = () => {};
 
   return (
-    <div onClick={getCardsHandler} className="pack">
-      <div className="pack__col">{name}</div>
+    <div className="pack">
+      <div onClick={getCardsHandler} className="pack__col">
+        {name}
+      </div>
       <div className="pack__col">{cards}</div>
       <div className="pack__col">{lastUploaded}</div>
       <div className="pack__col">{author}</div>

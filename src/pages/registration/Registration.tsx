@@ -4,7 +4,6 @@ import { useFormik } from 'formik';
 import { NavLink } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
-import { ReturnComponentType } from '../../common/types/ReturnComponentsType';
 import Button from '../../components/button/Button';
 import Input from '../../components/input/Input';
 
@@ -16,7 +15,7 @@ type FormikErrorType = {
   confirm_password?: string;
 };
 
-const Registration = (): ReturnComponentType => {
+const Registration = () => {
   const send = useAppSelector(state => state.registration.send);
   const dispatch = useAppDispatch();
   const [messageEmail, setMessageEmail] = useState<string>('example@mail.com');

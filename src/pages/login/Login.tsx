@@ -6,7 +6,6 @@ import { useFormik } from 'formik';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
-import { ReturnComponentType } from '../../common/types/ReturnComponentsType';
 import Button from '../../components/button/Button';
 import Input from '../../components/input/Input';
 
@@ -18,7 +17,7 @@ type FormikErrorType = {
   rememberMe?: boolean;
 };
 
-const Login = (): ReturnComponentType => {
+const Login = () => {
   const dispatch = useAppDispatch();
   const status = useAppSelector(state => state.app.status);
   const isLoggedIn = useAppSelector(state => state.login.isLoggedIn);
@@ -28,7 +27,7 @@ const Login = (): ReturnComponentType => {
     if (isLoggedIn) {
       navigate('/profile');
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, navigate]);
 
   const formik = useFormik({
     initialValues: {

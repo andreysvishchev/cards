@@ -4,7 +4,6 @@ import { useFormik } from 'formik';
 import { useLocation } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
-import { ReturnComponentType } from '../../common/types/ReturnComponentsType';
 import Button from '../../components/button/Button';
 import Input from '../../components/input/Input';
 
@@ -14,7 +13,7 @@ type FormikErrorType = {
   password?: string;
 };
 
-const PasswordNew = (): ReturnComponentType => {
+const PasswordNew = () => {
   const dispatch = useAppDispatch();
   const status = useAppSelector(state => state.app.status);
   const [token, setToken] = useState<string>('');

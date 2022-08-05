@@ -4,7 +4,6 @@ import { useFormik } from 'formik';
 import { NavLink } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
-import { ReturnComponentType } from '../../common/types/ReturnComponentsType';
 import Button from '../../components/button/Button';
 import Input from '../../components/input/Input';
 
@@ -14,7 +13,7 @@ type FormikErrorType = {
   email?: string;
 };
 
-const PasswordRecovery = (): ReturnComponentType => {
+const PasswordRecovery = () => {
   const emailSent = useAppSelector(state => state.passwordRecovery.sendEmailRecovery);
   const dispatch = useAppDispatch();
   const [messageEmail, setMessageEmail] = useState<string>('example@mail.com');

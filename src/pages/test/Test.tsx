@@ -1,9 +1,8 @@
 import React from 'react';
 
-import { ReturnComponentType } from '../../common/types/ReturnComponentsType';
 import Button from '../../components/button/Button';
 
-const Test = (): ReturnComponentType => {
+const Test = () => {
   return (
     <div>
       <Button title="Кнопка" submit={false} />

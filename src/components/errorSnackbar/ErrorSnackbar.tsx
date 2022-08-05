@@ -6,13 +6,12 @@ import Stack from '@mui/material/Stack';
 
 import { setError } from '../../app/appReducer';
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
-import { ReturnComponentType } from '../../common/types/ReturnComponentsType';
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export const ErrorSnackBar = (): ReturnComponentType => {
+export const ErrorSnackBar = () => {
   const error = useAppSelector(state => state.app.error);
   const dispatch = useAppDispatch();
 

@@ -1,8 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
 
-import { ReturnComponentType } from '../../common/types/ReturnComponentsType';
-
-const Checkbox = (): ReturnComponentType => {
+const Checkbox = () => {
   const [value, setValue] = useState(false);
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
     setValue(e.currentTarget.checked);

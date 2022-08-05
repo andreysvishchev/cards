@@ -3,13 +3,12 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
-import { ReturnComponentType } from '../../common/types/ReturnComponentsType';
 import { logoutTC } from '../login/loginReducer';
 
 import { Profile } from './Profile';
 import { updateUserInfo } from './profileReducer';
 
-const ProfileContainer = (): ReturnComponentType => {
+const ProfileContainer = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { avatar, name, email, publicCardPacksCount } = useAppSelector(
