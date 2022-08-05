@@ -1,5 +1,5 @@
 import { authAPI } from '../api/AuthApi';
-import { AppThunkType } from '../common/hooks/hooks';
+import { AppThunkType } from '../common/types/types';
 import { setIsLoggedIn } from '../pages/login/loginReducer';
 import { setUserData } from '../pages/profile/profileReducer';
 
@@ -46,10 +46,7 @@ export const initializeApp = (): AppThunkType => async dispatch => {
     dispatch(setIsLoggedIn(true));
     const { email, _id, name, publicCardPacksCount, avatar = 'ava' } = auth.data;
 
-    // аватар может быть undefined поэтому проверка
-    if (avatar) {
-      dispatch(setUserData(email, _id, name, publicCardPacksCount, avatar));
-    }
+    dispatch(setUserData(email, _id, name, publicCardPacksCount, avatar));
   } catch (err: any) {
     throw new Error(err.response.data.error);
   } finally {

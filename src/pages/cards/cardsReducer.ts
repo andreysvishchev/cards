@@ -1,6 +1,5 @@
 import { cardsApi, CardsType, CardType } from '../../api/CardsApi';
-import { packApi } from '../../api/PackApi';
-import { AppThunkType } from '../../common/hooks/hooks';
+import { AppThunkType } from '../../common/types/types';
 
 const initState: CardsType = {
   cards: [

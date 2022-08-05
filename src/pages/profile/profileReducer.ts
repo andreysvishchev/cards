@@ -1,6 +1,6 @@
 import { profileAPI } from '../../api/ProfileApi';
 import { setError } from '../../app/appReducer';
-import { AppThunkType } from '../../common/hooks/hooks';
+import { AppThunkType } from '../../common/types/types';
 
 const initialState: ProfileStateType = {
   _id: '',
