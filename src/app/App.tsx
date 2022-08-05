@@ -15,7 +15,6 @@ import PasswordNew from '../pages/password-new/PasswordNew';
 import PasswordRecovery from '../pages/password-recovery/PasswordRecovery';
 import ProfileContainer from '../pages/profile/ProfileContainer';
 import Registration from '../pages/registration/Registration';
-import Test from '../pages/test/Test';
 
 import { initializeApp } from './appReducer';
 
@@ -25,7 +24,7 @@ const App = (): any => {
 
   useEffect(() => {
     dispatch(initializeApp());
-  }, []);
+  }, [dispatch]);
 
   if (!isInitialized) {
     return (
@@ -62,29 +61,22 @@ const App = (): any => {
         <NavLink className="navlink" to="/profile">
           profile
         </NavLink>
-        <NavLink className="navlink" to="/cards">
+        <NavLink className="navlink" to="/packs">
           packs
-        </NavLink>
-        <NavLink className="navlink" to="/test">
-          test
-        </NavLink>
-        <NavLink className="navlink" to="/packPage">
-          cards
         </NavLink>
       </div>
       <div className="content">
         <div className="container">
           <Routes>
             <Route path="/" element={<Login />} />
-            <Route path="/set-new-password/*" element={<PasswordNew />} />
-            <Route path="/password-recovery" element={<PasswordRecovery />} />
-            <Route path="/cards" element={<PacksList />} />
-            <Route path="/registration" element={<Registration />} />
-            <Route path="/profile" element={<ProfileContainer />} />
-            <Route path="/test" element={<Test />} />
-            <Route path="/404" element={<NotFound />} />
-            <Route path="/packPage" element={<PackPage />} />
-            <Route path="/emptyPackPage" element={<EmptyPackPage />} />
+            <Route path="set-new-password/*" element={<PasswordNew />} />
+            <Route path="password-recovery" element={<PasswordRecovery />} />
+            <Route path="packs" element={<PacksList />} />
+            <Route path="registration" element={<Registration />} />
+            <Route path="profile" element={<ProfileContainer />} />
+            <Route path="404" element={<NotFound />} />
+            <Route path="packPage" element={<PackPage />} />
+            <Route path="emptyPackPage" element={<EmptyPackPage />} />
             <Route path="*" element={<Navigate to="/404" />} />
           </Routes>
           <ErrorSnackBar />

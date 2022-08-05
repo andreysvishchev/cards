@@ -13,7 +13,7 @@ import { addPack } from './packsReducer';
 const PacksList = () => {
   const dispatch = useAppDispatch();
 
-  const AddNewPackHandler = (): void => {
+  const addNewPackHandler = (): void => {
     dispatch(addPack());
   };
 
@@ -21,7 +21,7 @@ const PacksList = () => {
     <div className="cards">
       <div className="cards__top">
         <div className="cards__title">Packs list</div>
-        <Button title="Add new pack" callBack={AddNewPackHandler} submit={false} />
+        <Button title="Add new pack" callBack={addNewPackHandler} submit={false} />
       </div>
       <div className="cards__menu">
         <Search />
