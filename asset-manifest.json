@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/cards/static/css/main.b0fc89bb.css",
-    "main.js": "/cards/static/js/main.b847a5bf.js",
+    "main.css": "/cards/static/css/main.57541d90.css",
+    "main.js": "/cards/static/js/main.703e5242.js",
     "static/media/SFUIText-Semibold.woff": "/cards/static/media/SFUIText-Semibold.df4855fdeebbfd730663.woff",
     "static/media/SFUIText-Medium.woff": "/cards/static/media/SFUIText-Medium.7a83304e816b06d35492.woff",
     "static/media/SFUIText-Bold.woff": "/cards/static/media/SFUIText-Bold.42a114dc81fbcbfb38c2.woff",
@@ -19,11 +19,11 @@
     "static/media/search.svg": "/cards/static/media/search.f161824b0f966009030e.svg",
     "index.html": "/cards/index.html",
     "static/media/eye.svg": "/cards/static/media/eye.b30b1f6a2b20057708f4.svg",
-    "main.b0fc89bb.css.map": "/cards/static/css/main.b0fc89bb.css.map",
-    "main.b847a5bf.js.map": "/cards/static/js/main.b847a5bf.js.map"
+    "main.57541d90.css.map": "/cards/static/css/main.57541d90.css.map",
+    "main.703e5242.js.map": "/cards/static/js/main.703e5242.js.map"
   },
   "entrypoints": [
-    "static/css/main.b0fc89bb.css",
-    "static/js/main.b847a5bf.js"
+    "static/css/main.57541d90.css",
+    "static/js/main.703e5242.js"
   ]
 }
