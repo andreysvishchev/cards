@@ -4,8 +4,8 @@ import { useFormik } from 'formik';
 import { useLocation } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
-import Button from '../../components/button/Button';
-import Input from '../../components/input/Input';
+import { Button } from '../../components/button/Button';
+import { Input } from '../../components/input/Input';
 
 import { sendResetPassword } from './passwordNewReducer';
 
@@ -13,7 +13,7 @@ type FormikErrorType = {
   password?: string;
 };
 
-const PasswordNew = () => {
+export const PasswordNew = () => {
   const dispatch = useAppDispatch();
   const status = useAppSelector(state => state.app.status);
   const [token, setToken] = useState<string>('');
@@ -67,5 +67,3 @@ const PasswordNew = () => {
     </div>
   );
 };
-
-export default PasswordNew;

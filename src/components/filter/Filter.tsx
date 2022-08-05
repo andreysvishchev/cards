@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
 import { getMyPacks, getPacks } from '../../pages/cards/packsReducer';
 
-const Filter = () => {
+export const Filter = () => {
   const [isActive, setIsActive] = useState(false);
 
   const id = useAppSelector(state => state.profile._id);
@@ -48,5 +48,3 @@ const Filter = () => {
     </div>
   );
 };
-
-export default Filter;

@@ -8,7 +8,7 @@ import { logoutTC } from '../login/loginReducer';
 import { Profile } from './Profile';
 import { updateUserInfo } from './profileReducer';
 
-const ProfileContainer = () => {
+export const ProfileContainer = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { avatar, name, email, publicCardPacksCount } = useAppSelector(
@@ -36,5 +36,3 @@ const ProfileContainer = () => {
     />
   );
 };
-
-export default ProfileContainer;

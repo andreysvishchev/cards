@@ -1,7 +1,7 @@
 import React from 'react';
 
 import logo from '../../assets/img/logo.svg';
-import Button from '../button/Button';
+import { Button } from '../button/Button';
 
 export const Header: React.FC<HeaderPropsType> = props => {
   const { isAuth, userName, avatar, navToSignIn } = props;

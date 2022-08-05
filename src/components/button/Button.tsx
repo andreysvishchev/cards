@@ -6,7 +6,7 @@ type PropsType = {
   submit: boolean;
   disabled?: boolean;
 };
-const Button = React.memo((props: PropsType) => {
+export const Button = React.memo((props: PropsType) => {
   const { callBack, title, disabled, submit } = props;
 
   return (
@@ -20,5 +20,3 @@ const Button = React.memo((props: PropsType) => {
     </button>
   );
 });
-
-export default Button;

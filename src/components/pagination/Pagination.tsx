@@ -6,7 +6,7 @@ import TablePagination from '@mui/material/TablePagination';
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
 import { setPagination } from '../../pages/cards/packsReducer';
 
-const Pagination = () => {
+export const Pagination = () => {
   const dispatch = useAppDispatch();
   const initRowsPerPage = 10;
   const [rowsPerPage, setRowsPerPage] = useState(initRowsPerPage);
@@ -63,5 +63,3 @@ const Pagination = () => {
     </div>
   );
 };
-
-export default Pagination;

@@ -5,20 +5,20 @@ import { Navigate, NavLink, Route, Routes } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../common/hooks/hooks';
 import { ErrorSnackBar } from '../components/errorSnackbar/ErrorSnackbar';
-import HeaderContainer from '../components/header/HeaderContainer';
-import NotFound from '../pages/404/NotFound';
-import EmptyPackPage from '../pages/cards/packPage/EmptyPackPage';
-import PackPage from '../pages/cards/packPage/PackPage';
-import PacksList from '../pages/cards/PacksList';
-import Login from '../pages/login/Login';
-import PasswordNew from '../pages/password-new/PasswordNew';
-import PasswordRecovery from '../pages/password-recovery/PasswordRecovery';
-import ProfileContainer from '../pages/profile/ProfileContainer';
-import Registration from '../pages/registration/Registration';
+import { HeaderContainer } from '../components/header/HeaderContainer';
+import { NotFound } from '../pages/404/NotFound';
+import { EmptyPackPage } from '../pages/cards/packPage/EmptyPackPage';
+import { PackPage } from '../pages/cards/packPage/PackPage';
+import { PacksList } from '../pages/cards/PacksList';
+import { Login } from '../pages/login/Login';
+import { PasswordNew } from '../pages/password-new/PasswordNew';
+import { PasswordRecovery } from '../pages/password-recovery/PasswordRecovery';
+import { ProfileContainer } from '../pages/profile/ProfileContainer';
+import { Registration } from '../pages/registration/Registration';
 
 import { initializeApp } from './appReducer';
 
-const App = (): any => {
+export const App = (): any => {
   const dispatch = useAppDispatch();
   const isInitialized = useAppSelector(state => state.app.isInitialized);
 
@@ -85,5 +85,3 @@ const App = (): any => {
     </div>
   );
 };
-
-export default App;

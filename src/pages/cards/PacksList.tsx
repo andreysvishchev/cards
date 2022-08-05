@@ -1,16 +1,16 @@
 import React from 'react';
 
 import { useAppDispatch } from '../../common/hooks/hooks';
-import Button from '../../components/button/Button';
-import Filter from '../../components/filter/Filter';
-import Pagination from '../../components/pagination/Pagination';
-import RangeSlider from '../../components/rangeSlider/rangeSlider';
-import Search from '../../components/search/Search';
+import { Button } from '../../components/button/Button';
+import { Filter } from '../../components/filter/Filter';
+import { Pagination } from '../../components/pagination/Pagination';
+import { RangeSlider } from '../../components/rangeSlider/rangeSlider';
+import { Search } from '../../components/search/Search';
 
-import Packs from './packs/Packs';
+import { Packs } from './packs/Packs';
 import { addPack } from './packsReducer';
 
-const PacksList = () => {
+export const PacksList = () => {
   const dispatch = useAppDispatch();
 
   const addNewPackHandler = (): void => {
@@ -33,5 +33,3 @@ const PacksList = () => {
     </div>
   );
 };
-
-export default PacksList;

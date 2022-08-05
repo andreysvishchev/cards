@@ -1,21 +1,20 @@
 import React, { useEffect } from 'react';
 
-import { PackType, QueryParamsType } from '../../../api/PackApi';
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks';
 import { getPacks } from '../packsReducer';
 
-import Pack from './pack/Pack';
+import { Pack } from './pack/Pack';
 
-const Packs = () => {
-  const packsParams = useAppSelector<QueryParamsType>(state => state.packs.params);
+export const Packs = () => {
+  const packsParams = useAppSelector(state => state.packs.params);
   const dispatch = useAppDispatch();
-  const packs = useAppSelector<PackType[]>(state => state.packs.cardPacks);
-  const page = useAppSelector<number>(state => state.packs.params.page);
-  const pageCount = useAppSelector<number>(state => state.packs.params.pageCount);
-  const sortPacks = useAppSelector<string>(state => state.packs.params.sortPacks);
-  const min = useAppSelector<number | undefined>(state => state.packs.params.min);
-  const max = useAppSelector<number | undefined>(state => state.packs.params.max);
-  const packName = useAppSelector<string>(state => state.packs.params.packName);
+  const packs = useAppSelector(state => state.packs.cardPacks);
+  const page = useAppSelector(state => state.packs.params.page);
+  const pageCount = useAppSelector(state => state.packs.params.pageCount);
+  const sortPacks = useAppSelector(state => state.packs.params.sortPacks);
+  const min = useAppSelector(state => state.packs.params.min);
+  const max = useAppSelector(state => state.packs.params.max);
+  const packName = useAppSelector(state => state.packs.params.packName);
 
   useEffect(() => {
     dispatch(getPacks({}));
@@ -48,5 +47,3 @@ const Packs = () => {
     </div>
   );
 };
-
-export default Packs;

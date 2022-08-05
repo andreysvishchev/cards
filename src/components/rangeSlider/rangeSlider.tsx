@@ -6,7 +6,7 @@ import Slider from '@mui/material/Slider';
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
 import { setMinMaxCount, setPacksTotalCount } from '../../pages/cards/packsReducer';
 
-const RangeSlider = () => {
+export const RangeSlider = () => {
   const totalCount = useAppSelector(state => state.packs.cardPacksTotalCount);
   const minCardsCount = useAppSelector(state => state.packs.minCardsCount);
   const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount);
@@ -57,5 +57,3 @@ const RangeSlider = () => {
     </div>
   );
 };
-
-export default RangeSlider;
