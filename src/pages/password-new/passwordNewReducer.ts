@@ -1,6 +1,6 @@
 import { authAPI } from '../../api/AuthApi';
 import { changeAppStatus, setError } from '../../app/appReducer';
-import { AppThunkType } from '../../common/hooks/hooks';
+import { AppThunkType } from '../../common/types/types';
 
 const initState = {
   passwordChanged: false,
@@ -28,21 +28,16 @@ export const setPasswordChanged = (value: boolean) => {
 
 export const sendResetPassword =
   (password: string, token: string): AppThunkType =>
-  dispatch => {
+  async dispatch => {
     dispatch(changeAppStatus('loading'));
-    authAPI
-      .requestNewPassword(password, token)
-      .then(res => {
-        if (res.statusText === 'OK') {
-          dispatch(setPasswordChanged(true));
-        }
-      })
-      .catch(err => {
-        dispatch(setError(err.response.data.error));
-      })
-      .finally(() => {
-        dispatch(changeAppStatus('idle'));
-      });
+    try {
+      await authAPI.requestNewPassword(password, token);
+      dispatch(setPasswordChanged(true));
+    } catch (err: any) {
+      dispatch(setError(err.response.data.error));
+    } finally {
+      dispatch(changeAppStatus('idle'));
+    }
   };
 
 type InitStateType = typeof initState;

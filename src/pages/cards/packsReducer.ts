@@ -1,7 +1,7 @@
 import { packApi, PacksDataType, PackType, sortPacks } from '../../api/PackApi';
 import { setError } from '../../app/appReducer';
 import { AppStateType } from '../../app/store';
-import { AppThunkType } from '../../common/hooks/hooks';
+import { AppThunkType } from '../../common/types/types';
 
 const initState = {
   user_id: undefined, // pack id
@@ -104,33 +104,39 @@ export const getPacks =
     }
   };
 
-export const addPack = (): AppThunkType => dispatch => {
+export const addPack = (): AppThunkType => async dispatch => {
   const cardsPack = { name: 'Test123', private: false };
 
-  packApi.addPack(cardsPack).then(res => {
-    console.log(res);
+  try {
+    await packApi.addPack(cardsPack);
     dispatch(getPacks({}));
-  });
+  } catch (err: any) {
+    dispatch(setError(err.response.data.error));
+  }
 };
 
 export const deletePack =
   (packId: string): AppThunkType =>
-  dispatch => {
-    packApi.deletePack({ id: packId }).then(res => {
-      console.log(res);
+  async dispatch => {
+    try {
+      await packApi.deletePack({ id: packId });
       dispatch(getPacks({}));
-    });
+    } catch (err: any) {
+      dispatch(setError(err.response.data.error));
+    }
   };
 
 export const changePackName =
   (packId: string, name: string): AppThunkType =>
-  dispatch => {
+  async dispatch => {
     const cardsPack = { _id: packId, name };
 
-    packApi.updatePack(cardsPack).then(res => {
-      console.log(res);
+    try {
+      await packApi.updatePack(cardsPack);
       dispatch(getPacks({}));
-    });
+    } catch (err: any) {
+      dispatch(setError(err.response.data.error));
+    }
   };
 
 export const getMyPacks =
@@ -140,8 +146,8 @@ export const getMyPacks =
       const myPacks = await packApi.getPacksOfCertainUser(id);
 
       dispatch(setPacksOfCertainUser(myPacks.data.cardPacks));
-    } catch (e: any) {
-      console.log(e.message);
+    } catch (err: any) {
+      dispatch(setError(err.response.data.error));
     }
   };
 type InitStateType = PacksDataType;

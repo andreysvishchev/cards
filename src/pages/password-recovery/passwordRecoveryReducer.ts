@@ -1,6 +1,6 @@
 import { authAPI } from '../../api/AuthApi';
 import { changeAppStatus, setError } from '../../app/appReducer';
-import { AppThunkType } from '../../common/hooks/hooks';
+import { AppThunkType } from '../../common/types/types';
 
 const initState = {
   sendEmailRecovery: false,
@@ -28,21 +28,16 @@ export const setEmailSent = (value: boolean) => {
 
 export const sendPasswordRecoveryData =
   (email: string): AppThunkType =>
-  dispatch => {
+  async dispatch => {
     dispatch(changeAppStatus('loading'));
-    authAPI
-      .requestRecoveryLink(email)
-      .then(res => {
-        if (res.statusText === 'OK') {
-          dispatch(setEmailSent(true));
-        }
-      })
-      .catch(err => {
-        dispatch(setError(err.response.data.error));
-      })
-      .finally(() => {
-        dispatch(changeAppStatus('idle'));
-      });
+    try {
+      await authAPI.requestRecoveryLink(email);
+      dispatch(setEmailSent(true));
+    } catch (err: any) {
+      dispatch(setError(err.response.data.error));
+    } finally {
+      dispatch(changeAppStatus('idle'));
+    }
   };
 
 type InitStateType = typeof initState;

@@ -1,7 +1,6 @@
-import { Dispatch } from 'redux';
-
 import { registrationAPI, RegistrationDataType } from '../../api/RegistrationApi';
 import { changeAppStatus, setError } from '../../app/appReducer';
+import { AppThunkType } from '../../common/types/types';
 
 const initState = {
   send: false,
@@ -24,21 +23,18 @@ export const changeStatusRegistration = (value: boolean): any => {
 };
 
 export const sendRegistrationData =
-  (data: RegistrationDataType) => (dispatch: Dispatch) => {
+  (data: RegistrationDataType): AppThunkType =>
+  async dispatch => {
     dispatch(changeAppStatus('loading'));
-    registrationAPI
-      .registration(data)
-      .then(res => {
-        if (res.statusText === 'Created') {
-          dispatch(changeStatusRegistration(true));
-        }
-      })
-      .catch((err: any) => {
-        dispatch(setError(err.response.data.error));
-      })
-      .finally(() => {
-        dispatch(changeAppStatus('idle'));
-      });
+    try {
+      await registrationAPI.registration(data);
+
+      dispatch(changeStatusRegistration(true));
+    } catch (err: any) {
+      dispatch(setError(err.response.data.error));
+    } finally {
+      dispatch(changeAppStatus('idle'));
+    }
   };
 type InitStateType = typeof initState;
 export type RegistrationActionsType = ReturnType<typeof changeStatusRegistration>;

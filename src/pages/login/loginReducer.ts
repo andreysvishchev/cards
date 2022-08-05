@@ -1,7 +1,7 @@
 import { authAPI } from '../../api/AuthApi';
 import { LoginDataType } from '../../api/ProfileApi';
 import { changeAppStatus, setError } from '../../app/appReducer';
-import { AppThunkType } from '../../common/hooks/hooks';
+import { AppThunkType } from '../../common/types/types';
 import { setUserData } from '../profile/profileReducer';
 
 const initState = {
@@ -37,27 +37,20 @@ export const logout = () => {
 
 export const sendLoginData =
   (data: LoginDataType): AppThunkType =>
-  dispatch => {
+  async dispatch => {
     dispatch(changeAppStatus('loading'));
-    authAPI
-      .login(data)
-      .then(res => {
-        if (res.statusText === 'OK') {
-          dispatch(setIsLoggedIn(true, res.data._id));
-          const { email, _id, name, publicCardPacksCount, avatar = 'ava' } = res.data;
+    try {
+      const response = await authAPI.login(data);
 
-          // аватар может быть undefined поэтому проверка
-          if (avatar) {
-            dispatch(setUserData(email, _id, name, publicCardPacksCount, avatar));
-          }
-        }
-      })
-      .catch(err => {
-        dispatch(setError(err.response.data.error));
-      })
-      .finally(() => {
-        dispatch(changeAppStatus('idle'));
-      });
+      dispatch(setIsLoggedIn(true, response.data._id));
+      const { email, _id, name, publicCardPacksCount, avatar = 'ava' } = response.data;
+
+      dispatch(setUserData(email, _id, name, publicCardPacksCount, avatar));
+    } catch (err: any) {
+      dispatch(setError(err.response.data.error));
+    } finally {
+      dispatch(changeAppStatus('idle'));
+    }
   };
 
 export const logoutTC = (): AppThunkType => async dispatch => {
