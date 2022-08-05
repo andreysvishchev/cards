@@ -4,22 +4,23 @@ import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks';
 import Pagination from '../../../components/pagination/Pagination';
 import Search from '../../../components/search/Search';
 import { getCards } from '../cardsReducer';
+import { getPacks } from '../packsReducer';
 
 import Card from './Card';
 
 const PackPage = memo(() => {
   const dispatch = useAppDispatch();
   const cards = useAppSelector(state => state.cards.cards);
-  // const packId = useAppSelector(state => state.);
+  const packName = useAppSelector(state => state.packs.params.packName);
 
-  // useEffect(() => {
-  //   dispatch(getCards(packId));
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(getPacks({}));
+  }, [dispatch, packName]);
 
   return (
     <div className="cards">
       <div className="cards__top">
-        <div className="cards__title">CardName</div>
+        <div className="cards__title">PackName</div>
       </div>
       <div className="cards__menu">
         <Search />
