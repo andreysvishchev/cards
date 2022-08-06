@@ -19,7 +19,6 @@ export const authAPI = {
         message: `<div style="background-color: lime; padding: 15px">
                             password recovery link:<a href='https://andreysvishchev.github.io/cards/#/set-new-password/$token$'> link</a>
                           </div>`,
-        // на gh-pages нужно будет обратно поставить /# и поменять localhost на адрес gh-pages (https://andreysvishchev.github.io/cards/#/set-new-password/$token$)
       },
     );
   },

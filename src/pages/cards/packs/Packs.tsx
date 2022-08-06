@@ -6,9 +6,9 @@ import { getPacks } from '../packsReducer';
 import { Pack } from './pack/Pack';
 
 export const Packs = () => {
-  const packsParams = useAppSelector(state => state.packs.params);
   const dispatch = useAppDispatch();
   const packs = useAppSelector(state => state.packs.cardPacks);
+  const userId = useAppSelector(state => state.packs.params.user_id);
   const page = useAppSelector(state => state.packs.params.page);
   const pageCount = useAppSelector(state => state.packs.params.pageCount);
   const sortPacks = useAppSelector(state => state.packs.params.sortPacks);
@@ -18,7 +18,7 @@ export const Packs = () => {
 
   useEffect(() => {
     dispatch(getPacks({}));
-  }, [dispatch, page, pageCount, sortPacks, min, max, packName]);
+  }, [dispatch, page, pageCount, sortPacks, min, max, packName, userId]);
 
   return (
     <div className="packs">
