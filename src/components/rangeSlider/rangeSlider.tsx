@@ -12,13 +12,18 @@ export const RangeSlider = () => {
   const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount);
 
   const dispatch = useAppDispatch();
+  // @ts-ignore
   const [values, setValues] = useState<number[]>([minCardsCount, maxCardsCount]);
   const [timerId, setTimerId] = useState<number>(0);
   const delay = 500;
 
   useEffect(() => {
     dispatch(setPacksTotalCount(1, totalCount));
-  }, [totalCount]);
+  }, [dispatch, totalCount]);
+
+  useEffect(() => {
+    setValues([minCardsCount, maxCardsCount]);
+  }, [minCardsCount, maxCardsCount]);
 
   const onChangeDoubleRange = (event: Event, newValue: number | number[]): void => {
     const newVariableValue = newValue as number[];

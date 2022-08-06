@@ -1,4 +1,4 @@
-import { packApi, PacksDataType, PackType, sortPacks } from '../../api/PackApi';
+import { packApi, PacksDataType, sortPacks } from '../../api/PackApi';
 import { setError } from '../../app/appReducer';
 import { AppStateType } from '../../app/store';
 import { AppThunkType } from '../../common/types/types';
@@ -19,9 +19,9 @@ const initState = {
     pageCount: 10, // 10/25/50
     sortPacks: '0updated',
     min: 0, // min cards for selector
-    max: 80, // max cards for selector
+    max: 110, // max cards for selector
     cardPacksTotalCount: 10, // all
-    packName: '',
+    packName: '', // search
   },
 };
 
@@ -60,7 +60,13 @@ export const packsReducer = (
       return { ...state, params: { ...state.params, packName: actions.title } };
     }
     case 'PACKS/GET-PACKS-OF-CERTAIN-USER': {
-      return { ...state, cardPacks: [...actions.packs] };
+      return { ...state, params: { ...state.params, user_id: actions.userId } };
+    }
+    case 'PACKS/GET-PACKS-OF-ALL-USER': {
+      return {
+        ...state,
+        params: { ...state.params, user_id: undefined, min: 0, max: 110 },
+      };
     }
     default:
       return state;
@@ -85,8 +91,11 @@ export const resetPage = (page: number) => {
 export const getPacksByTitle = (title: string) => {
   return { type: 'PACKS/GET-PACKS-BY-TITLE', title } as const;
 };
-export const setPacksOfCertainUser = (packs: PackType[]) => {
-  return { type: 'PACKS/GET-PACKS-OF-CERTAIN-USER', packs } as const;
+export const setPacksOfCertainUser = (userId: any) => {
+  return { type: 'PACKS/GET-PACKS-OF-CERTAIN-USER', userId } as const;
+};
+export const setPacksOfAllUsers = () => {
+  return { type: 'PACKS/GET-PACKS-OF-ALL-USER' } as const;
 };
 
 export const getPacks =
@@ -139,17 +148,6 @@ export const changePackName =
     }
   };
 
-export const getMyPacks =
-  (id: string): AppThunkType =>
-  async dispatch => {
-    try {
-      const myPacks = await packApi.getPacksOfCertainUser(id);
-
-      dispatch(setPacksOfCertainUser(myPacks.data.cardPacks));
-    } catch (err: any) {
-      dispatch(setError(err.response.data.error));
-    }
-  };
 type InitStateType = PacksDataType;
 export type PacksActionsType =
   | ReturnType<typeof setPacks>
@@ -158,4 +156,5 @@ export type PacksActionsType =
   | ReturnType<typeof setPagination>
   | ReturnType<typeof resetPage>
   | ReturnType<typeof getPacksByTitle>
-  | ReturnType<typeof setPacksOfCertainUser>;
+  | ReturnType<typeof setPacksOfCertainUser>
+  | ReturnType<typeof setPacksOfAllUsers>;

@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
-import { getMyPacks, getPacks } from '../../pages/cards/packsReducer';
+import {
+  setPacksOfAllUsers,
+  setPacksOfCertainUser,
+} from '../../pages/cards/packsReducer';
 
 export const Filter = () => {
   const [isActive, setIsActive] = useState(false);
@@ -10,11 +13,11 @@ export const Filter = () => {
   const dispatch = useAppDispatch();
 
   const getMyPacksHandler = () => {
-    dispatch(getMyPacks(id));
+    dispatch(setPacksOfCertainUser(id));
     setIsActive(true);
   };
   const getAllPacksHandler = () => {
-    dispatch(getPacks({}));
+    dispatch(setPacksOfAllUsers());
     setIsActive(false);
   };
 
