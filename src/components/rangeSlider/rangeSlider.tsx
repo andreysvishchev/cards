@@ -10,6 +10,7 @@ export const RangeSlider = () => {
   const totalCount = useAppSelector(state => state.packs.cardPacksTotalCount);
   const minCardsCount = useAppSelector(state => state.packs.minCardsCount);
   const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount);
+  const disabled = useAppSelector(state => state.app.status);
 
   const dispatch = useAppDispatch();
   // @ts-ignore
@@ -53,6 +54,7 @@ export const RangeSlider = () => {
               value={values}
               onChange={onChangeDoubleRange}
               valueLabelDisplay="auto"
+              disabled={disabled === 'loading'}
             />
           </Box>
           <span className="slider__max">{values[1]}</span>

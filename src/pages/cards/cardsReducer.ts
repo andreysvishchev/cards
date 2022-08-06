@@ -1,4 +1,5 @@
 import { cardsApi, CardsType, CardType } from '../../api/CardsApi';
+import { changeAppStatus, setError } from '../../app/appReducer';
 import { AppThunkType } from '../../common/types/types';
 
 const initState: CardsType = {
@@ -54,9 +55,16 @@ const setCards = (card: CardType[]) => {
 export const getCards =
   (packId: string): AppThunkType =>
   async dispatch => {
-    const response = await cardsApi.getCards(packId);
+    dispatch(changeAppStatus('loading'));
+    try {
+      const response = await cardsApi.getCards(packId);
 
-    dispatch(setCards(response.data.cards));
+      dispatch(setCards(response.data.cards));
+    } catch (err: any) {
+      dispatch(setError(err.response.data.error));
+    } finally {
+      dispatch(changeAppStatus('idle'));
+    }
   };
 
 type SetCardsType = ReturnType<typeof setCards>;

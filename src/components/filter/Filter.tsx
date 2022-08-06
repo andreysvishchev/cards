@@ -10,6 +10,7 @@ export const Filter = () => {
   const [isActive, setIsActive] = useState(false);
 
   const id = useAppSelector(state => state.profile._id);
+  const disabled = useAppSelector(state => state.app.status);
   const dispatch = useAppDispatch();
 
   const getMyPacksHandler = () => {
@@ -27,6 +28,7 @@ export const Filter = () => {
       <div className="filter__buttons">
         <button
           onClick={getMyPacksHandler}
+          disabled={disabled === 'loading'}
           type="button"
           className={
             isActive
@@ -39,6 +41,7 @@ export const Filter = () => {
         <button
           onClick={getAllPacksHandler}
           type="button"
+          disabled={disabled === 'loading'}
           className={
             isActive
               ? 'filter__button filter__button--light'

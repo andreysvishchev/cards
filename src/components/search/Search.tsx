@@ -1,19 +1,19 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 
-import { useAppDispatch } from '../../common/hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
 import { useDebounce } from '../../common/hooks/useDebounce';
 import { getPacksByTitle } from '../../pages/cards/packsReducer';
 
 export const Search = () => {
+  const dispatch = useAppDispatch();
+  const disabled = useAppSelector(state => state.app.status);
   const delay = 500;
   const [value, setValue] = useState('');
   const debouncedValue = useDebounce<string>(value, delay);
 
   useEffect(() => {
     dispatch(getPacksByTitle(value));
-  }, [debouncedValue]);
-
-  const dispatch = useAppDispatch();
+  }, [dispatch, debouncedValue]);
 
   const onChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
     setValue(event.currentTarget.value);
@@ -29,6 +29,7 @@ export const Search = () => {
           placeholder="Provide your text"
           type="text"
           className="search__input"
+          disabled={disabled === 'loading'}
         />
       </label>
     </div>

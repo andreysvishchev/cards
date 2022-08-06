@@ -25,18 +25,25 @@ export const Pack = memo((props: PropsType) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const userId = useAppSelector(state => state.profile._id);
+  const disabled = useAppSelector(state => state.app.status);
 
   const getCardsHandler = () => {
-    dispatch(getCards(id));
-    navigate('/packPage');
+    if (disabled === 'idle') {
+      dispatch(getCards(id));
+      navigate('/packPage');
+    }
   };
 
-  const DeletePackHandler = () => {
-    dispatch(deletePack(id));
+  const deletePackHandler = () => {
+    if (disabled === 'idle') {
+      dispatch(deletePack(id));
+    }
   };
 
-  const EditPackHandler = () => {
-    dispatch(changePackName(id, 'nameChanged'));
+  const editPackHandler = () => {
+    if (disabled === 'idle') {
+      dispatch(changePackName(id, 'nameChanged'));
+    }
   };
   const learnAboutPackHandler = () => {};
 
@@ -50,7 +57,7 @@ export const Pack = memo((props: PropsType) => {
       <div className="pack__col">{author}</div>
       <div className="pack__col pack__col--actions">
         <IconButton
-          onClick={DeletePackHandler}
+          onClick={deletePackHandler}
           disabled={userId !== authorId}
           className="pack__button pack__button--del"
           aria-label="delete"
@@ -59,7 +66,7 @@ export const Pack = memo((props: PropsType) => {
           <DeleteIcon fontSize="inherit" />
         </IconButton>
         <IconButton
-          onClick={EditPackHandler}
+          onClick={editPackHandler}
           className="pack__button pack__button--edit"
           disabled={userId !== authorId}
           aria-label="edit"

@@ -1,5 +1,5 @@
 import { packApi, PacksDataType, sortPacks } from '../../api/PackApi';
-import { setError } from '../../app/appReducer';
+import { changeAppStatus, setError } from '../../app/appReducer';
 import { AppStateType } from '../../app/store';
 import { AppThunkType } from '../../common/types/types';
 
@@ -101,6 +101,7 @@ export const setPacksOfAllUsers = () => {
 export const getPacks =
   (params: any): AppThunkType =>
   async (dispatch, getState: () => AppStateType) => {
+    dispatch(changeAppStatus('loading'));
     try {
       const stateParams = getState().packs.params;
       const advancedOptions = { ...stateParams, ...params };
@@ -110,28 +111,36 @@ export const getPacks =
       dispatch(setPacks({ ...response.data }));
     } catch (err: any) {
       dispatch(setError(err.response.data.error));
+    } finally {
+      dispatch(changeAppStatus('idle'));
     }
   };
 
 export const addPack = (): AppThunkType => async dispatch => {
   const cardsPack = { name: 'Test123', private: false };
 
+  dispatch(changeAppStatus('loading'));
   try {
     await packApi.addPack(cardsPack);
     dispatch(getPacks({}));
   } catch (err: any) {
     dispatch(setError(err.response.data.error));
+  } finally {
+    dispatch(changeAppStatus('idle'));
   }
 };
 
 export const deletePack =
   (packId: string): AppThunkType =>
   async dispatch => {
+    dispatch(changeAppStatus('loading'));
     try {
       await packApi.deletePack({ id: packId });
       dispatch(getPacks({}));
     } catch (err: any) {
       dispatch(setError(err.response.data.error));
+    } finally {
+      dispatch(changeAppStatus('idle'));
     }
   };
 
@@ -140,11 +149,14 @@ export const changePackName =
   async dispatch => {
     const cardsPack = { _id: packId, name };
 
+    dispatch(changeAppStatus('loading'));
     try {
       await packApi.updatePack(cardsPack);
       dispatch(getPacks({}));
     } catch (err: any) {
       dispatch(setError(err.response.data.error));
+    } finally {
+      dispatch(changeAppStatus('idle'));
     }
   };
 
