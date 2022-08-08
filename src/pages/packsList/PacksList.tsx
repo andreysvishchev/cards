@@ -13,7 +13,6 @@ import { addPack } from './packsReducer';
 export const PacksList = () => {
   const dispatch = useAppDispatch();
   const disabled = useAppSelector(state => state.app.status);
-
   const addNewPackHandler = (): void => {
     dispatch(addPack());
   };
