@@ -1,5 +1,7 @@
 import React, { memo, useEffect } from 'react';
 
+import { useLocation } from 'react-router-dom';
+
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks';
 import { Pagination } from '../../../components/pagination/Pagination';
 import { Search } from '../../../components/search/Search';
@@ -9,17 +11,18 @@ import { Card } from './Card';
 
 export const CardsPage = memo(() => {
   const dispatch = useAppDispatch();
+  const location = useLocation();
+  const { packName } = location.state as LocationStateType;
   const cards = useAppSelector(state => state.cards.cards);
-  const packName = useAppSelector(state => state.packs.params.packName);
 
   useEffect(() => {
     dispatch(getPacks({}));
-  }, [dispatch, packName]);
+  }, [dispatch]);
 
   return (
     <div className="cards">
       <div className="cards__top">
-        <div className="cards__title">PackName</div>
+        <div className="cards__title">{packName}</div>
       </div>
       <div className="cards__menu">
         <Search />
@@ -48,3 +51,7 @@ export const CardsPage = memo(() => {
     </div>
   );
 });
+
+type LocationStateType = {
+  packName: string;
+};

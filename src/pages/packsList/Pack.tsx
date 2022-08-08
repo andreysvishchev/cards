@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -31,7 +31,12 @@ export const Pack = memo((props: PropsType) => {
   const getCardsHandler = () => {
     if (disabled === 'idle') {
       dispatch(getCards(id));
-      navigate('/packPage');
+      // отображение имени колоды
+      navigate('/packPage', {
+        state: {
+          packName: name,
+        },
+      });
     }
   };
 
