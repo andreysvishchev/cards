@@ -16,6 +16,9 @@ export const packApi = {
   getPacksOfCertainUser(userId: string) {
     return instance.get<PacksDataType>(`/cards/pack?user_id=${userId}`);
   },
+  getPacksByOrder(value: string) {
+    return instance.get<PacksDataType>(`/cards/pack?sortPacks=${value}`);
+  },
 };
 
 export type GetPackRequestType = {
@@ -57,6 +60,7 @@ export type PackType = {
   rating: number;
   type: string;
   updated: string;
+  deckCover: null;
 };
 
 export type CardsResponseType = {
