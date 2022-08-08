@@ -7,7 +7,7 @@ import { getPacks } from '../packsReducer';
 
 import { Card } from './Card';
 
-export const PackPage = memo(() => {
+export const CardsPage = memo(() => {
   const dispatch = useAppDispatch();
   const cards = useAppSelector(state => state.cards.cards);
   const packName = useAppSelector(state => state.packs.params.packName);

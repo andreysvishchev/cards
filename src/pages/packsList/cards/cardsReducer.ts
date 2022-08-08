@@ -1,6 +1,6 @@
-import { cardsApi, CardsType, CardType } from '../../api/CardsApi';
-import { changeAppStatus, setError } from '../../app/appReducer';
-import { AppThunkType } from '../../common/types/types';
+import { cardsApi, CardsType, CardType } from '../../../api/CardsApi';
+import { changeAppStatus, setError } from '../../../app/appReducer';
+import { AppThunkType } from '../../../common/types/types';
 
 const initState: CardsType = {
   cards: [

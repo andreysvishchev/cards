@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 
-import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks';
-import { getPacks } from '../packsReducer';
+import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
 
-import { Pack } from './pack/Pack';
+import { Pack } from './Pack';
+import { getPacks } from './packsReducer';
 
 export const Packs = () => {
   const dispatch = useAppDispatch();

@@ -4,7 +4,7 @@ import Stack from '@mui/material/Stack';
 import TablePagination from '@mui/material/TablePagination';
 
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
-import { setPagination } from '../../pages/cards/packsReducer';
+import { setPagination } from '../../pages/packsList/packsReducer';
 
 export const Pagination = () => {
   const dispatch = useAppDispatch();

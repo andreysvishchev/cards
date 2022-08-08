@@ -2,9 +2,9 @@ import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
 import { AppActionsType } from '../../app/appReducer';
 import { AppStateType } from '../../app/store';
-import { CardsActionsType } from '../../pages/cards/cardsReducer';
-import { PacksActionsType } from '../../pages/cards/packsReducer';
 import { LoginActionsType } from '../../pages/login/loginReducer';
+import { CardsActionsType } from '../../pages/packsList/cards/cardsReducer';
+import { PacksActionsType } from '../../pages/packsList/packsReducer';
 import { PasswordNewActionsType } from '../../pages/password-new/passwordNewReducer';
 import { PasswordRecoveryActionsType } from '../../pages/password-recovery/passwordRecoveryReducer';
 import { ProfileActionsType } from '../../pages/profile/profileReducer';

@@ -5,9 +5,9 @@ import {
 } from 'redux';
 import thunk from 'redux-thunk';
 
-import { cardsReducer } from '../pages/cards/cardsReducer';
-import { packsReducer } from '../pages/cards/packsReducer';
 import { loginReducer } from '../pages/login/loginReducer';
+import { cardsReducer } from '../pages/packsList/cards/cardsReducer';
+import { packsReducer } from '../pages/packsList/packsReducer';
 import { passwordNewReducer } from '../pages/password-new/passwordNewReducer';
 import { passwordRecoveryReducer } from '../pages/password-recovery/passwordRecoveryReducer';
 import { profileReducer } from '../pages/profile/profileReducer';

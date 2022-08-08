@@ -9,9 +9,9 @@ export const Header: React.FC<HeaderPropsType> = props => {
   return (
     <header className="header">
       <div className="container container--header">
-        <a href="/" className="logo">
+        <div className="logo">
           <img src={logo} alt="Logo" />
-        </a>
+        </div>
         {isAuth ? (
           <div className="user-data">
             <div className="user-data__name">{userName}</div>

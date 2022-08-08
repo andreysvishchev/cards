@@ -7,10 +7,10 @@ import { useAppDispatch, useAppSelector } from '../common/hooks/hooks';
 import { ErrorSnackBar } from '../components/errorSnackbar/ErrorSnackbar';
 import { HeaderContainer } from '../components/header/HeaderContainer';
 import { NotFound } from '../pages/404/NotFound';
-import { EmptyPackPage } from '../pages/cards/packPage/EmptyPackPage';
-import { PackPage } from '../pages/cards/packPage/PackPage';
-import { PacksList } from '../pages/cards/PacksList';
 import { Login } from '../pages/login/Login';
+import { CardsPage } from '../pages/packsList/cards/CardsPage';
+import { EmptyPackPage } from '../pages/packsList/cards/EmptyPackPage';
+import { PacksList } from '../pages/packsList/PacksList';
 import { PasswordNew } from '../pages/password-new/PasswordNew';
 import { PasswordRecovery } from '../pages/password-recovery/PasswordRecovery';
 import { ProfileContainer } from '../pages/profile/ProfileContainer';
@@ -75,7 +75,7 @@ export const App = (): any => {
             <Route path="registration" element={<Registration />} />
             <Route path="profile" element={<ProfileContainer />} />
             <Route path="404" element={<NotFound />} />
-            <Route path="packPage" element={<PackPage />} />
+            <Route path="packPage" element={<CardsPage />} />
             <Route path="emptyPackPage" element={<EmptyPackPage />} />
             <Route path="*" element={<Navigate to="/404" />} />
           </Routes>

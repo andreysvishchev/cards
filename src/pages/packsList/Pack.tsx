@@ -7,9 +7,10 @@ import { IconButton } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import { useNavigate } from 'react-router-dom';
 
-import { useAppDispatch, useAppSelector } from '../../../../common/hooks/hooks';
-import { getCards } from '../../cardsReducer';
-import { changePackName, deletePack } from '../../packsReducer';
+import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
+
+import { getCards } from './cards/cardsReducer';
+import { changePackName, deletePack } from './packsReducer';
 
 type PropsType = {
   name: string;

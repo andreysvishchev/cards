@@ -7,7 +7,7 @@ import { Pagination } from '../../components/pagination/Pagination';
 import { RangeSlider } from '../../components/rangeSlider/rangeSlider';
 import { Search } from '../../components/search/Search';
 
-import { Packs } from './packs/Packs';
+import { Packs } from './Packs';
 import { addPack } from './packsReducer';
 
 export const PacksList = () => {

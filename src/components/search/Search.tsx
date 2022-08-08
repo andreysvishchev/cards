@@ -2,7 +2,7 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
 import { useDebounce } from '../../common/hooks/useDebounce';
-import { getPacksByTitle } from '../../pages/cards/packsReducer';
+import { getPacksByTitle } from '../../pages/packsList/packsReducer';
 
 export const Search = () => {
   const dispatch = useAppDispatch();

@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
 import {
   setPacksOfAllUsers,
   setPacksOfCertainUser,
-} from '../../pages/cards/packsReducer';
+} from '../../pages/packsList/packsReducer';
 
 export const Filter = () => {
   const [isActive, setIsActive] = useState(false);
