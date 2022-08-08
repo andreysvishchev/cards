@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
 
+import ArrowDropDownOutlinedIcon from '@mui/icons-material/ArrowDropDownOutlined';
+
+import { sortingMethods } from '../../api/PackApi';
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
 
 import { Pack } from './Pack';
-import { getPacks } from './packsReducer';
+import { getPacks, setSortPacks } from './packsReducer';
 
 export const Packs = () => {
   const dispatch = useAppDispatch();
@@ -15,17 +18,37 @@ export const Packs = () => {
   const min = useAppSelector(state => state.packs.params.min);
   const max = useAppSelector(state => state.packs.params.max);
   const packName = useAppSelector(state => state.packs.params.packName);
+  const disabled = useAppSelector(state => state.app.status);
 
   useEffect(() => {
     dispatch(getPacks({}));
   }, [dispatch, page, pageCount, sortPacks, min, max, packName, userId]);
+
+  const updateSortPacksHandler = () => {
+    if (disabled === 'idle') {
+      const sortMethod =
+        sortPacks === sortingMethods.ASC_UPDATE
+          ? sortingMethods.DES_UPDATE
+          : sortingMethods.ASC_UPDATE;
+
+      dispatch(setSortPacks(sortMethod));
+    }
+  };
 
   return (
     <div className="packs">
       <div className="packs__captions">
         <div className="packs__caption">Name</div>
         <div className="packs__caption">Cards</div>
-        <div className="packs__caption">Last Updated</div>
+        <div
+          className="packs__caption packs__caption--lastUpdate"
+          onClick={updateSortPacksHandler}
+        >
+          Last Update
+          <div>
+            <ArrowDropDownOutlinedIcon fontSize="small" />
+          </div>
+        </div>
         <div className="packs__caption">Created by</div>
         <div className="packs__caption">Actions</div>
       </div>

@@ -1,4 +1,4 @@
-import { packApi, PacksDataType, sortPacks } from '../../api/PackApi';
+import { packApi, PacksDataType, sortingMethods } from '../../api/PackApi';
 import { changeAppStatus, setError } from '../../app/appReducer';
 import { AppStateType } from '../../app/store';
 import { AppThunkType } from '../../common/types/types';
@@ -12,12 +12,12 @@ const initState = {
   page: 1, // for pagination
   pageCount: 10, // count element ui (number of  packs on page)
   search: null,
-  sortPacks: sortPacks.DES_UPDATE,
+  sortPacks: sortingMethods.DES_UPDATE,
   params: {
     user_id: undefined,
     page: 1,
     pageCount: 10, // 10/25/50
-    sortPacks: '0updated',
+    sortPacks: sortingMethods.DES_UPDATE,
     min: 0, // min cards for selector
     max: 110, // max cards for selector
     cardPacksTotalCount: 10, // all
@@ -68,6 +68,9 @@ export const packsReducer = (
         params: { ...state.params, user_id: undefined, min: 0, max: 110 },
       };
     }
+    case 'PACKS/SET-SORT-PACKS': {
+      return { ...state, params: { ...state.params, sortPacks: actions.sortPacks } };
+    }
     default:
       return state;
   }
@@ -96,6 +99,9 @@ export const setPacksOfCertainUser = (userId: any) => {
 };
 export const setPacksOfAllUsers = () => {
   return { type: 'PACKS/GET-PACKS-OF-ALL-USER' } as const;
+};
+export const setSortPacks = (sortPacks: sortingMethods) => {
+  return { type: 'PACKS/SET-SORT-PACKS', sortPacks } as const;
 };
 
 export const getPacks =
@@ -169,4 +175,5 @@ export type PacksActionsType =
   | ReturnType<typeof resetPage>
   | ReturnType<typeof getPacksByTitle>
   | ReturnType<typeof setPacksOfCertainUser>
-  | ReturnType<typeof setPacksOfAllUsers>;
+  | ReturnType<typeof setPacksOfAllUsers>
+  | ReturnType<typeof setSortPacks>;

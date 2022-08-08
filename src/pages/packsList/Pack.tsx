@@ -56,7 +56,7 @@ export const Pack = memo((props: PropsType) => {
       <div className="pack__col">{cards}</div>
       <div className="pack__col">{lastUploaded}</div>
       <div className="pack__col">{author}</div>
-      <div className="pack__col pack__col--actions">
+      <div className="pack__col">
         <IconButton
           onClick={deletePackHandler}
           disabled={userId !== authorId}

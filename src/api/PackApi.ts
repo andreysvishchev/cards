@@ -37,7 +37,7 @@ export type PacksDataType = {
   page: number;
   pageCount: number;
   search?: string | null;
-  sortPacks?: sortPacks;
+  sortPacks?: sortingMethods;
   params: QueryParamsType;
 };
 
@@ -96,7 +96,7 @@ export type QueryParamsType = {
   packName: string;
 };
 
-export enum sortPacks {
+export enum sortingMethods {
   ASC_USER_NAME = '1user_name',
   DES_USER_NAME = '0user_name',
   ASC_NAME = '1name',
