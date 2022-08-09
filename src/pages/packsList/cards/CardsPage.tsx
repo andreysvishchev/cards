@@ -1,29 +1,38 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo } from 'react';
 
-import { useLocation } from 'react-router-dom';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks';
+import { useAppSelector } from '../../../common/hooks/hooks';
 import { Pagination } from '../../../components/pagination/Pagination';
 import { Search } from '../../../components/search/Search';
-import { getPacks } from '../packsReducer';
 
 import { Card } from './Card';
+import { EmptyPackPage } from './EmptyPackPage';
 
 export const CardsPage = memo(() => {
-  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const location = useLocation();
   const { packName } = location.state as LocationStateType;
   const cards = useAppSelector(state => state.cards.cards);
 
-  useEffect(() => {
-    dispatch(getPacks({}));
-  }, [dispatch]);
+  const navToPacksList = () => {
+    navigate('/packs');
+  };
+
+  if (cards.length === 0) {
+    return <EmptyPackPage packName={packName} />;
+  }
 
   return (
     <div className="cards">
       <div className="cards__top">
-        <div className="cards__title">{packName}</div>
+        <div onClick={navToPacksList} className="cards__back">
+          <ArrowBackIcon />
+          Back to Packs List
+        </div>
       </div>
+      <div className="cards__title">{packName}</div>
       <div className="cards__menu">
         <Search />
       </div>
