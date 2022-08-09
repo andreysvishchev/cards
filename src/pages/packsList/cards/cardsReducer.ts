@@ -1,5 +1,7 @@
-import { cardsApi, CardsType, CardType } from '../../../api/CardsApi';
+import { cardsApi, CardsType } from '../../../api/CardsApi';
+import { sortingMethods } from '../../../api/PackApi';
 import { changeAppStatus, setError } from '../../../app/appReducer';
+import { AppStateType } from '../../../app/store';
 import { AppThunkType } from '../../../common/types/types';
 
 const initState: CardsType = {
@@ -27,39 +29,63 @@ const initState: CardsType = {
   ],
   packUserId: '',
   page: 1,
-  pageCount: 4,
+  pageCount: 10,
   cardsTotalCount: 1,
   minGrade: 0,
   maxGrade: 6,
   token: '',
   tokenDeathTime: null,
+  params: {
+    cardQuestion: '',
+    page: 1,
+    pageCount: 10,
+    sortCards: sortingMethods.DES_UPDATE,
+    cardsPack_id: undefined,
+  },
 };
 
 export const cardsReducer = (state = initState, action: CardsActionsType): CardsType => {
   switch (action.type) {
     case 'CARDS/SET_CARDS': {
-      return { ...state, cards: action.payload.card };
+      return { ...state, ...action.payload };
+    }
+    case 'CARDS/SET-PAGINATION': {
+      return {
+        ...state,
+        params: { ...state.params, page: action.page, pageCount: action.pageCount },
+      };
+    }
+    case 'CARDS/GET-PACKS-BY-TITLE': {
+      return { ...state, params: { ...state.params, cardQuestion: action.title } };
     }
     default:
       return state;
   }
 };
 
-const setCards = (card: CardType[]) => {
+export const setCards = (payload: any) => {
   return {
     type: 'CARDS/SET_CARDS',
-    payload: { card },
+    payload,
   } as const;
+};
+
+export const setCardsPagination = (page: number, pageCount: number) => {
+  return { type: 'CARDS/SET-PAGINATION', page, pageCount } as const;
+};
+export const getCardsByTitle = (title: string) => {
+  return { type: 'CARDS/GET-PACKS-BY-TITLE', title } as const;
 };
 
 export const getCards =
   (packId: string): AppThunkType =>
-  async dispatch => {
+  async (dispatch, getState: () => AppStateType) => {
     dispatch(changeAppStatus('loading'));
     try {
-      const response = await cardsApi.getCards(packId);
+      const stateParams = getState().cards.params;
+      const response = await cardsApi.getCards(packId, { ...stateParams });
 
-      dispatch(setCards(response.data.cards));
+      dispatch(setCards({ ...response.data }));
     } catch (err: any) {
       dispatch(setError(err.response.data.error));
     } finally {
@@ -68,4 +94,6 @@ export const getCards =
   };
 
 type SetCardsType = ReturnType<typeof setCards>;
-export type CardsActionsType = SetCardsType;
+type setPaginationType = ReturnType<typeof setCardsPagination>;
+type getCardsByTitleType = ReturnType<typeof getCardsByTitle>;
+export type CardsActionsType = SetCardsType | setPaginationType | getCardsByTitleType;

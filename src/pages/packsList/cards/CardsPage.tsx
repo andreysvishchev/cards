@@ -8,16 +8,25 @@ import { Search } from '../../../components/search/Search';
 import { getPacks } from '../packsReducer';
 
 import { Card } from './Card';
+import { getCards } from './cardsReducer';
 
 export const CardsPage = memo(() => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const { packName } = location.state as LocationStateType;
+  const { id } = location.state as LocationStateType;
   const cards = useAppSelector(state => state.cards.cards);
 
+  const page = useAppSelector(state => state.cards.params.page);
+  const cardQuestion = useAppSelector(state => state.cards.params.cardQuestion);
+  const pageCount = useAppSelector(state => state.cards.params.pageCount);
+  const sortCards = useAppSelector(state => state.cards.params.sortCards);
+
   useEffect(() => {
-    dispatch(getPacks({}));
-  }, [dispatch]);
+    if (id) {
+      dispatch(getCards(id));
+    }
+  }, [dispatch, page, cardQuestion, pageCount, sortCards, id]);
 
   return (
     <div className="cards">
@@ -54,4 +63,5 @@ export const CardsPage = memo(() => {
 
 type LocationStateType = {
   packName: string;
+  id: string;
 };

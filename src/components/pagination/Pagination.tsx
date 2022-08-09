@@ -2,16 +2,28 @@ import React, { useEffect, useState } from 'react';
 
 import Stack from '@mui/material/Stack';
 import TablePagination from '@mui/material/TablePagination';
+import { useLocation } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
+import { setCardsPagination } from '../../pages/packsList/cards/cardsReducer';
 import { setPagination } from '../../pages/packsList/packsReducer';
 
 export const Pagination = () => {
   const dispatch = useAppDispatch();
+
   const initRowsPerPage = 10;
+
   const [rowsPerPage, setRowsPerPage] = useState(initRowsPerPage);
   const [page, setPage] = useState(1);
-  const totalCount = useAppSelector(state => state.packs.params.cardPacksTotalCount);
+
+  const totalCountPacks = useAppSelector(state => state.packs.params.cardPacksTotalCount);
+  const totalCountCards = useAppSelector(state => state.cards.cardsTotalCount);
+
+  const location = useLocation();
+  const currentPlaceIsPacks = location.pathname.split('/').reverse()[0] === 'packs';
+
+  const currenTotalCount = currentPlaceIsPacks ? totalCountPacks : totalCountCards;
+
   const queryPage = useAppSelector(state => state.packs.params.page);
 
   // for page reset
@@ -24,7 +36,9 @@ export const Pagination = () => {
     value: number,
   ) => void = (event, value) => {
     setPage(value + 1);
-    dispatch(setPagination(value + 1, rowsPerPage));
+
+    if (currentPlaceIsPacks) dispatch(setPagination(value + 1, rowsPerPage));
+    else dispatch(setCardsPagination(value + 1, rowsPerPage));
   };
 
   const handleChangeRowsPerPage = (
@@ -35,6 +49,8 @@ export const Pagination = () => {
     setRowsPerPage(newValue);
     setPage(1);
     dispatch(setPagination(page, newValue));
+    if (currentPlaceIsPacks) dispatch(setPagination(page, newValue));
+    else dispatch(setCardsPagination(page, newValue));
   };
 
   return (
@@ -44,9 +60,9 @@ export const Pagination = () => {
           <table>
             <tbody>
               <tr>
-                {!!totalCount && (
+                {!!totalCountPacks && (
                   <TablePagination
-                    count={totalCount}
+                    count={currenTotalCount}
                     showFirstButton
                     showLastButton
                     page={page - 1}

@@ -3,7 +3,7 @@ import React, { memo, useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import SchoolIcon from '@mui/icons-material/School';
-import { IconButton } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import { useNavigate } from 'react-router-dom';
 
@@ -50,11 +50,11 @@ export const Pack = memo((props: PropsType) => {
 
   const getCardsHandler = () => {
     if (disabled === 'idle') {
-      dispatch(getCards(id));
       // отображение имени колоды
       navigate('/packPage', {
         state: {
           packName: name,
+          id,
         },
       });
     }

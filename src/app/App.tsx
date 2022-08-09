@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { CircularProgress } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 import { Navigate, NavLink, Route, Routes } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../common/hooks/hooks';

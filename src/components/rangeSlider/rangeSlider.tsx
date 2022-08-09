@@ -8,6 +8,7 @@ import { setMinMaxCount, setPacksTotalCount } from '../../pages/packsList/packsR
 
 export const RangeSlider = () => {
   const totalCount = useAppSelector(state => state.packs.cardPacksTotalCount);
+
   const minCardsCount = useAppSelector(state => state.packs.minCardsCount);
   const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount);
   const disabled = useAppSelector(state => state.app.status);

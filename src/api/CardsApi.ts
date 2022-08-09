@@ -1,9 +1,23 @@
 import { instance } from './instance/instance';
+import { GetPackRequestType, PacksDataType } from './PackApi';
 
 export const cardsApi = {
-  getCards(packId: string) {
-    return instance.get<CardsType>(`cards/card?cardsPack_id=${packId}`);
+  getCards(packId: string, params: any) {
+    return instance.get<CardsType>(`cards/card?cardsPack_id=${packId}`, {
+      params: { ...params },
+    });
   },
+  getPacks(params: any) {
+    return instance.get<PacksDataType>(`cards/pack`, { params: { ...params } });
+  },
+};
+
+export type CardsParamsType = {
+  cardQuestion?: string;
+  page?: number;
+  pageCount?: number;
+  sortCards?: string;
+  cardsPack_id?: string;
 };
 
 export type CardsType = {
@@ -16,6 +30,7 @@ export type CardsType = {
   maxGrade: number;
   token: string;
   tokenDeathTime: number | null;
+  params: CardsParamsType;
 };
 
 export type CardType = {

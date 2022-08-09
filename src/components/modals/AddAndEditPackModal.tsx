@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
-import { FormControlLabel } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import { useFormik } from 'formik';
 
 import { useAppDispatch } from '../../common/hooks/hooks';
