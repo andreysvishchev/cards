@@ -52,7 +52,7 @@ export const Pack = memo((props: PropsType) => {
     if (disabled === 'idle') {
       dispatch(getCards(id));
       // отображение имени колоды
-      navigate('/packPage', {
+      navigate('/cardsPage', {
         state: {
           packName: name,
         },
