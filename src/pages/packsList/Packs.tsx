@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 
 import ArrowDropDownOutlinedIcon from '@mui/icons-material/ArrowDropDownOutlined';
+import ArrowDropUpOutlinedIcon from '@mui/icons-material/ArrowDropUpOutlined';
 
 import { sortingMethods } from '../../api/PackApi';
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
@@ -24,7 +25,7 @@ export const Packs = () => {
     dispatch(getPacks({}));
   }, [dispatch, page, pageCount, sortPacks, min, max, packName, userId]);
 
-  const updateSortPacksHandler = () => {
+  const sortPacksByLastUpdate = () => {
     if (disabled === 'idle') {
       const sortMethod =
         sortPacks === sortingMethods.ASC_UPDATE
@@ -35,19 +36,42 @@ export const Packs = () => {
     }
   };
 
+  const sortPacksByCount = () => {
+    if (disabled === 'idle') {
+      const sortMethod =
+        sortPacks === sortingMethods.ASC_CARDS_COUNT
+          ? sortingMethods.DES_CARDS_COUNT
+          : sortingMethods.ASC_CARDS_COUNT;
+
+      dispatch(setSortPacks(sortMethod));
+    }
+  };
+
   return (
     <div className="packs">
       <div className="packs__captions">
         <div className="packs__caption">Name</div>
-        <div className="packs__caption">Cards</div>
         <div
-          className="packs__caption packs__caption--lastUpdate"
-          onClick={updateSortPacksHandler}
+          className="packs__caption packs__caption--sorting"
+          onClick={sortPacksByCount}
+        >
+          Cards
+          {sortPacks === sortingMethods.ASC_CARDS_COUNT ? (
+            <ArrowDropUpOutlinedIcon fontSize="small" />
+          ) : (
+            <ArrowDropDownOutlinedIcon fontSize="small" />
+          )}
+        </div>
+        <div
+          className="packs__caption packs__caption--sorting"
+          onClick={sortPacksByLastUpdate}
         >
           Last Update
-          <div>
+          {sortPacks === sortingMethods.ASC_UPDATE ? (
+            <ArrowDropUpOutlinedIcon fontSize="small" />
+          ) : (
             <ArrowDropDownOutlinedIcon fontSize="small" />
-          </div>
+          )}
         </div>
         <div className="packs__caption">Created by</div>
         <div className="packs__caption">Actions</div>
