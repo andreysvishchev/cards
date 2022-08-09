@@ -51,7 +51,7 @@ export const Pack = memo((props: PropsType) => {
   const getCardsHandler = () => {
     if (disabled === 'idle') {
       // отображение имени колоды
-      navigate('/packPage', {
+      navigate('/cardsPage', {
         state: {
           packName: name,
           id,

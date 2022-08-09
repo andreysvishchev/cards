@@ -223,11 +223,13 @@
     text-align: center;
     margin-top: 33px;
   }
+
   &--cancel {
     padding: 9px 40px;
     background-color: $white;
     color: #000000;
   }
+
   &--delete {
     padding: 9px 40px;
     background-color: $red;
@@ -395,6 +397,7 @@
     font-size: 22px;
     line-height: 27px;
     color: black;
+    margin-bottom: 40px;
   }
 
   &__menu {
@@ -403,6 +406,15 @@
     align-items: center;
     margin-bottom: 25px;
   }
+
+  &__back {
+    cursor: pointer;
+    width: 170px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
 }
 
 .packs {
@@ -424,9 +436,8 @@
     font-weight: 500;
     font-size: 14px;
     line-height: 17px;
-    display: flex;
-    align-items: center;
-    &--lastUpdate {
+
+    &--sorting {
       cursor: pointer;
     }
   }
@@ -607,6 +618,7 @@
     font-size: 22px;
     margin-bottom: 20px;
   }
+
   &__hr {
     position: absolute;
     width: 400px;
@@ -616,6 +628,7 @@
     background-color: #F0FFFF;
     opacity: 0.5;
   }
+
   &__deleteMessage {
     margin-top: 40px;
   }
@@ -625,6 +638,7 @@
   margin-top: 36px;
   display: flex;
   justify-content: center;
+
   &__modals {
     justify-content: space-between;
   }

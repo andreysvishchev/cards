@@ -75,7 +75,7 @@ export const App = (): any => {
             <Route path="registration" element={<Registration />} />
             <Route path="profile" element={<ProfileContainer />} />
             <Route path="404" element={<NotFound />} />
-            <Route path="packPage" element={<CardsPage />} />
+            <Route path="cardsPage" element={<CardsPage />} />
             <Route path="emptyPackPage" element={<EmptyPackPage />} />
             <Route path="*" element={<Navigate to="/404" />} />
           </Routes>

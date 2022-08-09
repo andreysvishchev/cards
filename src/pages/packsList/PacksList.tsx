@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
+import { useAppSelector } from '../../common/hooks/hooks';
 import { Button } from '../../components/button/Button';
 import { Filter } from '../../components/filter/Filter';
 import { AddAndEditPackModal } from '../../components/modals/AddAndEditPackModal';
@@ -11,7 +11,6 @@ import { Search } from '../../components/search/Search';
 import { Packs } from './Packs';
 
 export const PacksList = () => {
-  const dispatch = useAppDispatch();
   const disabled = useAppSelector(state => state.app.status);
 
   const [open, setOpen] = useState(false);
