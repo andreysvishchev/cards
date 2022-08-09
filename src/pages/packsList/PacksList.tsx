@@ -1,21 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
 import { Button } from '../../components/button/Button';
 import { Filter } from '../../components/filter/Filter';
+import { AddAndEditPackModal } from '../../components/modals/AddAndEditPackModal';
 import { Pagination } from '../../components/pagination/Pagination';
 import { RangeSlider } from '../../components/rangeSlider/rangeSlider';
 import { Search } from '../../components/search/Search';
 
 import { Packs } from './Packs';
-import { addPack } from './packsReducer';
 
 export const PacksList = () => {
   const dispatch = useAppDispatch();
   const disabled = useAppSelector(state => state.app.status);
 
-  const addNewPackHandler = (): void => {
-    dispatch(addPack());
+  const [open, setOpen] = useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleOpen = () => {
+    setOpen(true);
   };
 
   return (
@@ -24,11 +28,12 @@ export const PacksList = () => {
         <div className="cards__title">Packs list</div>
         <Button
           title="Add new pack"
-          callBack={addNewPackHandler}
+          callBack={handleOpen}
           submit={false}
           disabled={disabled === 'loading'}
         />
       </div>
+      <AddAndEditPackModal title="Add new pack" open={open} handleClose={handleClose} />
       <div className="cards__menu">
         <Search />
         <Filter />

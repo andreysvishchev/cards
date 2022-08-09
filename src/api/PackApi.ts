@@ -10,7 +10,7 @@ export const packApi = {
   deletePack(params: { id: string }) {
     return instance.delete('cards/pack', { params });
   },
-  updatePack(cardsPack: { _id: string; name: string }) {
+  updatePack(cardsPack: { _id: string; name: string; private?: boolean }) {
     return instance.put('cards/pack', { cardsPack });
   },
   getPacksOfCertainUser(userId: string) {
