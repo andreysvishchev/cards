@@ -122,19 +122,21 @@ export const getPacks =
     }
   };
 
-export const addPack = (): AppThunkType => async dispatch => {
-  const cardsPack = { name: 'Test123', private: false };
+export const addPack =
+  (packName: string, packPrivate: boolean): AppThunkType =>
+  async dispatch => {
+    const cardsPack = { name: packName, private: packPrivate };
 
-  dispatch(changeAppStatus('loading'));
-  try {
-    await packApi.addPack(cardsPack);
-    dispatch(getPacks({}));
-  } catch (err: any) {
-    dispatch(setError(err.response.data.error));
-  } finally {
-    dispatch(changeAppStatus('idle'));
-  }
-};
+    dispatch(changeAppStatus('loading'));
+    try {
+      await packApi.addPack(cardsPack);
+      dispatch(getPacks({}));
+    } catch (err: any) {
+      dispatch(setError(err.response.data.error));
+    } finally {
+      dispatch(changeAppStatus('idle'));
+    }
+  };
 
 export const deletePack =
   (packId: string): AppThunkType =>
@@ -151,9 +153,9 @@ export const deletePack =
   };
 
 export const changePackName =
-  (packId: string, name: string): AppThunkType =>
+  (packId: string, name: string, packPrivate: boolean): AppThunkType =>
   async dispatch => {
-    const cardsPack = { _id: packId, name };
+    const cardsPack = { _id: packId, name, private: packPrivate };
 
     dispatch(changeAppStatus('loading'));
     try {

@@ -88,7 +88,7 @@ export const Registration = () => {
             error={formik.errors.confirm_password && formik.touched.confirm_password}
             errorText={formik.errors.confirm_password}
           />
-          <div style={{ marginTop: '36px', display: 'flex', justifyContent: 'center' }}>
+          <div className="submit">
             <Button title="Sign Up" disabled={status === 'loading'} submit />
           </div>
         </form>

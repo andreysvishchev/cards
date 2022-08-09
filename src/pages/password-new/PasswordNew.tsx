@@ -60,7 +60,7 @@ export const PasswordNew = () => {
         <div className="passwordRecovery__text">
           Create new password and we will send you further instructions to email
         </div>
-        <div style={{ marginTop: '36px', display: 'flex', justifyContent: 'center' }}>
+        <div className="submit">
           <Button title="Create new password" disabled={status === 'loading'} submit />
         </div>
       </form>

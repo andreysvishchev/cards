@@ -91,7 +91,7 @@ export const Login = () => {
         <NavLink className="login__forgotLink" to="/password-recovery">
           Forgot Password
         </NavLink>
-        <div style={{ marginTop: '36px', display: 'flex', justifyContent: 'center' }}>
+        <div className="submit">
           <Button title="Sign in" disabled={status === 'loading'} submit />
         </div>
       </form>
