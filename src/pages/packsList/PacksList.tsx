@@ -34,12 +34,12 @@ export const PacksList = () => {
       </div>
       <AddAndEditPackModal title="Add new pack" open={open} handleClose={handleClose} />
       <div className="cards__menu">
-        <Search />
+        <Search location="Packs" />
         <Filter />
         <RangeSlider />
       </div>
       <Packs />
-      <Pagination />
+      <Pagination location="Packs" />
     </div>
   );
 };

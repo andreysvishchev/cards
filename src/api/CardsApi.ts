@@ -1,5 +1,4 @@
 import { instance } from './instance/instance';
-import { GetPackRequestType, PacksDataType } from './PackApi';
 
 export const cardsApi = {
   getCards(packId: string, params: any) {
@@ -7,8 +6,18 @@ export const cardsApi = {
       params: { ...params },
     });
   },
-  getPacks(params: any) {
-    return instance.get<PacksDataType>(`cards/pack`, { params: { ...params } });
+  postCard(card: any) {
+    return instance.post(`cards/card`, { card });
+  },
+  deleteCard(packId: string, params: any) {
+    return instance.get<CardsType>(`cards/card?cardsPack_id=${packId}`, {
+      params: { ...params },
+    });
+  },
+  updateCard(packId: string, params: any) {
+    return instance.get<CardsType>(`cards/card?cardsPack_id=${packId}`, {
+      params: { ...params },
+    });
   },
 };
 

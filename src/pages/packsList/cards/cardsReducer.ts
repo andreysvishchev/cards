@@ -1,8 +1,9 @@
 import { cardsApi, CardsType } from '../../../api/CardsApi';
-import { sortingMethods } from '../../../api/PackApi';
+import { packApi, sortingMethods } from '../../../api/PackApi';
 import { changeAppStatus, setError } from '../../../app/appReducer';
 import { AppStateType } from '../../../app/store';
 import { AppThunkType } from '../../../common/types/types';
+import { getPacks } from '../packsReducer';
 
 const initState: CardsType = {
   cards: [
@@ -86,6 +87,26 @@ export const getCards =
       const response = await cardsApi.getCards(packId, { ...stateParams });
 
       dispatch(setCards({ ...response.data }));
+    } catch (err: any) {
+      dispatch(setError(err.response.data.error));
+    } finally {
+      dispatch(changeAppStatus('idle'));
+    }
+  };
+
+export const addCard =
+  (packId: string, question: string, answer: string): AppThunkType =>
+  async dispatch => {
+    const card = {
+      cardsPack_id: packId,
+      question,
+      answer,
+    };
+
+    dispatch(changeAppStatus('loading'));
+    try {
+      await cardsApi.postCard(card);
+      dispatch(getCards(packId));
     } catch (err: any) {
       dispatch(setError(err.response.data.error));
     } finally {

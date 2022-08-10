@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
 import Stack from '@mui/material/Stack';
 import TablePagination from '@mui/material/TablePagination';
@@ -8,7 +8,11 @@ import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
 import { setCardsPagination } from '../../pages/packsList/cards/cardsReducer';
 import { setPagination } from '../../pages/packsList/packsReducer';
 
-export const Pagination = () => {
+type PropsType = {
+  location: string;
+};
+
+export const Pagination: FC<PropsType> = ({ location }) => {
   const dispatch = useAppDispatch();
 
   const initRowsPerPage = 10;
@@ -19,8 +23,8 @@ export const Pagination = () => {
   const totalCountPacks = useAppSelector(state => state.packs.params.cardPacksTotalCount);
   const totalCountCards = useAppSelector(state => state.cards.cardsTotalCount);
 
-  const location = useLocation();
-  const currentPlaceIsPacks = location.pathname.split('/').reverse()[0] === 'packs';
+  // const location = useLocation();
+  const currentPlaceIsPacks = location === 'Packs';
 
   const currenTotalCount = currentPlaceIsPacks ? totalCountPacks : totalCountCards;
 

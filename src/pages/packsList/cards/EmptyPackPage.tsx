@@ -1,16 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom';
 
+import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks';
 import { Button } from '../../../components/button/Button';
+import { AddAndEditCardModal } from '../../../components/modals/AddAndEditCardModal';
 import { AddAndEditPackModal } from '../../../components/modals/AddAndEditPackModal';
 
-export const EmptyPackPage: React.FC<EmptyPackPageType> = ({ packName }) => {
+import { addCard } from './cardsReducer';
+
+export const EmptyPackPage: React.FC<EmptyPackPageType> = ({ packName, id }) => {
+  const dispatch = useAppDispatch();
+  const disabled = useAppSelector(state => state.app.status);
   const navigate = useNavigate();
 
   const navToPacksList = () => {
-    navigate('/packs');
+    if (disabled === 'idle') {
+      navigate('/packs');
+    }
+  };
+
+  const [open, setOpen] = useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleOpen = () => {
+    setOpen(true);
   };
 
   return (
@@ -28,11 +44,16 @@ export const EmptyPackPage: React.FC<EmptyPackPageType> = ({ packName }) => {
         </div>
         <Button
           title="Add new cards"
-          callBack={() => {}}
+          callBack={handleOpen}
           submit={false}
           disabled={false}
         />
-        <AddAndEditPackModal title="Add new cards" open={false} handleClose={() => {}} />
+        <AddAndEditCardModal
+          handleClose={handleClose}
+          open={open}
+          title="Add new card"
+          id={id}
+        />
       </div>
     </div>
   );
@@ -40,4 +61,5 @@ export const EmptyPackPage: React.FC<EmptyPackPageType> = ({ packName }) => {
 
 type EmptyPackPageType = {
   packName?: string;
+  id?: string;
 };

@@ -1,9 +1,11 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks';
+import { Button } from '../../../components/button/Button';
+import { AddAndEditCardModal } from '../../../components/modals/AddAndEditCardModal';
 import { Pagination } from '../../../components/pagination/Pagination';
 import { Search } from '../../../components/search/Search';
 
@@ -18,6 +20,8 @@ export const CardsPage = memo(() => {
   const { id } = location.state as LocationStateType;
   const cards = useAppSelector(state => state.cards.cards);
 
+  const disabled = useAppSelector(state => state.app.status);
+
   const dispatch = useAppDispatch();
   const page = useAppSelector(state => state.cards.params.page);
   const cardQuestion = useAppSelector(state => state.cards.params.cardQuestion);
@@ -30,12 +34,20 @@ export const CardsPage = memo(() => {
     }
   }, [dispatch, page, cardQuestion, pageCount, sortCards, id]);
 
+  const [open, setOpen] = useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
   const navToPacksList = () => {
     navigate('/packs');
   };
 
   if (cards.length === 0) {
-    return <EmptyPackPage packName={packName} />;
+    return <EmptyPackPage packName={packName} id={id} />;
   }
 
   return (
@@ -48,7 +60,8 @@ export const CardsPage = memo(() => {
       </div>
       <div className="cards__title">{packName}</div>
       <div className="cards__menu">
-        <Search />
+        <Search location="Cards" />
+        <Button title="Add new card" submit={false} callBack={handleOpen} />
       </div>
       <div className="packs">
         <div className="packs__captions">
@@ -70,12 +83,18 @@ export const CardsPage = memo(() => {
           );
         })}
       </div>
-      <Pagination />
+      <Pagination location="Cards" />
+      <AddAndEditCardModal
+        handleClose={handleClose}
+        open={open}
+        title="Add new card"
+        id={id}
+      />
     </div>
   );
 });
 
-type LocationStateType = {
+export type LocationStateType = {
   packName: string;
   id: string;
 };

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 
 import { useLocation } from 'react-router-dom';
 
@@ -7,15 +7,18 @@ import { useDebounce } from '../../common/hooks/useDebounce';
 import { getCardsByTitle } from '../../pages/packsList/cards/cardsReducer';
 import { getPacksByTitle } from '../../pages/packsList/packsReducer';
 
-export const Search = () => {
+type PropsType = {
+  location: string;
+};
+
+export const Search: FC<PropsType> = ({ location }) => {
   const dispatch = useAppDispatch();
   const disabled = useAppSelector(state => state.app.status);
   const delay = 500;
   const [value, setValue] = useState('');
   const debouncedValue = useDebounce<string>(value, delay);
 
-  const location = useLocation();
-  const currentPlaceIsPacks = location.pathname.split('/').reverse()[0] === 'packs';
+  const currentPlaceIsPacks = location === 'Packs';
 
   useEffect(() => {
     if (currentPlaceIsPacks) dispatch(getPacksByTitle(value));
