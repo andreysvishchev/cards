@@ -7,7 +7,9 @@ import { EditableSpan } from '../../components/editableSpan/EditableSpan';
 
 export const Profile = React.memo((props: ProfilePropsType) => {
   const { name, avatar, cardsCount, email, logout, editField } = props;
+
   const status = useAppSelector(state => state.app.status);
+
   const logoutHandler = (): void => logout();
   const editFieldHandler = (newTitle: string): void => editField(newTitle);
 

@@ -11,8 +11,6 @@ import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
 import { AddAndEditPackModal } from '../../components/modals/AddAndEditPackModal';
 import { DeletePackAndCard } from '../../components/modals/DeletePackAndCard';
 
-import { getCards } from './cards/cardsReducer';
-
 type PropsType = {
   name: string;
   author: string;
@@ -24,32 +22,25 @@ type PropsType = {
 
 export const Pack = memo((props: PropsType) => {
   const { id, name, cards, authorId, author, lastUploaded } = props;
-  const dispatch = useAppDispatch();
+
   const navigate = useNavigate();
+
   const userId = useAppSelector(state => state.profile._id);
-  const disabled = useAppSelector(state => state.app.status);
+  const status = useAppSelector(state => state.app.status);
 
-  const [addModalOpen, setAddModalOpen] = useState(false);
+  // Modals
+  const [editModalOpen, setEditModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  const closeAddModalHandler = () => {
-    setAddModalOpen(false);
-  };
-  const openAddModalHandler = () => {
-    if (disabled === 'idle') {
-      setAddModalOpen(true);
-    }
-  };
-  const closeDeleteModalHandler = () => {
-    setDeleteModalOpen(false);
-  };
-  const openDeleteModalHandler = () => {
-    if (disabled === 'idle') {
-      setDeleteModalOpen(true);
-    }
-  };
 
+  const closeEditModalHandler = () => setEditModalOpen(false);
+  const openEditModalHandler = () => setEditModalOpen(true);
+
+  const closeDeleteModalHandler = () => setDeleteModalOpen(false);
+  const openDeleteModalHandler = () => setDeleteModalOpen(true);
+
+  // Navigate
   const getCardsHandler = () => {
-    if (disabled === 'idle') {
+    if (status === 'idle') {
       // отображение имени колоды
       navigate('/cardsPage', {
         state: {
@@ -72,31 +63,31 @@ export const Pack = memo((props: PropsType) => {
       <div className="pack__col">{author}</div>
       <div className="pack__col">
         <IconButton
-          onClick={openDeleteModalHandler}
-          disabled={userId !== authorId}
-          className="pack__button pack__button--del"
-          aria-label="delete"
+          onClick={learnAboutPackHandler}
+          className="pack__button pack__button--teach"
+          aria-label="learn"
           size="small"
+          disabled={status === 'loading'}
         >
-          <DeleteIcon fontSize="inherit" />
+          <SchoolIcon fontSize="inherit" />
         </IconButton>
         <IconButton
-          onClick={openAddModalHandler}
+          onClick={openEditModalHandler}
           className="pack__button pack__button--edit"
-          disabled={userId !== authorId}
+          disabled={userId !== authorId || status === 'loading'}
           aria-label="edit"
           size="small"
         >
           <EditIcon fontSize="inherit" />
         </IconButton>
-
         <IconButton
-          onClick={learnAboutPackHandler}
-          className="pack__button pack__button--teach"
-          aria-label="learn"
+          onClick={openDeleteModalHandler}
+          disabled={userId !== authorId || status === 'loading'}
+          className="pack__button pack__button--del"
+          aria-label="delete"
           size="small"
         >
-          <SchoolIcon fontSize="inherit" />
+          <DeleteIcon fontSize="inherit" />
         </IconButton>
       </div>
 
@@ -105,14 +96,14 @@ export const Pack = memo((props: PropsType) => {
       <AddAndEditPackModal
         title="Edit pack"
         id={id}
-        handleClose={closeAddModalHandler}
-        open={addModalOpen}
+        handleClose={closeEditModalHandler}
+        open={editModalOpen}
       />
       <DeletePackAndCard
         open={deleteModalOpen}
         handleClose={closeDeleteModalHandler}
         title="Delete Pack"
-        id={id}
+        packId={id}
         name={name}
       />
     </div>

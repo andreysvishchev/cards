@@ -15,9 +15,12 @@ type FormikErrorType = {
 
 export const PasswordNew = () => {
   const dispatch = useAppDispatch();
+
   const status = useAppSelector(state => state.app.status);
-  const [token, setToken] = useState<string>('');
+
   const location = useLocation();
+
+  const [token, setToken] = useState<string>('');
 
   useEffect(() => {
     if (location.pathname) {

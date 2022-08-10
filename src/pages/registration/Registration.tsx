@@ -16,10 +16,11 @@ type FormikErrorType = {
 };
 
 export const Registration = () => {
-  const send = useAppSelector(state => state.registration.send);
   const dispatch = useAppDispatch();
-  const [messageEmail, setMessageEmail] = useState<string>('example@mail.com');
+  const send = useAppSelector(state => state.registration.send);
   const status = useAppSelector(state => state.app.status);
+
+  const [messageEmail, setMessageEmail] = useState<string>('example@mail.com');
 
   const formik = useFormik({
     initialValues: {

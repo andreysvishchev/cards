@@ -9,15 +9,11 @@ export const cardsApi = {
   postCard(card: any) {
     return instance.post(`cards/card`, { card });
   },
-  deleteCard(packId: string, params: any) {
-    return instance.get<CardsType>(`cards/card?cardsPack_id=${packId}`, {
-      params: { ...params },
-    });
+  deleteCard(params: { id: string }) {
+    return instance.delete('cards/card', { params });
   },
-  updateCard(packId: string, params: any) {
-    return instance.get<CardsType>(`cards/card?cardsPack_id=${packId}`, {
-      params: { ...params },
-    });
+  updateCard(card: { _id: string; question: string; answer?: string }) {
+    return instance.put('cards/card', { card });
   },
 };
 

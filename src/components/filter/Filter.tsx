@@ -7,11 +7,12 @@ import {
 } from '../../pages/packsList/packsReducer';
 
 export const Filter = () => {
-  const [isActive, setIsActive] = useState(false);
+  const dispatch = useAppDispatch();
 
   const id = useAppSelector(state => state.profile._id);
-  const disabled = useAppSelector(state => state.app.status);
-  const dispatch = useAppDispatch();
+  const status = useAppSelector(state => state.app.status);
+
+  const [isActive, setIsActive] = useState(false);
 
   const getMyPacksHandler = () => {
     dispatch(setPacksOfCertainUser(id));
@@ -28,7 +29,7 @@ export const Filter = () => {
       <div className="filter__buttons">
         <button
           onClick={getMyPacksHandler}
-          disabled={disabled === 'loading'}
+          disabled={status === 'loading'}
           type="button"
           className={
             isActive
@@ -41,7 +42,7 @@ export const Filter = () => {
         <button
           onClick={getAllPacksHandler}
           type="button"
-          disabled={disabled === 'loading'}
+          disabled={status === 'loading'}
           className={
             isActive
               ? 'filter__button filter__button--light'

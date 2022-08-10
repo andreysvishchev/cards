@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 
 import { useAppDispatch } from '../../common/hooks/hooks';
+import { deleteCard } from '../../pages/packsList/cards/cardsReducer';
 import { deletePack } from '../../pages/packsList/packsReducer';
 import { Button } from '../button/Button';
 
@@ -10,21 +11,25 @@ type PropsType = {
   open: boolean;
   handleClose: () => void;
   title: string;
-  id: string;
+  packId: string;
   name: string;
+  cardId?: string;
 };
 
 export const DeletePackAndCard: FC<PropsType> = ({
   open,
   handleClose,
   title,
-  id,
+  cardId,
   name,
+  packId,
 }) => {
   const dispatch = useAppDispatch();
 
   const deletePackHandler = () => {
-    dispatch(deletePack(id));
+    if (cardId) dispatch(deleteCard(packId, cardId));
+    else dispatch(deletePack(packId));
+
     handleClose();
   };
 

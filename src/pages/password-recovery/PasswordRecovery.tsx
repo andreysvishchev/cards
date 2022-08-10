@@ -14,10 +14,11 @@ type FormikErrorType = {
 };
 
 export const PasswordRecovery = () => {
-  const emailSent = useAppSelector(state => state.passwordRecovery.sendEmailRecovery);
   const dispatch = useAppDispatch();
-  const [messageEmail, setMessageEmail] = useState<string>('example@mail.com');
+  const emailSent = useAppSelector(state => state.passwordRecovery.sendEmailRecovery);
   const status = useAppSelector(state => state.app.status);
+
+  const [messageEmail, setMessageEmail] = useState<string>('example@mail.com');
 
   const formik = useFormik({
     initialValues: {

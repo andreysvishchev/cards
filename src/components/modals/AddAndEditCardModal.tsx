@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import { useFormik } from 'formik';
 
 import { useAppDispatch } from '../../common/hooks/hooks';
-import { addCard } from '../../pages/packsList/cards/cardsReducer';
+import { addCard, changeCardName } from '../../pages/packsList/cards/cardsReducer';
 import { Button } from '../button/Button';
 import { Input } from '../input/Input';
 
@@ -17,10 +17,17 @@ type PropsType = {
   open: boolean;
   handleClose: () => void;
   title: string;
-  id?: string;
+  packId: string;
+  cardId?: string;
 };
 
-export const AddAndEditCardModal: FC<PropsType> = ({ open, handleClose, title, id }) => {
+export const AddAndEditCardModal: FC<PropsType> = ({
+  open,
+  handleClose,
+  title,
+  packId,
+  cardId,
+}) => {
   const dispatch = useAppDispatch();
 
   const formik = useFormik({
@@ -43,7 +50,8 @@ export const AddAndEditCardModal: FC<PropsType> = ({ open, handleClose, title, i
         answer: values.answer,
       };
 
-      if (id) dispatch(addCard(id, data.question, data.answer));
+      if (cardId) dispatch(changeCardName(packId, cardId, data.question, data.answer));
+      else dispatch(addCard(packId, data.question, data.answer));
 
       formik.resetForm();
       handleClose();

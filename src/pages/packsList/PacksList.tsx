@@ -13,13 +13,11 @@ import { Packs } from './Packs';
 export const PacksList = () => {
   const disabled = useAppSelector(state => state.app.status);
 
+  // Modals
   const [open, setOpen] = useState(false);
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const handleOpen = () => {
-    setOpen(true);
-  };
+
+  const handleClose = () => setOpen(false);
+  const handleOpen = () => setOpen(true);
 
   return (
     <div className="cards">

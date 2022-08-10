@@ -14,19 +14,20 @@ import { getCards } from './cardsReducer';
 import { EmptyPackPage } from './EmptyPackPage';
 
 export const CardsPage = memo(() => {
+  const dispatch = useAppDispatch();
+
   const navigate = useNavigate();
   const location = useLocation();
-  const { packName } = location.state as LocationStateType;
-  const { id } = location.state as LocationStateType;
+
   const cards = useAppSelector(state => state.cards.cards);
-
-  const disabled = useAppSelector(state => state.app.status);
-
-  const dispatch = useAppDispatch();
   const page = useAppSelector(state => state.cards.params.page);
   const cardQuestion = useAppSelector(state => state.cards.params.cardQuestion);
   const pageCount = useAppSelector(state => state.cards.params.pageCount);
   const sortCards = useAppSelector(state => state.cards.params.sortCards);
+  const status = useAppSelector(state => state.app.status);
+
+  const { packName } = location.state as LocationStateType;
+  const { id } = location.state as LocationStateType;
 
   useEffect(() => {
     if (id) {
@@ -34,14 +35,13 @@ export const CardsPage = memo(() => {
     }
   }, [dispatch, page, cardQuestion, pageCount, sortCards, id]);
 
+  // Modals
   const [open, setOpen] = useState(false);
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const handleOpen = () => {
-    setOpen(true);
-  };
 
+  const handleClose = () => setOpen(false);
+  const handleOpen = () => setOpen(true);
+
+  // Navigate
   const navToPacksList = () => {
     navigate('/packs');
   };
@@ -61,7 +61,12 @@ export const CardsPage = memo(() => {
       <div className="cards__title">{packName}</div>
       <div className="cards__menu">
         <Search location="Cards" />
-        <Button title="Add new card" submit={false} callBack={handleOpen} />
+        <Button
+          title="Add new card"
+          submit={false}
+          callBack={handleOpen}
+          disabled={status === 'loading'}
+        />
       </div>
       <div className="packs">
         <div className="packs__captions">
@@ -69,11 +74,15 @@ export const CardsPage = memo(() => {
           <div className="packs__caption">Answer</div>
           <div className="packs__caption">Last Updated</div>
           <div className="packs__caption">Grade</div>
+          <div className="packs__caption">Actions</div>
         </div>
         <div className="packs__list" />
         {cards.map(el => {
           return (
             <Card
+              authorId={el.user_id}
+              packId={id}
+              cardId={el._id}
               key={el._id}
               question={el.question}
               answer={el.answer}
@@ -88,7 +97,7 @@ export const CardsPage = memo(() => {
         handleClose={handleClose}
         open={open}
         title="Add new card"
-        id={id}
+        packId={id}
       />
     </div>
   );

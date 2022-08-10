@@ -1,9 +1,8 @@
 import { cardsApi, CardsType } from '../../../api/CardsApi';
-import { packApi, sortingMethods } from '../../../api/PackApi';
+import { sortingMethods } from '../../../api/PackApi';
 import { changeAppStatus, setError } from '../../../app/appReducer';
 import { AppStateType } from '../../../app/store';
 import { AppThunkType } from '../../../common/types/types';
-import { getPacks } from '../packsReducer';
 
 const initState: CardsType = {
   cards: [
@@ -106,6 +105,37 @@ export const addCard =
     dispatch(changeAppStatus('loading'));
     try {
       await cardsApi.postCard(card);
+      dispatch(getCards(packId));
+    } catch (err: any) {
+      dispatch(setError(err.response.data.error));
+    } finally {
+      dispatch(changeAppStatus('idle'));
+    }
+  };
+
+export const deleteCard =
+  (packId: string, cardId: string): AppThunkType =>
+  async dispatch => {
+    dispatch(changeAppStatus('loading'));
+    try {
+      console.log(packId, cardId);
+      await cardsApi.deleteCard({ id: cardId });
+      dispatch(getCards(packId));
+    } catch (err: any) {
+      dispatch(setError(err.response.data.error));
+    } finally {
+      dispatch(changeAppStatus('idle'));
+    }
+  };
+
+export const changeCardName =
+  (packId: string, cardId: string, question: string, answer: string): AppThunkType =>
+  async dispatch => {
+    const card = { _id: cardId, question, answer };
+
+    dispatch(changeAppStatus('loading'));
+    try {
+      await cardsApi.updateCard(card);
       dispatch(getCards(packId));
     } catch (err: any) {
       dispatch(setError(err.response.data.error));

@@ -11,6 +11,7 @@ import { getPacks, setSortPacks } from './packsReducer';
 
 export const Packs = () => {
   const dispatch = useAppDispatch();
+
   const packs = useAppSelector(state => state.packs.cardPacks);
   const userId = useAppSelector(state => state.packs.params.user_id);
   const page = useAppSelector(state => state.packs.params.page);
@@ -19,14 +20,15 @@ export const Packs = () => {
   const min = useAppSelector(state => state.packs.params.min);
   const max = useAppSelector(state => state.packs.params.max);
   const packName = useAppSelector(state => state.packs.params.packName);
-  const disabled = useAppSelector(state => state.app.status);
+
+  const status = useAppSelector(state => state.app.status);
 
   useEffect(() => {
     dispatch(getPacks({}));
   }, [dispatch, page, pageCount, sortPacks, min, max, packName, userId]);
 
   const sortPacksByLastUpdate = () => {
-    if (disabled === 'idle') {
+    if (status === 'idle') {
       const sortMethod =
         sortPacks === sortingMethods.ASC_UPDATE
           ? sortingMethods.DES_UPDATE
@@ -37,7 +39,7 @@ export const Packs = () => {
   };
 
   const sortPacksByCount = () => {
-    if (disabled === 'idle') {
+    if (status === 'idle') {
       const sortMethod =
         sortPacks === sortingMethods.ASC_CARDS_COUNT
           ? sortingMethods.DES_CARDS_COUNT

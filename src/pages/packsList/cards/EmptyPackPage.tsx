@@ -6,9 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks';
 import { Button } from '../../../components/button/Button';
 import { AddAndEditCardModal } from '../../../components/modals/AddAndEditCardModal';
-import { AddAndEditPackModal } from '../../../components/modals/AddAndEditPackModal';
-
-import { addCard } from './cardsReducer';
 
 export const EmptyPackPage: React.FC<EmptyPackPageType> = ({ packName, id }) => {
   const dispatch = useAppDispatch();
@@ -21,13 +18,11 @@ export const EmptyPackPage: React.FC<EmptyPackPageType> = ({ packName, id }) => 
     }
   };
 
+  // Modals
   const [open, setOpen] = useState(false);
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const handleOpen = () => {
-    setOpen(true);
-  };
+  const handleClose = () => setOpen(false);
+
+  const handleOpen = () => setOpen(true);
 
   return (
     <div className="cards">
@@ -48,12 +43,14 @@ export const EmptyPackPage: React.FC<EmptyPackPageType> = ({ packName, id }) => 
           submit={false}
           disabled={false}
         />
-        <AddAndEditCardModal
-          handleClose={handleClose}
-          open={open}
-          title="Add new card"
-          id={id}
-        />
+        {id && (
+          <AddAndEditCardModal
+            handleClose={handleClose}
+            open={open}
+            title="Add new card"
+            packId={id}
+          />
+        )}
       </div>
     </div>
   );

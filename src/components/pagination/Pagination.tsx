@@ -23,7 +23,6 @@ export const Pagination: FC<PropsType> = ({ location }) => {
   const totalCountPacks = useAppSelector(state => state.packs.params.cardPacksTotalCount);
   const totalCountCards = useAppSelector(state => state.cards.cardsTotalCount);
 
-  // const location = useLocation();
   const currentPlaceIsPacks = location === 'Packs';
 
   const currenTotalCount = currentPlaceIsPacks ? totalCountPacks : totalCountCards;
