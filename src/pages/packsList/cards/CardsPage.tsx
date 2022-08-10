@@ -8,9 +8,10 @@ import { Button } from '../../../components/button/Button';
 import { AddAndEditCardModal } from '../../../components/modals/AddAndEditCardModal';
 import { Pagination } from '../../../components/pagination/Pagination';
 import { Search } from '../../../components/search/Search';
+import { setResetPacksParams } from '../packsReducer';
 
 import { Card } from './Card';
-import { getCards } from './cardsReducer';
+import { getCards, setResetCardsParams } from './cardsReducer';
 import { EmptyPackPage } from './EmptyPackPage';
 
 export const CardsPage = memo(() => {
@@ -29,6 +30,13 @@ export const CardsPage = memo(() => {
   const { packName } = location.state as LocationStateType;
   const { id } = location.state as LocationStateType;
 
+  // Reset cards params  after page change
+  useEffect(() => {
+    return () => {
+      dispatch(setResetCardsParams());
+    };
+  }, [dispatch]);
+
   useEffect(() => {
     if (id) {
       dispatch(getCards(id));
@@ -46,7 +54,7 @@ export const CardsPage = memo(() => {
     navigate('/packs');
   };
 
-  if (cards.length === 0) {
+  if (cards.length === 0 && cardQuestion === '') {
     return <EmptyPackPage packName={packName} id={id} />;
   }
 

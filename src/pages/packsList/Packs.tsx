@@ -7,7 +7,7 @@ import { sortingMethods } from '../../api/PackApi';
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
 
 import { Pack } from './Pack';
-import { getPacks, setSortPacks } from './packsReducer';
+import { getPacks, setResetPacksParams, setSortPacks } from './packsReducer';
 
 export const Packs = () => {
   const dispatch = useAppDispatch();
@@ -23,6 +23,14 @@ export const Packs = () => {
 
   const status = useAppSelector(state => state.app.status);
 
+  // Reset packs params  after page change
+  useEffect(() => {
+    return () => {
+      dispatch(setResetPacksParams());
+    };
+  }, [dispatch]);
+
+  // Get and update packs
   useEffect(() => {
     dispatch(getPacks({}));
   }, [dispatch, page, pageCount, sortPacks, min, max, packName, userId]);

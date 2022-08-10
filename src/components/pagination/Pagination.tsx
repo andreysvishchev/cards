@@ -2,7 +2,6 @@ import React, { FC, useEffect, useState } from 'react';
 
 import Stack from '@mui/material/Stack';
 import TablePagination from '@mui/material/TablePagination';
-import { useLocation } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
 import { setCardsPagination } from '../../pages/packsList/cards/cardsReducer';

@@ -58,6 +58,19 @@ export const cardsReducer = (state = initState, action: CardsActionsType): Cards
     case 'CARDS/GET-PACKS-BY-TITLE': {
       return { ...state, params: { ...state.params, cardQuestion: action.title } };
     }
+    case 'CARDS/SET-RESET-CARDS-PARAMS': {
+      return {
+        ...state,
+        params: {
+          ...state.params,
+          cardQuestion: '',
+          page: 1,
+          pageCount: 10,
+          sortCards: sortingMethods.DES_UPDATE,
+          cardsPack_id: undefined,
+        },
+      };
+    }
     default:
       return state;
   }
@@ -75,6 +88,9 @@ export const setCardsPagination = (page: number, pageCount: number) => {
 };
 export const getCardsByTitle = (title: string) => {
   return { type: 'CARDS/GET-PACKS-BY-TITLE', title } as const;
+};
+export const setResetCardsParams = () => {
+  return { type: 'CARDS/SET-RESET-CARDS-PARAMS' } as const;
 };
 
 export const getCards =
@@ -118,7 +134,6 @@ export const deleteCard =
   async dispatch => {
     dispatch(changeAppStatus('loading'));
     try {
-      console.log(packId, cardId);
       await cardsApi.deleteCard({ id: cardId });
       dispatch(getCards(packId));
     } catch (err: any) {
@@ -147,4 +162,9 @@ export const changeCardName =
 type SetCardsType = ReturnType<typeof setCards>;
 type setPaginationType = ReturnType<typeof setCardsPagination>;
 type getCardsByTitleType = ReturnType<typeof getCardsByTitle>;
-export type CardsActionsType = SetCardsType | setPaginationType | getCardsByTitleType;
+type setResetCardsParamsType = ReturnType<typeof setResetCardsParams>;
+export type CardsActionsType =
+  | SetCardsType
+  | setPaginationType
+  | getCardsByTitleType
+  | setResetCardsParamsType;

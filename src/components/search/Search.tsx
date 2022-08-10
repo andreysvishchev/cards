@@ -1,7 +1,5 @@
 import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 
-import { useLocation } from 'react-router-dom';
-
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
 import { useDebounce } from '../../common/hooks/useDebounce';
 import { getCardsByTitle } from '../../pages/packsList/cards/cardsReducer';
@@ -23,7 +21,6 @@ export const Search: FC<PropsType> = ({ location }) => {
   useEffect(() => {
     if (currentPlaceIsPacks) dispatch(getPacksByTitle(value));
     else dispatch(getCardsByTitle(value));
-    dispatch(getPacksByTitle(value));
   }, [dispatch, debouncedValue]);
 
   const onChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {

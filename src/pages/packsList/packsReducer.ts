@@ -71,6 +71,22 @@ export const packsReducer = (
     case 'PACKS/SET-SORT-PACKS': {
       return { ...state, params: { ...state.params, sortPacks: actions.sortPacks } };
     }
+    case 'PACKS/SET-RESET-PACKS-PARAMS': {
+      return {
+        ...state,
+        params: {
+          ...state.params,
+          packName: '',
+          min: 0,
+          max: 110,
+          user_id: undefined,
+          page: 1,
+          pageCount: 10,
+          sortPacks: sortingMethods.DES_UPDATE,
+          cardPacksTotalCount: 10,
+        },
+      };
+    }
     default:
       return state;
   }
@@ -102,6 +118,9 @@ export const setPacksOfAllUsers = () => {
 };
 export const setSortPacks = (sortPacks: sortingMethods) => {
   return { type: 'PACKS/SET-SORT-PACKS', sortPacks } as const;
+};
+export const setResetPacksParams = () => {
+  return { type: 'PACKS/SET-RESET-PACKS-PARAMS' } as const;
 };
 
 export const getPacks =
@@ -178,4 +197,5 @@ export type PacksActionsType =
   | ReturnType<typeof getPacksByTitle>
   | ReturnType<typeof setPacksOfCertainUser>
   | ReturnType<typeof setPacksOfAllUsers>
-  | ReturnType<typeof setSortPacks>;
+  | ReturnType<typeof setSortPacks>
+  | ReturnType<typeof setResetPacksParams>;
