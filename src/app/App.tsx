@@ -71,7 +71,7 @@ export const App = (): any => {
             <Route path="/" element={<Login />} />
             <Route path="set-new-password/*" element={<PasswordNew />} />
             <Route path="password-recovery" element={<PasswordRecovery />} />
-            <Route path="packs" element={<PacksList />} />
+            <Route path="packs/*" element={<PacksList />} />
             <Route path="registration" element={<Registration />} />
             <Route path="profile" element={<ProfileContainer />} />
             <Route path="404" element={<NotFound />} />

@@ -47,6 +47,8 @@ const initState: CardsType = {
 export const cardsReducer = (state = initState, action: CardsActionsType): CardsType => {
   switch (action.type) {
     case 'CARDS/SET_CARDS': {
+      console.log({ ...state, ...action.payload });
+
       return { ...state, ...action.payload };
     }
     case 'CARDS/SET-PAGINATION': {

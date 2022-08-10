@@ -23,10 +23,17 @@ export const Packs = () => {
 
   const status = useAppSelector(state => state.app.status);
 
+  // For empty elements
+  const maxInitialNumber = 110;
+  const minInitialNumber = 0;
+  const emptySearchResults = packs.length === 0 && packName !== '';
+  const emptySliderResults =
+    packs.length === 0 && (max !== maxInitialNumber || min !== minInitialNumber);
+
   // Reset packs params  after page change
   useEffect(() => {
     return () => {
-      dispatch(setResetPacksParams());
+      dispatch(setResetPacksParams(''));
     };
   }, [dispatch]);
 
@@ -58,49 +65,57 @@ export const Packs = () => {
   };
 
   return (
-    <div className="packs">
-      <div className="packs__captions">
-        <div className="packs__caption">Name</div>
-        <div
-          className="packs__caption packs__caption--sorting"
-          onClick={sortPacksByCount}
-        >
-          Cards
-          {sortPacks === sortingMethods.ASC_CARDS_COUNT ? (
-            <ArrowDropUpOutlinedIcon fontSize="small" />
-          ) : (
-            <ArrowDropDownOutlinedIcon fontSize="small" />
-          )}
+    <div>
+      {emptySearchResults || emptySliderResults ? (
+        <div className="empty">
+          Packs with the given parameters were not found. Change your search options
         </div>
-        <div
-          className="packs__caption packs__caption--sorting"
-          onClick={sortPacksByLastUpdate}
-        >
-          Last Update
-          {sortPacks === sortingMethods.ASC_UPDATE ? (
-            <ArrowDropUpOutlinedIcon fontSize="small" />
-          ) : (
-            <ArrowDropDownOutlinedIcon fontSize="small" />
-          )}
+      ) : (
+        <div className="packs">
+          <div className="packs__captions">
+            <div className="packs__caption">Name</div>
+            <div
+              className="packs__caption packs__caption--sorting"
+              onClick={sortPacksByCount}
+            >
+              Cards
+              {sortPacks === sortingMethods.ASC_CARDS_COUNT ? (
+                <ArrowDropUpOutlinedIcon fontSize="small" />
+              ) : (
+                <ArrowDropDownOutlinedIcon fontSize="small" />
+              )}
+            </div>
+            <div
+              className="packs__caption packs__caption--sorting"
+              onClick={sortPacksByLastUpdate}
+            >
+              Last Update
+              {sortPacks === sortingMethods.ASC_UPDATE ? (
+                <ArrowDropUpOutlinedIcon fontSize="small" />
+              ) : (
+                <ArrowDropDownOutlinedIcon fontSize="small" />
+              )}
+            </div>
+            <div className="packs__caption">Created by</div>
+            <div className="packs__caption">Actions</div>
+          </div>
+          <div className="packs__list">
+            {packs.map(el => {
+              return (
+                <Pack
+                  key={el._id}
+                  id={el._id}
+                  authorId={el.user_id}
+                  name={el.name}
+                  author={el.user_name}
+                  cards={el.cardsCount}
+                  lastUploaded={el.updated}
+                />
+              );
+            })}
+          </div>
         </div>
-        <div className="packs__caption">Created by</div>
-        <div className="packs__caption">Actions</div>
-      </div>
-      <div className="packs__list">
-        {packs.map(el => {
-          return (
-            <Pack
-              key={el._id}
-              id={el._id}
-              authorId={el.user_id}
-              name={el.name}
-              author={el.user_name}
-              cards={el.cardsCount}
-              lastUploaded={el.updated}
-            />
-          );
-        })}
-      </div>
+      )}
     </div>
   );
 };

@@ -65,7 +65,7 @@ export const packsReducer = (
     case 'PACKS/GET-PACKS-OF-ALL-USER': {
       return {
         ...state,
-        params: { ...state.params, user_id: undefined, min: 0, max: 110 },
+        params: { ...state.params, user_id: undefined },
       };
     }
     case 'PACKS/SET-SORT-PACKS': {
@@ -78,8 +78,8 @@ export const packsReducer = (
           ...state.params,
           packName: '',
           min: 0,
+          user_id: actions.userId,
           max: 110,
-          user_id: undefined,
           page: 1,
           pageCount: 10,
           sortPacks: sortingMethods.DES_UPDATE,
@@ -119,8 +119,8 @@ export const setPacksOfAllUsers = () => {
 export const setSortPacks = (sortPacks: sortingMethods) => {
   return { type: 'PACKS/SET-SORT-PACKS', sortPacks } as const;
 };
-export const setResetPacksParams = () => {
-  return { type: 'PACKS/SET-RESET-PACKS-PARAMS' } as const;
+export const setResetPacksParams = (userId: string) => {
+  return { type: 'PACKS/SET-RESET-PACKS-PARAMS', userId } as const;
 };
 
 export const getPacks =

@@ -8,7 +8,6 @@ import { Button } from '../../../components/button/Button';
 import { AddAndEditCardModal } from '../../../components/modals/AddAndEditCardModal';
 import { Pagination } from '../../../components/pagination/Pagination';
 import { Search } from '../../../components/search/Search';
-import { setResetPacksParams } from '../packsReducer';
 
 import { Card } from './Card';
 import { getCards, setResetCardsParams } from './cardsReducer';
@@ -29,6 +28,9 @@ export const CardsPage = memo(() => {
 
   const { packName } = location.state as LocationStateType;
   const { id } = location.state as LocationStateType;
+
+  // For empty elements
+  const emptySearchResults = cards.length === 0 && cardQuestion !== '';
 
   // Reset cards params  after page change
   useEffect(() => {
@@ -77,31 +79,38 @@ export const CardsPage = memo(() => {
           disabled={status === 'loading'}
         />
       </div>
-      <div className="packs">
-        <div className="packs__captions">
-          <div className="packs__caption">Question</div>
-          <div className="packs__caption">Answer</div>
-          <div className="packs__caption">Last Updated</div>
-          <div className="packs__caption">Grade</div>
-          <div className="packs__caption">Actions</div>
+      {emptySearchResults ? (
+        <div className="empty">
+          Cards with the given parameters were not found. Change your search options
         </div>
-        <div className="packs__list" />
-        {cards.map(el => {
-          return (
-            <Card
-              authorId={el.user_id}
-              packId={id}
-              cardId={el._id}
-              key={el._id}
-              question={el.question}
-              answer={el.answer}
-              grade={el.grade}
-              lastUpdated={el.updated}
-            />
-          );
-        })}
-      </div>
-      <Pagination location="Cards" />
+      ) : (
+        <div className="packs">
+          <div className="packs__captions">
+            <div className="packs__caption">Question</div>
+            <div className="packs__caption">Answer</div>
+            <div className="packs__caption">Last Updated</div>
+            <div className="packs__caption">Grade</div>
+            <div className="packs__caption">Actions</div>
+          </div>
+          <div className="packs__list" />
+          {cards.map(el => {
+            return (
+              <Card
+                authorId={el.user_id}
+                packId={id}
+                cardId={el._id}
+                key={el._id}
+                question={el.question}
+                answer={el.answer}
+                grade={el.grade}
+                lastUpdated={el.updated}
+              />
+            );
+          })}
+        </div>
+      )}
+
+      {!emptySearchResults && <Pagination location="Cards" />}
       <AddAndEditCardModal
         handleClose={handleClose}
         open={open}
