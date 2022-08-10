@@ -37,6 +37,7 @@ export const CardsPage = memo(() => {
     };
   }, [dispatch]);
 
+  // Get and update cards
   useEffect(() => {
     if (id) {
       dispatch(getCards(id));
