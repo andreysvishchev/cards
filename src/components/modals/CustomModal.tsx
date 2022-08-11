@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 
 import CloseIcon from '@mui/icons-material/Close';
 import Box from '@mui/material/Box';
@@ -17,7 +17,7 @@ const style = {
 };
 
 type PropsType = {
-  children: any;
+  children: ReactNode;
   open: boolean;
   handleClose: () => void;
   title: string;

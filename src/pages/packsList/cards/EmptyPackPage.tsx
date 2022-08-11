@@ -3,12 +3,11 @@ import React, { useState } from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom';
 
-import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks';
+import { useAppSelector } from '../../../common/hooks/hooks';
 import { Button } from '../../../components/button/Button';
 import { AddAndEditCardModal } from '../../../components/modals/AddAndEditCardModal';
 
 export const EmptyPackPage: React.FC<EmptyPackPageType> = ({ packName, id }) => {
-  const dispatch = useAppDispatch();
   const disabled = useAppSelector(state => state.app.status);
   const navigate = useNavigate();
 
