@@ -414,7 +414,46 @@
     justify-content: space-around;
     align-items: center;
   }
+}
 
+.learn {
+  &__back {
+    cursor: pointer;
+    width: 170px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  &__content {
+
+  }
+
+  &__title {
+
+  }
+
+  &__question {
+
+  }
+
+  &__question-name {
+    font-size: 16px;
+    padding: 25px 0;
+  }
+
+  &__answer-count {
+    padding: 13px 0;
+    opacity: 50%;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 24px;
+  }
+
+  &__btn {
+    text-align: center;
+    padding: 20px 0;
+  }
 }
 
 .packs {
