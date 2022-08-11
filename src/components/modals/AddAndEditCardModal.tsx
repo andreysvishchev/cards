@@ -37,9 +37,13 @@ export const AddAndEditCardModal: FC<PropsType> = ({
     },
     validate: values => {
       const errors: FormikErrorType = {};
+      const maxQuestionLength = 70;
 
       if (!values.question) {
         errors.question = 'Поле обязательно для заполнения';
+      }
+      if (values.question.length > maxQuestionLength) {
+        errors.question = 'Превышена максимальная длина';
       }
 
       return errors;

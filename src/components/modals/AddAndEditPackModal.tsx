@@ -32,9 +32,13 @@ export const AddAndEditPackModal: FC<PropsType> = ({ open, handleClose, title, i
     },
     validate: values => {
       const errors: FormikErrorType = {};
+      const maxNameLength = 70;
 
       if (!values.packName) {
         errors.packName = 'Поле обязательно для заполнения';
+      }
+      if (values.packName.length > maxNameLength) {
+        errors.packName = 'Превышена максимальная длина';
       }
 
       return errors;

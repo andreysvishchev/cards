@@ -16,6 +16,13 @@ export const Card: React.FC<CardPropsType> = props => {
   const status = useAppSelector(state => state.app.status);
   const userId = useAppSelector(state => state.profile._id);
 
+  // Question length control
+  const maxQuestionLength = 30;
+  const questionRedacted =
+    question.length > maxQuestionLength
+      ? `${question.slice(0, maxQuestionLength)}...`
+      : question;
+
   // Modals
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -28,7 +35,7 @@ export const Card: React.FC<CardPropsType> = props => {
 
   return (
     <div className="pack">
-      <div className="pack__col">{question}</div>
+      <div className="pack__col">{questionRedacted}</div>
       <div className="pack__col">{answer}</div>
       <div className="pack__col">{lastUpdated}</div>
       <div className="pack__col">
@@ -77,7 +84,7 @@ export const Card: React.FC<CardPropsType> = props => {
         title="Delete Pack"
         packId={packId}
         cardId={cardId}
-        name={question}
+        name={questionRedacted}
       />
     </div>
   );

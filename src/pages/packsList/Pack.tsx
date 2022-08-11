@@ -28,6 +28,11 @@ export const Pack = memo((props: PropsType) => {
   const userId = useAppSelector(state => state.profile._id);
   const status = useAppSelector(state => state.app.status);
 
+  // Name length control
+  const maxNameLength = 30;
+  const nameRedacted =
+    name.length > maxNameLength ? `${name.slice(0, maxNameLength)}...` : name;
+
   // Modals
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -44,7 +49,7 @@ export const Pack = memo((props: PropsType) => {
       // отображение имени колоды
       navigate('/cardsPage', {
         state: {
-          packName: name,
+          packName: nameRedacted,
           id,
         },
       });
@@ -56,7 +61,7 @@ export const Pack = memo((props: PropsType) => {
   return (
     <div className="pack">
       <div onClick={getCardsHandler} className="pack__col">
-        {name}
+        {nameRedacted}
       </div>
       <div className="pack__col">{cards}</div>
       <div className="pack__col">{lastUploaded}</div>
@@ -104,7 +109,7 @@ export const Pack = memo((props: PropsType) => {
         handleClose={closeDeleteModalHandler}
         title="Delete Pack"
         packId={id}
-        name={name}
+        name={nameRedacted}
       />
     </div>
   );
