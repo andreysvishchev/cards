@@ -1,6 +1,6 @@
 import { cardsApi, CardsType } from '../../../api/CardsApi';
 import { sortingMethods } from '../../../api/PackApi';
-import { changeAppStatus, setError } from '../../../app/appReducer';
+import { changeAppStatus, setError, setSuccess } from '../../../app/appReducer';
 import { AppStateType } from '../../../app/store';
 import { AppThunkType } from '../../../common/types/types';
 
@@ -47,8 +47,6 @@ const initState: CardsType = {
 export const cardsReducer = (state = initState, action: CardsActionsType): CardsType => {
   switch (action.type) {
     case 'CARDS/SET_CARDS': {
-      console.log({ ...state, ...action.payload });
-
       return { ...state, ...action.payload };
     }
     case 'CARDS/SET-PAGINATION': {
@@ -78,7 +76,7 @@ export const cardsReducer = (state = initState, action: CardsActionsType): Cards
   }
 };
 
-export const setCards = (payload: any) => {
+export const setCards = (payload: CardsType) => {
   return {
     type: 'CARDS/SET_CARDS',
     payload,
@@ -103,6 +101,8 @@ export const getCards =
       const stateParams = getState().cards.params;
       const response = await cardsApi.getCards(packId, { ...stateParams });
 
+      console.log(response);
+
       dispatch(setCards({ ...response.data }));
     } catch (err: any) {
       dispatch(setError(err.response.data.error));
@@ -124,6 +124,7 @@ export const addCard =
     try {
       await cardsApi.postCard(card);
       dispatch(getCards(packId));
+      dispatch(setSuccess('New card successfully added'));
     } catch (err: any) {
       dispatch(setError(err.response.data.error));
     } finally {
@@ -138,6 +139,7 @@ export const deleteCard =
     try {
       await cardsApi.deleteCard({ id: cardId });
       dispatch(getCards(packId));
+      dispatch(setSuccess('Card successfully deleted'));
     } catch (err: any) {
       dispatch(setError(err.response.data.error));
     } finally {
@@ -154,6 +156,7 @@ export const changeCardName =
     try {
       await cardsApi.updateCard(card);
       dispatch(getCards(packId));
+      dispatch(setSuccess('Card successfully changed'));
     } catch (err: any) {
       dispatch(setError(err.response.data.error));
     } finally {

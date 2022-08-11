@@ -9,11 +9,13 @@ import { AddAndEditCardModal } from '../../../components/modals/AddAndEditCardMo
 
 export const EmptyPackPage: React.FC<EmptyPackPageType> = ({ packName, id }) => {
   const dispatch = useAppDispatch();
-  const disabled = useAppSelector(state => state.app.status);
+
+  const status = useAppSelector(state => state.app.status);
+
   const navigate = useNavigate();
 
   const navToPacksList = () => {
-    if (disabled === 'idle') {
+    if (status === 'idle') {
       navigate('/packs');
     }
   };

@@ -7,6 +7,7 @@ const initState = {
   status: 'idle' as RequestStatusType,
   isInitialized: false,
   error: null as string | null,
+  success: null as string | null,
 };
 
 export const appReducer = (
@@ -20,6 +21,9 @@ export const appReducer = (
       return { ...state, isInitialized: actions.payload.value };
     }
     case 'APP/SET_ERROR': {
+      return { ...state, ...actions.payload };
+    }
+    case 'APP/SET_SUCCESS': {
       return { ...state, ...actions.payload };
     }
     default:
@@ -37,6 +41,10 @@ export const setIsInitialized = (value: boolean) => {
 
 export const setError = (error: string | null) => {
   return { type: 'APP/SET_ERROR', payload: { error } } as const;
+};
+
+export const setSuccess = (success: string | null) => {
+  return { type: 'APP/SET_SUCCESS', payload: { success } } as const;
 };
 
 export const initializeApp = (): AppThunkType => async dispatch => {
@@ -58,5 +66,10 @@ type InitStateType = typeof initState;
 type ChangeAppStatusType = ReturnType<typeof changeAppStatus>;
 type SetIsInitializedType = ReturnType<typeof setIsInitialized>;
 type SetErrorType = ReturnType<typeof setError>;
-export type AppActionsType = ChangeAppStatusType | SetIsInitializedType | SetErrorType;
+type setSuccessType = ReturnType<typeof setSuccess>;
+export type AppActionsType =
+  | ChangeAppStatusType
+  | SetIsInitializedType
+  | SetErrorType
+  | setSuccessType;
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed';

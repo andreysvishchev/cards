@@ -1,5 +1,5 @@
 import { packApi, PacksDataType, sortingMethods } from '../../api/PackApi';
-import { changeAppStatus, setError } from '../../app/appReducer';
+import { changeAppStatus, setError, setSuccess } from '../../app/appReducer';
 import { AppStateType } from '../../app/store';
 import { AppThunkType } from '../../common/types/types';
 
@@ -92,7 +92,7 @@ export const packsReducer = (
   }
 };
 
-export const setPacks = (payload: any) => {
+export const setPacks = (payload: PacksDataType) => {
   return { type: 'PACKS/SET-PACKS', payload } as const;
 };
 export const setPacksTotalCount = (page: number, totalCount: number) => {
@@ -110,7 +110,7 @@ export const resetPage = (page: number) => {
 export const getPacksByTitle = (title: string) => {
   return { type: 'PACKS/GET-PACKS-BY-TITLE', title } as const;
 };
-export const setPacksOfCertainUser = (userId: any) => {
+export const setPacksOfCertainUser = (userId: string) => {
   return { type: 'PACKS/GET-PACKS-OF-CERTAIN-USER', userId } as const;
 };
 export const setPacksOfAllUsers = () => {
@@ -130,7 +130,6 @@ export const getPacks =
     try {
       const stateParams = getState().packs.params;
       const advancedOptions = { ...stateParams, ...params };
-
       const response = await packApi.getPacks(advancedOptions);
 
       dispatch(setPacks({ ...response.data }));
@@ -150,6 +149,7 @@ export const addPack =
     try {
       await packApi.addPack(cardsPack);
       dispatch(getPacks({}));
+      dispatch(setSuccess('New pack successfully added'));
     } catch (err: any) {
       dispatch(setError(err.response.data.error));
     } finally {
@@ -164,6 +164,7 @@ export const deletePack =
     try {
       await packApi.deletePack({ id: packId });
       dispatch(getPacks({}));
+      dispatch(setSuccess('Pack successfully deleted'));
     } catch (err: any) {
       dispatch(setError(err.response.data.error));
     } finally {
@@ -180,6 +181,7 @@ export const changePackName =
     try {
       await packApi.updatePack(cardsPack);
       dispatch(getPacks({}));
+      dispatch(setSuccess('Pack successfully changed'));
     } catch (err: any) {
       dispatch(setError(err.response.data.error));
     } finally {

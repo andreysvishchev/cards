@@ -11,7 +11,7 @@ import { Search } from '../../components/search/Search';
 import { Packs } from './Packs';
 
 export const PacksList = () => {
-  const disabled = useAppSelector(state => state.app.status);
+  const status = useAppSelector(state => state.app.status);
 
   // Modals
   const [open, setOpen] = useState(false);
@@ -27,7 +27,7 @@ export const PacksList = () => {
           title="Add new pack"
           callBack={handleOpen}
           submit={false}
-          disabled={disabled === 'loading'}
+          disabled={status === 'loading'}
         />
       </div>
       <AddAndEditPackModal title="Add new pack" open={open} handleClose={handleClose} />

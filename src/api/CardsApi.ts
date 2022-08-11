@@ -1,12 +1,12 @@
 import { instance } from './instance/instance';
 
 export const cardsApi = {
-  getCards(packId: string, params: any) {
+  getCards(packId: string, params: CardsParamsType) {
     return instance.get<CardsType>(`cards/card?cardsPack_id=${packId}`, {
       params: { ...params },
     });
   },
-  postCard(card: any) {
+  postCard(card: { cardsPack_id: string; question: string; answer: string }) {
     return instance.post(`cards/card`, { card });
   },
   deleteCard(params: { id: string }) {

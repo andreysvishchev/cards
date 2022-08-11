@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 
+import { LinearProgress } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Navigate, NavLink, Route, Routes } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../common/hooks/hooks';
-import { ErrorSnackBar } from '../components/errorSnackbar/ErrorSnackbar';
 import { HeaderContainer } from '../components/header/HeaderContainer';
+import { ErrorSnackBar } from '../components/Snackbars/ErrorSnackbar';
+import { SuccessSnackBar } from '../components/Snackbars/SuccessSnackbar';
 import { NotFound } from '../pages/404/NotFound';
 import { Login } from '../pages/login/Login';
 import { CardsPage } from '../pages/packsList/cards/CardsPage';
@@ -21,6 +23,7 @@ import { initializeApp } from './appReducer';
 export const App = (): any => {
   const dispatch = useAppDispatch();
   const isInitialized = useAppSelector(state => state.app.isInitialized);
+  const status = useAppSelector(state => state.app.status);
 
   useEffect(() => {
     dispatch(initializeApp());
@@ -44,6 +47,11 @@ export const App = (): any => {
   return (
     <div className="app">
       <HeaderContainer />
+      {status === 'loading' ? (
+        <LinearProgress color="primary" />
+      ) : (
+        <div className="loadingBar" />
+      )}
       {/* для тестого перехода по страницам */}
       <div className="test">
         <NavLink className="navlink" to="/cards">
@@ -71,7 +79,7 @@ export const App = (): any => {
             <Route path="/cards" element={<Login />} />
             <Route path="set-new-password/*" element={<PasswordNew />} />
             <Route path="password-recovery" element={<PasswordRecovery />} />
-            <Route path="packs/*" element={<PacksList />} />
+            <Route path="packs" element={<PacksList />} />
             <Route path="registration" element={<Registration />} />
             <Route path="profile" element={<ProfileContainer />} />
             <Route path="404" element={<NotFound />} />
@@ -80,6 +88,7 @@ export const App = (): any => {
             <Route path="*" element={<Navigate to="/404" />} />
           </Routes>
           <ErrorSnackBar />
+          <SuccessSnackBar />
         </div>
       </div>
     </div>
