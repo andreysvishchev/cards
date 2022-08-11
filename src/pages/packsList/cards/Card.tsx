@@ -13,6 +13,7 @@ import { DeletePackAndCard } from '../../../components/modals/DeletePackAndCard'
 
 export const Card: React.FC<CardPropsType> = props => {
   const { answer, grade, lastUpdated, question, cardId, packId, authorId } = props;
+  const updatedDate = new Date(lastUpdated).toLocaleDateString('ru');
   const status = useAppSelector(state => state.app.status);
   const userId = useAppSelector(state => state.profile._id);
 
@@ -30,7 +31,7 @@ export const Card: React.FC<CardPropsType> = props => {
     <div className="pack">
       <div className="pack__col">{question}</div>
       <div className="pack__col">{answer}</div>
-      <div className="pack__col">{lastUpdated}</div>
+      <div className="pack__col">{updatedDate}</div>
       <div className="pack__col">
         <Rating name="simple-controlled" value={grade} />
       </div>

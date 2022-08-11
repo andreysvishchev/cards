@@ -7,7 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import { useNavigate } from 'react-router-dom';
 
-import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
+import { useAppSelector } from '../../common/hooks/hooks';
 import { AddAndEditPackModal } from '../../components/modals/AddAndEditPackModal';
 import { DeletePackAndCard } from '../../components/modals/DeletePackAndCard';
 
@@ -22,6 +22,7 @@ type PropsType = {
 
 export const Pack = memo((props: PropsType) => {
   const { id, name, cards, authorId, author, lastUploaded } = props;
+  const updatedDate = new Date(lastUploaded).toLocaleDateString('ru');
 
   const navigate = useNavigate();
 
@@ -59,7 +60,7 @@ export const Pack = memo((props: PropsType) => {
         {name}
       </div>
       <div className="pack__col">{cards}</div>
-      <div className="pack__col">{lastUploaded}</div>
+      <div className="pack__col">{updatedDate}</div>
       <div className="pack__col">{author}</div>
       <div className="pack__col">
         <IconButton

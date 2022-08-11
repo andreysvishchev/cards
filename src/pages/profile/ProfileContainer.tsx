@@ -21,7 +21,7 @@ export const ProfileContainer = () => {
 
   useEffect(() => {
     if (!isLoggedIn) {
-      navigate('/');
+      navigate('/cards');
     }
   }, [isLoggedIn]);
 
