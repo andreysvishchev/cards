@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 
 import { useFormik } from 'formik';
 
@@ -29,6 +29,11 @@ export const AddAndEditCardModal: FC<PropsType> = ({
   cardId,
 }) => {
   const dispatch = useAppDispatch();
+
+  // reset form after close
+  useEffect(() => {
+    formik.resetForm();
+  }, [open]);
 
   const formik = useFormik({
     initialValues: {

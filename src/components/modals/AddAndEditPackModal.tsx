@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -24,6 +24,15 @@ type PropsType = {
 
 export const AddAndEditPackModal: FC<PropsType> = ({ open, handleClose, title, id }) => {
   const dispatch = useAppDispatch();
+
+  // reset form after close
+  useEffect(() => {
+    formik.resetForm();
+  }, [open]);
+
+  const cancelHandler = () => {
+    handleClose();
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -76,7 +85,7 @@ export const AddAndEditPackModal: FC<PropsType> = ({ open, handleClose, title, i
           }
         />
         <div className="submit submit__modals">
-          <Button title="Cancel" callBack={handleClose} submit={false} />
+          <Button title="Cancel" callBack={cancelHandler} submit={false} />
           <Button title="Save" submit />
         </div>
       </form>
