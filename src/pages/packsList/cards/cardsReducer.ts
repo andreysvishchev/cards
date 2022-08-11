@@ -101,8 +101,6 @@ export const getCards =
       const stateParams = getState().cards.params;
       const response = await cardsApi.getCards(packId, { ...stateParams });
 
-      console.log(response);
-
       dispatch(setCards({ ...response.data }));
     } catch (err: any) {
       dispatch(setError(err.response.data.error));
