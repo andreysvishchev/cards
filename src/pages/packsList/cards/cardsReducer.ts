@@ -1,4 +1,9 @@
-import { cardsApi, CardsType } from '../../../api/CardsApi';
+import {
+  cardsApi,
+  CardsType,
+  GradeDataType,
+  UpdatedGradeType,
+} from '../../../api/CardsApi';
 import { sortingMethods } from '../../../api/PackApi';
 import { changeAppStatus, setError, setSuccess } from '../../../app/appReducer';
 import { AppStateType } from '../../../app/store';
@@ -92,6 +97,9 @@ export const getCardsByTitle = (title: string) => {
 export const setResetCardsParams = () => {
   return { type: 'CARDS/SET-RESET-CARDS-PARAMS' } as const;
 };
+// export const setUpdatedCard = (updatedGrade: UpdatedGradeType) => {
+//   return { type: 'CARDS/SET-UPDATED-CARD', payload: { updatedGrade } } as const;
+// };
 
 export const getCards =
   (packId: string): AppThunkType =>
@@ -162,12 +170,29 @@ export const changeCardName =
     }
   };
 
+export const putCardGrade =
+  (gradeData: GradeDataType): AppThunkType =>
+  async dispatch => {
+    dispatch(changeAppStatus('loading'));
+    try {
+      const response = await cardsApi.gradeCard(gradeData);
+
+      // dispatch(setUpdatedCard(response.data));
+    } catch (err: any) {
+      return;
+    } finally {
+      dispatch(changeAppStatus('idle'));
+    }
+  };
+
 type SetCardsType = ReturnType<typeof setCards>;
 type setPaginationType = ReturnType<typeof setCardsPagination>;
 type getCardsByTitleType = ReturnType<typeof getCardsByTitle>;
 type setResetCardsParamsType = ReturnType<typeof setResetCardsParams>;
+// type SetUpdatedCardType = ReturnType<typeof setUpdatedCard>;
 export type CardsActionsType =
   | SetCardsType
   | setPaginationType
   | getCardsByTitleType
   | setResetCardsParamsType;
+// | SetUpdatedCardType;

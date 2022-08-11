@@ -2,6 +2,7 @@ import { packApi, PacksDataType, sortingMethods } from '../../api/PackApi';
 import { changeAppStatus, setError, setSuccess } from '../../app/appReducer';
 import { AppStateType } from '../../app/store';
 import { AppThunkType } from '../../common/types/types';
+import { setIsLoggedIn } from '../login/loginReducer';
 
 const initState = {
   user_id: undefined, // pack id
@@ -135,6 +136,7 @@ export const getPacks =
       dispatch(setPacks({ ...response.data }));
     } catch (err: any) {
       dispatch(setError(err.response.data.error));
+      dispatch(setIsLoggedIn(false));
     } finally {
       dispatch(changeAppStatus('idle'));
     }

@@ -9,6 +9,7 @@ import { HeaderContainer } from '../components/header/HeaderContainer';
 import { ErrorSnackBar } from '../components/Snackbars/ErrorSnackbar';
 import { SuccessSnackBar } from '../components/Snackbars/SuccessSnackbar';
 import { NotFound } from '../pages/404/NotFound';
+import { LearnPage } from '../pages/learnPage/LearnPage';
 import { Login } from '../pages/login/Login';
 import { CardsPage } from '../pages/packsList/cards/CardsPage';
 import { EmptyPackPage } from '../pages/packsList/cards/EmptyPackPage';
@@ -85,6 +86,7 @@ export const App = (): any => {
             <Route path="404" element={<NotFound />} />
             <Route path="cardsPage" element={<CardsPage />} />
             <Route path="emptyPackPage" element={<EmptyPackPage />} />
+            <Route path="learnPage" element={<LearnPage />} />
             <Route path="*" element={<Navigate to="/404" />} />
           </Routes>
           <ErrorSnackBar />
