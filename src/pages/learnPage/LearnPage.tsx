@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { CardType } from '../../api/CardsApi';
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
@@ -33,20 +33,15 @@ const getCard = (cards: CardType[]) => {
 
 export const LearnPage = () => {
   const [showAnswer, setShowAnswer] = useState(false);
+  const [first, setFirst] = useState<boolean>(true);
   const [grade, setGrade] = useState(1);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const location = useLocation();
-
+  const { id } = useParams<{ id: string }>();
   const disabled = useAppSelector(state => state.app.status);
   const cards = useAppSelector(state => state.cards.cards);
-  const { packName, id } = location.state as LocationStateType;
-
-  useEffect(() => {
-    dispatch(getCards(id));
-
-    if (cards.length > 0) setCard(getCard(cards));
-  }, [dispatch, id]);
+  const { packName } = location.state as LocationStateType;
 
   const [card, setCard] = useState<CardType>({
     _id: '',
@@ -67,8 +62,18 @@ export const LearnPage = () => {
     created: '',
     updated: '',
     __v: 0,
+    card_id: '',
   });
 
+  useEffect(() => {
+    if (first && id) {
+      // передаем бесконечность чтобы возвращало все карточки пака
+      dispatch(getCards(id, Infinity));
+      setFirst(false);
+    }
+
+    if (cards.length > 0) setCard(getCard(cards));
+  }, [dispatch, id, cards]);
   const navToPacksList = () => {
     if (disabled === 'idle') {
       navigate('/packs');
@@ -106,6 +111,8 @@ export const LearnPage = () => {
         </div>
         {showAnswer && (
           <div className="learn__answer">
+            <b>Answer:</b>
+            <span>{card.answer}</span>
             <Grades setGrade={setGrade} />
             <div className="learn__btn">
               <Button title="Next question" submit={false} callBack={nextQuestion} />
