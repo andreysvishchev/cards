@@ -12,8 +12,11 @@ type PropsType = {
 export const Search: FC<PropsType> = ({ location }) => {
   const dispatch = useAppDispatch();
   const disabled = useAppSelector(state => state.app.status);
+  const searchValue = useAppSelector(state => state.packs.params.packName);
+
   const delay = 500;
   const [value, setValue] = useState('');
+
   const debouncedValue = useDebounce<string>(value, delay);
 
   const currentPlaceIsPacks = location === 'Packs';
@@ -22,6 +25,11 @@ export const Search: FC<PropsType> = ({ location }) => {
     if (currentPlaceIsPacks) dispatch(getPacksByTitle(value));
     else dispatch(getCardsByTitle(value));
   }, [dispatch, debouncedValue]);
+
+  // for filter reset
+  useEffect(() => {
+    if (searchValue === '') setValue(searchValue);
+  }, [dispatch, searchValue]);
 
   const onChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
     setValue(event.currentTarget.value);
