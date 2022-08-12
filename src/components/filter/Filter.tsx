@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
 import {
@@ -22,10 +22,6 @@ export const Filter = () => {
 
     return React.useMemo(() => new URLSearchParams(search), [search]);
   }
-  const query = useQuery();
-  const currentFilter = query.get('accessory');
-
-  console.log(currentFilter);
 
   const [isActive, setIsActive] = useState(false);
 
@@ -44,46 +40,34 @@ export const Filter = () => {
     if (filter === '') setIsActive(false);
   }, [filter]);
 
-  useEffect(() => {
-    if (currentFilter === 'My') setIsActive(true);
-    else {
-      setIsActive(false);
-      navigate('/packs?accessory=All');
-    }
-  }, [currentFilter]);
-
   return (
     <div className="filter">
       <div className="filter__title">Show packs cards</div>
       <div className="filter__buttons">
-        <Link to="/packs?accessory=My">
-          <button
-            onClick={getMyPacksHandler}
-            disabled={status === 'loading'}
-            type="button"
-            className={
-              isActive
-                ? 'filter__button filter__button--blue'
-                : 'filter__button filter__button--light'
-            }
-          >
-            My
-          </button>
-        </Link>
-        <Link to="/packs?accessory=All">
-          <button
-            onClick={getAllPacksHandler}
-            type="button"
-            disabled={status === 'loading'}
-            className={
-              isActive
-                ? 'filter__button filter__button--light'
-                : 'filter__button filter__button--blue'
-            }
-          >
-            All
-          </button>
-        </Link>
+        <button
+          onClick={getMyPacksHandler}
+          disabled={status === 'loading'}
+          type="button"
+          className={
+            isActive
+              ? 'filter__button filter__button--blue'
+              : 'filter__button filter__button--light'
+          }
+        >
+          My
+        </button>
+        <button
+          onClick={getAllPacksHandler}
+          type="button"
+          disabled={status === 'loading'}
+          className={
+            isActive
+              ? 'filter__button filter__button--light'
+              : 'filter__button filter__button--blue'
+          }
+        >
+          All
+        </button>
       </div>
     </div>
   );
