@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
 import {
@@ -12,6 +12,7 @@ export const Filter = () => {
 
   const id = useAppSelector(state => state.profile._id);
   const status = useAppSelector(state => state.app.status);
+  const filter = useAppSelector(state => state.packs.params.user_id);
 
   const [isActive, setIsActive] = useState(false);
 
@@ -24,6 +25,11 @@ export const Filter = () => {
     dispatch(setPacksOfAllUsers());
     setIsActive(false);
   };
+
+  // for filter reset
+  useEffect(() => {
+    if (filter === '') setIsActive(false);
+  }, [filter]);
 
   return (
     <div className="filter">
