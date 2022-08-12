@@ -1,9 +1,4 @@
-import {
-  cardsApi,
-  CardsType,
-  GradeDataType,
-  UpdatedGradeType,
-} from '../../../api/CardsApi';
+import { cardsApi, CardsType, GradeDataType } from '../../../api/CardsApi';
 import { sortingMethods } from '../../../api/PackApi';
 import { changeAppStatus, setError, setSuccess } from '../../../app/appReducer';
 import { AppStateType } from '../../../app/store';
@@ -30,6 +25,7 @@ const initState: CardsType = {
       created: '',
       updated: '',
       __v: 0,
+      card_id: '',
     },
   ],
   packUserId: '',
@@ -76,6 +72,9 @@ export const cardsReducer = (state = initState, action: CardsActionsType): Cards
         },
       };
     }
+    case 'CARDS/SET-UPDATED-CARD': {
+      return { ...state, cards: [...state.cards, action.payload.updatedGrade] };
+    }
     default:
       return state;
   }
@@ -97,17 +96,20 @@ export const getCardsByTitle = (title: string) => {
 export const setResetCardsParams = () => {
   return { type: 'CARDS/SET-RESET-CARDS-PARAMS' } as const;
 };
-// export const setUpdatedCard = (updatedGrade: UpdatedGradeType) => {
-//   return { type: 'CARDS/SET-UPDATED-CARD', payload: { updatedGrade } } as const;
-// };
+export const setUpdatedCard = (updatedGrade: any) => {
+  return { type: 'CARDS/SET-UPDATED-CARD', payload: { updatedGrade } } as const;
+};
 
 export const getCards =
-  (packId: string): AppThunkType =>
+  (packId: string, pageCount?: number): AppThunkType =>
   async (dispatch, getState: () => AppStateType) => {
     dispatch(changeAppStatus('loading'));
     try {
       const stateParams = getState().cards.params;
-      const response = await cardsApi.getCards(packId, { ...stateParams });
+      const response = await cardsApi.getCards(packId, {
+        ...stateParams,
+        pageCount,
+      });
 
       dispatch(setCards({ ...response.data }));
     } catch (err: any) {
@@ -177,7 +179,7 @@ export const putCardGrade =
     try {
       const response = await cardsApi.gradeCard(gradeData);
 
-      // dispatch(setUpdatedCard(response.data));
+      dispatch(setUpdatedCard(response.data.updatedGrade));
     } catch (err: any) {
       return;
     } finally {
@@ -189,10 +191,10 @@ type SetCardsType = ReturnType<typeof setCards>;
 type setPaginationType = ReturnType<typeof setCardsPagination>;
 type getCardsByTitleType = ReturnType<typeof getCardsByTitle>;
 type setResetCardsParamsType = ReturnType<typeof setResetCardsParams>;
-// type SetUpdatedCardType = ReturnType<typeof setUpdatedCard>;
+type SetUpdatedCardType = ReturnType<typeof setUpdatedCard>;
 export type CardsActionsType =
   | SetCardsType
   | setPaginationType
   | getCardsByTitleType
-  | setResetCardsParamsType;
-// | SetUpdatedCardType;
+  | setResetCardsParamsType
+  | SetUpdatedCardType;

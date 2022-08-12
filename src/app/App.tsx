@@ -86,7 +86,7 @@ export const App = (): any => {
             <Route path="404" element={<NotFound />} />
             <Route path="cardsPage" element={<CardsPage />} />
             <Route path="emptyPackPage" element={<EmptyPackPage />} />
-            <Route path="learnPage" element={<LearnPage />} />
+            <Route path="learnPage/:id" element={<LearnPage />} />
             <Route path="*" element={<Navigate to="/404" />} />
           </Routes>
           <ErrorSnackBar />

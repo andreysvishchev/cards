@@ -60,6 +60,7 @@ export type CardType = {
   created: string;
   updated: string;
   __v: number;
+  card_id: string;
 };
 
 export type GradeDataType = {
@@ -68,14 +69,18 @@ export type GradeDataType = {
 };
 
 export type UpdatedGradeType = {
-  __v: number;
-  _id: string;
-  card_id: string;
-  cardsPack_id: string;
-  created: string;
-  grade: number;
-  more_id: string;
-  shots: number;
-  updated: string;
-  user_id: string;
+  token: string;
+  tokenDeathTime: number;
+  updatedGrade: {
+    __v: number;
+    _id: string;
+    card_id: string;
+    cardsPack_id: string;
+    created: string;
+    grade: number;
+    more_id: string;
+    shots: number;
+    updated: string;
+    user_id: string;
+  };
 };

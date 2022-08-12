@@ -58,10 +58,9 @@ export const Pack = memo((props: PropsType) => {
   };
 
   const learnAboutPackHandler = () => {
-    navigate('/learnPage', {
+    navigate(`/learnPage/${id}`, {
       state: {
         packName: name,
-        id,
       },
     });
   };
