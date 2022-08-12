@@ -11,6 +11,8 @@ export const RangeSlider = () => {
   const totalCount = useAppSelector(state => state.packs.cardPacksTotalCount);
   const minCardsCount = useAppSelector(state => state.packs.minCardsCount);
   const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount);
+  const minValue = useAppSelector(state => state.packs.params.min);
+  const maxValue = useAppSelector(state => state.packs.params.max);
   const status = useAppSelector(state => state.app.status);
 
   const [values, setValues] = useState<number[]>([minCardsCount, maxCardsCount]);
@@ -22,6 +24,13 @@ export const RangeSlider = () => {
   useEffect(() => {
     setValues([minCardsCount, maxCardsCount]);
   }, [minCardsCount, maxCardsCount]);
+
+  // for filter reset
+  useEffect(() => {
+    if (minValue === minCardsCount && maxValue === maxCardsCount) {
+      setValues([minValue, maxValue]);
+    }
+  }, [minValue, maxValue]);
 
   // inputs max value check
   useEffect(() => {
@@ -65,8 +74,6 @@ export const RangeSlider = () => {
             className="slider slider__input"
             value={values[0].toString()}
             onChange={handleMinInputChange}
-            min={minCardsCount}
-            max={maxCardsCount}
             type="number"
           />
           <Slider
@@ -82,8 +89,6 @@ export const RangeSlider = () => {
             className="slider slider__input"
             value={values[1].toString()}
             onChange={handleMaxInputChange}
-            min={minCardsCount}
-            max={maxCardsCount}
             type="number"
           />
         </div>
