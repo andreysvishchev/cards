@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from 'react';
 
-import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
 import { setMinMaxCount, setPacksTotalCount } from '../../pages/packsList/packsReducer';
 
 export const RangeSlider = () => {
-  const totalCount = useAppSelector(state => state.packs.cardPacksTotalCount);
+  const dispatch = useAppDispatch();
 
+  const totalCount = useAppSelector(state => state.packs.cardPacksTotalCount);
   const minCardsCount = useAppSelector(state => state.packs.minCardsCount);
   const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount);
+  const minValue = useAppSelector(state => state.packs.params.min);
+  const maxValue = useAppSelector(state => state.packs.params.max);
   const status = useAppSelector(state => state.app.status);
 
-  const dispatch = useAppDispatch();
-  // @ts-ignore
   const [values, setValues] = useState<number[]>([minCardsCount, maxCardsCount]);
-  const [timerId, setTimerId] = useState<number>(0);
-  const delay = 500;
 
   useEffect(() => {
     dispatch(setPacksTotalCount(1, totalCount));
@@ -27,40 +25,73 @@ export const RangeSlider = () => {
     setValues([minCardsCount, maxCardsCount]);
   }, [minCardsCount, maxCardsCount]);
 
-  const onChangeDoubleRange = (event: Event, newValue: number | number[]): void => {
+  // for filter reset
+  useEffect(() => {
+    if (minValue === minCardsCount && maxValue === maxCardsCount) {
+      setValues([minValue, maxValue]);
+    }
+  }, [minValue, maxValue]);
+
+  // inputs max value check
+  useEffect(() => {
+    if (values[0] > maxCardsCount) setValues([maxCardsCount, maxCardsCount]);
+    if (values[1] > maxCardsCount) setValues([values[0], maxCardsCount]);
+  }, [values]);
+
+  const onChangeDoubleRange = (
+    event: React.SyntheticEvent | Event,
+    newValue: number | Array<number>,
+  ): void => {
     const newVariableValue = newValue as number[];
 
     setValues(newVariableValue);
-    clearTimeout(timerId);
-    const id: number = +setTimeout(
-      dispatch,
-      delay,
-      setMinMaxCount(newVariableValue[0], newVariableValue[1]),
-    );
+    dispatch(setMinMaxCount(newVariableValue[0], newVariableValue[1]));
+  };
 
-    setTimerId(id);
+  const handleMinInputChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+  ) => {
+    if (status === 'idle') {
+      setValues([Number(event.target.value), values[1]]);
+      dispatch(setMinMaxCount(Number(event.target.value), values[1]));
+    }
+  };
+  const handleMaxInputChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+  ) => {
+    if (status === 'idle') {
+      setValues([values[0], Number(event.target.value)]);
+      dispatch(setMinMaxCount(values[0], Number(event.target.value)));
+    }
   };
 
   return (
     <div>
       <div>
-        <div className="slider__title">Show packs cards</div>
-        <div className="slider__items">
-          <span className="slider__min">{values[0]}</span>
-          <Box sx={{ width: 150 }}>
-            <Slider
-              min={minCardsCount}
-              max={maxCardsCount}
-              getAriaLabel={() => 'Temperature range'}
-              value={values}
-              onChange={onChangeDoubleRange}
-              valueLabelDisplay="auto"
-              disabled={status === 'loading'}
-            />
-          </Box>
-          <span className="slider__max">{values[1]}</span>
+        <div className="slider slider__title">Number of cards</div>
+        <div className="slider slider__items">
+          <input
+            className="slider slider__input"
+            value={values[0].toString()}
+            onChange={handleMinInputChange}
+            type="number"
+          />
+          <Slider
+            min={minCardsCount}
+            max={maxCardsCount}
+            getAriaLabel={() => 'Temperature range'}
+            value={values}
+            onChangeCommitted={onChangeDoubleRange}
+            valueLabelDisplay="auto"
+            disabled={status === 'loading'}
+          />
+          <input
+            className="slider slider__input"
+            value={values[1].toString()}
+            onChange={handleMaxInputChange}
+            type="number"
+          />
         </div>
-        <div />
       </div>
     </div>
   );
