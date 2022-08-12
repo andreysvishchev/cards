@@ -55,7 +55,7 @@ export const App = (): any => {
       )}
       {/* для тестого перехода по страницам */}
       <div className="test">
-        <NavLink className="navlink" to="/cards">
+        <NavLink className="navlink" to="/#">
           login
         </NavLink>
         <NavLink className="navlink" to="/set-new-password/*">
@@ -77,7 +77,7 @@ export const App = (): any => {
       <div className="content">
         <div className="container">
           <Routes>
-            <Route path="/cards" element={<Login />} />
+            <Route path="/#" element={<Login />} />
             <Route path="set-new-password/*" element={<PasswordNew />} />
             <Route path="password-recovery" element={<PasswordRecovery />} />
             <Route path="packs" element={<PacksList />} />
