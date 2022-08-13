@@ -36,7 +36,7 @@ export const DeletePackAndCard: FC<PropsType> = ({
   return (
     <CustomModal title={title} handleClose={handleClose} open={open}>
       <div className="modals modals__deleteMessage">
-        <p>
+        <p className="cut">
           Do you really want to remove <b>{name}</b>? All cards will be deleted.
         </p>
         <div className="submit submit__modals">

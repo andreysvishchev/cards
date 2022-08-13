@@ -35,7 +35,7 @@ export const CustomModal: FC<PropsType> = ({ children, open, handleClose, title 
         <Box sx={style}>
           <div className="modals">
             <div className="modals modals__title">
-              <div>{title}</div>
+              <div className="cut">{title}</div>
               <CloseIcon onClick={() => handleClose()} />
             </div>
             <hr className="modals modals__hr" />

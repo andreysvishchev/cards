@@ -19,6 +19,8 @@ type PropsType = {
   title: string;
   packId: string;
   cardId?: string;
+  question?: string;
+  answer?: string;
 };
 
 export const AddAndEditCardModal: FC<PropsType> = ({
@@ -27,18 +29,27 @@ export const AddAndEditCardModal: FC<PropsType> = ({
   title,
   packId,
   cardId,
+  question,
+  answer,
 }) => {
   const dispatch = useAppDispatch();
 
+  // for edit
+  let name = '';
+  let descr = '';
+
+  if (question) name = question;
+  if (answer) descr = answer;
+
   // reset form after close
   useEffect(() => {
-    formik.resetForm();
+    if (!open) formik.resetForm();
   }, [open]);
 
   const formik = useFormik({
     initialValues: {
-      question: '',
-      answer: '',
+      question: name,
+      answer: descr,
     },
     validate: values => {
       const errors: FormikErrorType = {};

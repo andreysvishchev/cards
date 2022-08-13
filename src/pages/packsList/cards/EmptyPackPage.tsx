@@ -32,7 +32,7 @@ export const EmptyPackPage: React.FC<EmptyPackPageType> = ({ packName, id }) => 
           Back to Packs List
         </div>
       </div>
-      <div className="cards__title">{packName}</div>
+      <div className="cards__title cut">{packName}</div>
       <div className="empty-pack__flex">
         <div className="empty-pack__text">
           This pack is empty. Click add new pack to fill this pack

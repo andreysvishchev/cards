@@ -20,23 +20,30 @@ type PropsType = {
   handleClose: () => void;
   title: string;
   id?: string;
+  name?: string;
 };
 
-export const AddAndEditPackModal: FC<PropsType> = ({ open, handleClose, title, id }) => {
+export const AddAndEditPackModal: FC<PropsType> = ({
+  open,
+  handleClose,
+  title,
+  id,
+  name,
+}) => {
   const dispatch = useAppDispatch();
+  let packName = '';
+
+  // for edit
+  if (name) packName = name;
 
   // reset form after close
   useEffect(() => {
-    formik.resetForm();
+    if (!open) formik.resetForm();
   }, [open]);
-
-  const cancelHandler = () => {
-    handleClose();
-  };
 
   const formik = useFormik({
     initialValues: {
-      packName: '',
+      packName,
       privatePack: false,
     },
     validate: values => {
@@ -58,8 +65,11 @@ export const AddAndEditPackModal: FC<PropsType> = ({ open, handleClose, title, i
         privatePack: values.privatePack,
       };
 
-      if (id) dispatch(changePackName(id, data.packName, data.privatePack));
-      else dispatch(addPack(data.packName, data.privatePack));
+      if (id) {
+        dispatch(changePackName(id, data.packName, data.privatePack));
+      } else {
+        dispatch(addPack(data.packName, data.privatePack));
+      }
 
       formik.resetForm();
       handleClose();
@@ -85,7 +95,7 @@ export const AddAndEditPackModal: FC<PropsType> = ({ open, handleClose, title, i
           }
         />
         <div className="submit submit__modals">
-          <Button title="Cancel" callBack={cancelHandler} submit={false} />
+          <Button title="Cancel" callBack={handleClose} submit={false} />
           <Button title="Save" submit />
         </div>
       </form>

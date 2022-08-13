@@ -727,3 +727,8 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+.cut {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

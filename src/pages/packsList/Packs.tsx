@@ -17,6 +17,8 @@ export const Packs = () => {
   const page = useAppSelector(state => state.packs.params.page);
   const pageCount = useAppSelector(state => state.packs.params.pageCount);
   const sortPacks = useAppSelector(state => state.packs.params.sortPacks);
+  const minCardsCount = useAppSelector(state => state.packs.minCardsCount);
+  const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount);
   const min = useAppSelector(state => state.packs.params.min);
   const max = useAppSelector(state => state.packs.params.max);
   const packName = useAppSelector(state => state.packs.params.packName);
@@ -24,11 +26,9 @@ export const Packs = () => {
   const status = useAppSelector(state => state.app.status);
 
   // For empty elements
-  const maxInitialNumber = 110;
-  const minInitialNumber = 0;
   const emptySearchResults = packs.length === 0 && packName !== '';
   const emptySliderResults =
-    packs.length === 0 && (max !== maxInitialNumber || min !== minInitialNumber);
+    packs.length === 0 && (max !== maxCardsCount || min !== minCardsCount);
 
   // Reset packs params  after page change
   useEffect(() => {

@@ -69,7 +69,7 @@ export const CardsPage = memo(() => {
           Back to Packs List
         </div>
       </div>
-      <div className="cards__title">{packName}</div>
+      <div className="cards__title cut">{packName}</div>
       <div className="cards__menu">
         <Search location="Cards" />
         <Button
