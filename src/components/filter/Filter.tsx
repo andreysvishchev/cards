@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+import { useLocation, useNavigate } from 'react-router-dom';
+
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
 import {
   setPacksOfAllUsers,
@@ -9,10 +11,17 @@ import {
 
 export const Filter = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const id = useAppSelector(state => state.profile._id);
   const status = useAppSelector(state => state.app.status);
   const filter = useAppSelector(state => state.packs.params.user_id);
+
+  function useQuery() {
+    const { search } = useLocation();
+
+    return React.useMemo(() => new URLSearchParams(search), [search]);
+  }
 
   const [isActive, setIsActive] = useState(false);
 
