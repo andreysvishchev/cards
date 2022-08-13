@@ -46,7 +46,7 @@ export const Packs = () => {
   useEffect(() => {
     if (currentFilter === 'My') dispatch(getPacks({ user_id: profileUserId }));
     else dispatch(getPacks({}));
-  }, [dispatch, page, pageCount, sortPacks, min, max, packName, userId]);
+  }, [dispatch, page, pageCount, sortPacks, min, max, packName, userId, currentFilter]);
 
   const sortPacksByLastUpdate = () => {
     if (status === 'idle') {
