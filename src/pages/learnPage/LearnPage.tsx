@@ -34,7 +34,8 @@ const getCard = (cards: CardType[]) => {
 export const LearnPage = () => {
   const [showAnswer, setShowAnswer] = useState(false);
   const [first, setFirst] = useState<boolean>(true);
-  const [grade, setGrade] = useState(1);
+  const [grade, setGrade] = useState(0);
+  const [error, setError] = useState('disabled');
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const location = useLocation();
@@ -76,7 +77,7 @@ export const LearnPage = () => {
   }, [dispatch, id, cards]);
   const navToPacksList = () => {
     if (disabled === 'idle') {
-      navigate('/packs');
+      navigate('/packs?accessory=All');
     }
   };
 
@@ -85,8 +86,12 @@ export const LearnPage = () => {
   };
 
   const nextQuestion = () => {
-    dispatch(putCardGrade({ grade, card_id: card._id }));
-    setShowAnswer(false);
+    if (grade !== 0) {
+      dispatch(putCardGrade({ grade, card_id: card._id }));
+      setShowAnswer(false);
+      setGrade(0);
+      setError('disabled');
+    } else setError('error');
   };
 
   return (
@@ -111,8 +116,11 @@ export const LearnPage = () => {
         </div>
         {showAnswer && (
           <div className="learn__answer">
-            <b>Answer:</b>
-            <span>{card.answer}</span>
+            <div>
+              <b>Answer:</b>
+              <span>{card.answer}</span>
+            </div>
+            <div className={`learn__${error}`}>You should chose one</div>
             <Grades setGrade={setGrade} />
             <div className="learn__btn">
               <Button title="Next question" submit={false} callBack={nextQuestion} />

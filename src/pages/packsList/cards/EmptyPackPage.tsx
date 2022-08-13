@@ -14,7 +14,7 @@ export const EmptyPackPage: React.FC<EmptyPackPageType> = ({ packName, id }) => 
 
   const navToPacksList = () => {
     if (status === 'idle') {
-      navigate('/packs');
+      navigate('/packs?accessory=All');
     }
   };
 

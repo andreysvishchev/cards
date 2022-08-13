@@ -70,7 +70,7 @@ export const App = (): any => {
         <NavLink className="navlink" to="/profile">
           profile
         </NavLink>
-        <NavLink className="navlink" to="/packs">
+        <NavLink className="navlink" to="/packs?accessory=All">
           packs
         </NavLink>
       </div>

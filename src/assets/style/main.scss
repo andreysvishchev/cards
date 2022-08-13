@@ -397,7 +397,15 @@
     font-size: 22px;
     line-height: 27px;
     color: black;
+    margin-right: 10px;
+
+  }
+
+  &__learn {
     margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+
   }
 
   &__menu {
@@ -445,8 +453,12 @@
   }
 
   &__question-name {
+    overflow-wrap: break-word;
     font-size: 16px;
     padding: 25px 0;
+  }
+  &__answer {
+    overflow-wrap: break-word;
   }
 
   &__answer-count {
@@ -460,6 +472,14 @@
   &__btn {
     text-align: center;
     padding: 20px 0;
+  }
+  &__error {
+    color: red;
+    margin: 15px auto;
+    text-align: center;
+  }
+  &__disabled {
+    display: none;
   }
 }
 
@@ -726,6 +746,10 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+  cursor: pointer;
 }
 
 .cut {

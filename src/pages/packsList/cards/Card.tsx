@@ -37,14 +37,6 @@ export const Card: React.FC<CardPropsType> = props => {
       </div>
       <div className="pack__col pack__col--actions">
         <IconButton
-          className="pack__button pack__button--teach"
-          aria-label="learn"
-          size="small"
-          disabled={status === 'loading'}
-        >
-          <SchoolOutlinedIcon fontSize="inherit" />
-        </IconButton>
-        <IconButton
           onClick={openEditModalHandler}
           className="pack__button pack__button--edit"
           aria-label="edit"

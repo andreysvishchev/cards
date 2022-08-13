@@ -53,6 +53,9 @@ export const AddAndEditPackModal: FC<PropsType> = ({
       if (!values.packName) {
         errors.packName = 'Поле обязательно для заполнения';
       }
+      if (values.packName === packName) {
+        errors.packName = 'Поле обязательно для изменения';
+      }
       if (values.packName.length > maxNameLength) {
         errors.packName = 'Превышена максимальная длина';
       }

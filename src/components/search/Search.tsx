@@ -43,7 +43,7 @@ export const Search: FC<PropsType> = ({ location }) => {
           value={value}
           onChange={onChangeHandler}
           placeholder="Provide your text"
-          type="text"
+          type="search"
           className="search__input"
           disabled={disabled === 'loading'}
         />

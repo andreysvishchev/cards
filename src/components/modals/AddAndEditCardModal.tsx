@@ -58,6 +58,9 @@ export const AddAndEditCardModal: FC<PropsType> = ({
       if (!values.question) {
         errors.question = 'Поле обязательно для заполнения';
       }
+      if (values.question === question && values.answer === answer) {
+        errors.question = 'Поле обязательно для изменения';
+      }
       if (values.question.length > maxQuestionLength) {
         errors.question = 'Превышена максимальная длина';
       }

@@ -1,6 +1,8 @@
 import React, { memo, useEffect, useState } from 'react';
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import SchoolIcon from '@mui/icons-material/School';
+import IconButton from '@mui/material/IconButton';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../../common/hooks/hooks';
@@ -54,7 +56,15 @@ export const CardsPage = memo(() => {
 
   // Navigate
   const navToPacksList = () => {
-    navigate('/packs');
+    navigate('/packs?accessory=All');
+  };
+
+  const learnAboutPackHandler = () => {
+    navigate(`/learnPage/${id}`, {
+      state: {
+        packName,
+      },
+    });
   };
 
   if (cards.length === 0 && cardQuestion === '') {
@@ -69,7 +79,17 @@ export const CardsPage = memo(() => {
           Back to Packs List
         </div>
       </div>
-      <div className="cards__title cut">{packName}</div>
+      <div className="cards__learn">
+        <div className="cards__title cut">{packName}</div>
+        <IconButton
+          onClick={learnAboutPackHandler}
+          className="pack__button pack__button--teach"
+          aria-label="learn"
+          disabled={status === 'loading'}
+        >
+          <SchoolIcon fontSize="inherit" />
+        </IconButton>
+      </div>
       <div className="cards__menu">
         <Search location="Cards" />
         <Button
