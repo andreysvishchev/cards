@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 
 import ArrowDropDownOutlinedIcon from '@mui/icons-material/ArrowDropDownOutlined';
 import ArrowDropUpOutlinedIcon from '@mui/icons-material/ArrowDropUpOutlined';
+import { useSearchParams } from 'react-router-dom';
 
 import { sortingMethods } from '../../api/PackApi';
 import { useAppDispatch, useAppSelector } from '../../common/hooks/hooks';
@@ -14,6 +15,7 @@ export const Packs = () => {
 
   const packs = useAppSelector(state => state.packs.cardPacks);
   const userId = useAppSelector(state => state.packs.params.user_id);
+  const profileUserId = useAppSelector(state => state.profile._id);
   const page = useAppSelector(state => state.packs.params.page);
   const pageCount = useAppSelector(state => state.packs.params.pageCount);
   const sortPacks = useAppSelector(state => state.packs.params.sortPacks);
@@ -22,8 +24,11 @@ export const Packs = () => {
   const min = useAppSelector(state => state.packs.params.min);
   const max = useAppSelector(state => state.packs.params.max);
   const packName = useAppSelector(state => state.packs.params.packName);
-
   const status = useAppSelector(state => state.app.status);
+
+  // to find query
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentFilter = searchParams.get('accessory');
 
   // For empty elements
   const emptySearchResults = packs.length === 0 && packName !== '';
@@ -39,7 +44,8 @@ export const Packs = () => {
 
   // Get and update packs
   useEffect(() => {
-    dispatch(getPacks({}));
+    if (currentFilter === 'My') dispatch(getPacks({ user_id: profileUserId }));
+    else dispatch(getPacks({}));
   }, [dispatch, page, pageCount, sortPacks, min, max, packName, userId]);
 
   const sortPacksByLastUpdate = () => {
